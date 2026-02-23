@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { Heart, ShoppingCart, User, Moon, Globe, X, Trash2, ShieldCheck, Zap, Headset, Leaf } from 'lucide-react';
+import { Heart, ShoppingCart, User, Moon, Globe, X, Trash2, ShieldCheck, Zap, Headset, Leaf, Facebook, Instagram, Youtube, Twitter } from 'lucide-react';
 
 const Home = () => {
   const words = ["Health", "Energy"];
@@ -171,14 +171,12 @@ const Home = () => {
       </svg>
     ));
 
-  // ── Modal subscribe ──────────────────────────────────────────────────
   const [showSubscribeModal, setShowSubscribeModal] = useState(false);
   const [subscribeEmail, setSubscribeEmail] = useState('');
   const handleSubscribe = () => {
     if (subscribeEmail.trim()) { setShowSubscribeModal(true); setSubscribeEmail(''); }
   };
 
-  // ── données placeholders vidéo ──────────────────────────────────────
   const influencers = [
     { name: 'Lina B',  role: 'Pro Athlete',      initials: 'LB' },
     { name: 'Adam L',  role: 'Music Teacher',     initials: 'AL' },
@@ -197,100 +195,36 @@ const Home = () => {
         @keyframes popIn { 0%{transform:scale(.6);opacity:0} 100%{transform:scale(1);opacity:1} }
 
         .animate-float { animation:float 5s ease-in-out infinite; will-change:transform; }
-        .font-kemangi  { font-family:'Dancing Script',cursive; }
+        .font-kemangi { font-family:'Dancing Script',cursive; }
         * { font-family:'Montserrat',sans-serif; }
 
-        .nav-fixed-video {
-          background-color:rgba(45,75,68,.85); height:75px;
-          backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
-          border:1px solid rgba(255,255,255,.1);
-        }
+        .nav-fixed-video { background-color:rgba(45,75,68,.85); height:75px; backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,.1); }
         .nav-link-item { color:white; opacity:.8; font-weight:600; font-size:15px; transition:all .3s ease; }
         .nav-link-item:hover,.nav-link-active { opacity:1; text-shadow:0 0 8px rgba(255,255,255,.5); }
-        .icon-box-vid {
-          width:44px; height:44px; display:flex; align-items:center; justify-content:center;
-          border-radius:14px; transition:all .2s ease; color:white; cursor:pointer; position:relative;
-        }
+        .icon-box-vid { width:44px; height:44px; display:flex; align-items:center; justify-content:center; border-radius:14px; transition:all .2s ease; color:white; cursor:pointer; position:relative; }
         .icon-box-vid:hover,.icon-box-active { background-color:white !important; color:#238d7b !important; transform:translateY(-2px); }
-        .btn-signup-vid {
-          background-color:white; color:#238d7b; font-weight:700; font-size:14px;
-          height:42px; padding:0 25px; border-radius:50px; border:2px solid white; transition:all .3s ease;
-        }
+        .btn-signup-vid { background-color:white; color:#238d7b; font-weight:700; font-size:14px; height:42px; padding:0 25px; border-radius:50px; border:2px solid white; transition:all .3s ease; }
         .btn-signup-vid:hover { background-color:#238d7b; color:white !important; border-color:#238d7b; transform:scale(1.05); }
-
-        /* ── BG Sign Up.png ── */
-        .signup-bg {
-          background-image:url('/images/Sign Up.png');
-          background-size:cover; background-position:center; background-repeat:no-repeat;
-        }
-
-        /* ── Why cards ── */
-        .why-card {
-          background:rgba(255,255,255,.85); border:1px solid rgba(255,255,255,.95);
-          border-radius:24px; backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
-          box-shadow:0 4px 20px rgba(0,0,0,.06); padding:44px 28px 36px;
-          display:flex; flex-direction:column; align-items:center; text-align:center;
-          cursor:pointer; transition:transform .35s ease,box-shadow .35s ease,background .35s ease;
-        }
+        .why-card { background:rgba(255,255,255,.85); border:1px solid rgba(255,255,255,.95); border-radius:24px; backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); box-shadow:0 4px 20px rgba(0,0,0,.06); padding:44px 28px 36px; display:flex; flex-direction:column; align-items:center; text-align:center; cursor:pointer; transition:transform .35s ease,box-shadow .35s ease,background .35s ease; }
         .why-card.active { transform:translateY(-6px) scale(1.01); box-shadow:0 24px 50px rgba(0,0,0,.18); }
-        .why-icon-box {
-          width:90px; height:90px; border-radius:22px;
-          display:flex; align-items:center; justify-content:center;
-          margin-bottom:28px; flex-shrink:0;
-          transition:background .35s ease,box-shadow .35s ease;
-          box-shadow:0 6px 18px rgba(0,0,0,.15);
-        }
+        .why-icon-box { width:90px; height:90px; border-radius:22px; display:flex; align-items:center; justify-content:center; margin-bottom:28px; flex-shrink:0; transition:background .35s ease,box-shadow .35s ease; box-shadow:0 6px 18px rgba(0,0,0,.15); }
         .why-card.active .why-icon-box { background:white !important; box-shadow:0 6px 18px rgba(0,0,0,.12); }
-
-        /* ── Bouton All Products ── */
-        .btn-all-products {
-          display:inline-flex; align-items:center; gap:10px;
-          background-color:#238d7b; color:white; font-weight:700; font-size:16px;
-          padding:18px 52px; border-radius:50px; border:none; cursor:pointer;
-          transition:background .3s ease,transform .2s ease,box-shadow .3s ease;
-          box-shadow:0 8px 24px rgba(35,141,123,.35); letter-spacing:.02em;
-        }
+        .btn-all-products { display:inline-flex; align-items:center; gap:10px; background-color:#238d7b; color:white; font-weight:700; font-size:16px; padding:18px 52px; border-radius:50px; border:none; cursor:pointer; transition:background .3s ease,transform .2s ease,box-shadow .3s ease; box-shadow:0 8px 24px rgba(35,141,123,.35); letter-spacing:.02em; }
         .btn-all-products:hover { background-color:#1a6e60; transform:translateY(-2px); box-shadow:0 14px 32px rgba(35,141,123,.45); }
         .btn-all-products.clicked { background-color:#0f4f44; transform:scale(.97); }
         .btn-all-products .arrow-icon { display:inline-flex; }
         .btn-all-products:hover .arrow-icon,.btn-all-products.clicked .arrow-icon { animation:arrowSlide .5s ease; }
-
-        /* ━━━ CARTES PRODUIT ━━━ */
-        .prod-card {
-          background:white; border:1px solid #eef0f0; border-radius:20px; overflow:hidden;
-          box-shadow:0 4px 18px rgba(0,0,0,.07); transition:transform .3s ease,box-shadow .3s ease;
-          display:flex; flex-direction:column; position:relative;
-        }
+        .prod-card { background:white; border:1px solid #eef0f0; border-radius:20px; overflow:hidden; box-shadow:0 4px 18px rgba(0,0,0,.07); transition:transform .3s ease,box-shadow .3s ease; display:flex; flex-direction:column; position:relative; }
         .prod-card:hover { transform:translateY(-6px); box-shadow:0 18px 40px rgba(0,0,0,.13); }
-        .prod-img-wrap {
-          position:relative; width:100%; height:300px; background:#f7f9f8;
-          overflow:hidden; flex-shrink:0;
-        }
+        .prod-img-wrap { position:relative; width:100%; height:300px; background:#f7f9f8; overflow:hidden; flex-shrink:0; }
         .prod-img-wrap img { width:100%; height:100%; object-fit:cover; transition:transform .4s ease; }
         .prod-card:hover .prod-img-wrap img { transform:scale(1.04); }
-        .prod-badge {
-          position:absolute; top:14px; left:14px; z-index:3;
-          color:white; font-weight:700; font-size:12px;
-          padding:5px 14px; border-radius:50px; pointer-events:none;
-        }
-        .prod-heart {
-          position:absolute; top:12px; right:12px; z-index:3;
-          width:36px; height:36px; border-radius:50%; background:white; border:none; cursor:pointer;
-          display:flex; align-items:center; justify-content:center;
-          box-shadow:0 2px 10px rgba(0,0,0,.12); transition:transform .2s ease;
-        }
+        .prod-badge { position:absolute; top:14px; left:14px; z-index:3; color:white; font-weight:700; font-size:12px; padding:5px 14px; border-radius:50px; pointer-events:none; }
+        .prod-heart { position:absolute; top:12px; right:12px; z-index:3; width:36px; height:36px; border-radius:50%; background:white; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 10px rgba(0,0,0,.12); transition:transform .2s ease; }
         .prod-heart:hover { transform:scale(1.18); }
-        .prod-cart-overlay {
-          position:absolute; inset:0; z-index:2; display:flex; align-items:center; justify-content:center;
-          opacity:0; transition:opacity .25s ease; background:rgba(0,0,0,.04);
-        }
+        .prod-cart-overlay { position:absolute; inset:0; z-index:2; display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity .25s ease; background:rgba(0,0,0,.04); }
         .prod-card:hover .prod-cart-overlay { opacity:1; }
-        .prod-cart-btn {
-          width:54px; height:54px; border-radius:50%; background:white;
-          display:flex; align-items:center; justify-content:center;
-          box-shadow:0 4px 16px rgba(0,0,0,.18); cursor:pointer; border:none;
-          animation:popIn .22s ease; transition:transform .2s ease;
-        }
+        .prod-cart-btn { width:54px; height:54px; border-radius:50%; background:white; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 16px rgba(0,0,0,.18); cursor:pointer; border:none; animation:popIn .22s ease; transition:transform .2s ease; }
         .prod-cart-btn:hover { transform:scale(1.1); }
         .prod-body { padding:18px 20px 22px; display:flex; flex-direction:column; flex:1; }
         .prod-stars { display:flex; gap:2px; margin-bottom:9px; }
@@ -298,65 +232,43 @@ const Home = () => {
         .prod-desc { font-size:13px; color:#6b7280; line-height:1.55; margin-bottom:10px; }
         .prod-price { font-weight:800; font-size:18px; color:#238d7b; margin-bottom:8px; }
         .prod-stock { font-size:12px; color:#9ca3af; }
-        .btn-shop-orange {
-          display:inline-flex; align-items:center; gap:7px;
-          background-color:#f39c12; color:white; font-weight:700; font-size:13px;
-          padding:11px 22px; border-radius:50px; border:none; cursor:pointer;
-          box-shadow:0 4px 14px rgba(243,156,18,.4);
-          transition:background .2s ease,transform .15s ease; flex-shrink:0;
-        }
+        .btn-shop-orange { display:inline-flex; align-items:center; gap:7px; background-color:#f39c12; color:white; font-weight:700; font-size:13px; padding:11px 22px; border-radius:50px; border:none; cursor:pointer; box-shadow:0 4px 14px rgba(243,156,18,.4); transition:background .2s ease,transform .15s ease; flex-shrink:0; }
         .btn-shop-orange:hover { background-color:#d68910; transform:translateY(-1px); }
         .btn-shop-orange:active { transform:scale(.96); }
-
-        /* ━━━ PLACEHOLDERS VIDÉO ━━━ */
-        .vid-placeholder {
-          position: relative;
-          border-radius: 18px;
-          overflow: hidden;
-          height: 300px;
-          background: linear-gradient(160deg, #d1ede8 0%, #a8ddd3 50%, #c5e8e3 100%);
-          box-shadow: 0 6px 24px rgba(0,0,0,0.10);
-          flex-shrink: 0;
-        }
-        /* Zone centrale — future vidéo */
-        .vid-placeholder .vid-inner {
-          position: absolute;
-          inset: 0;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        /* Bouton play orange */
-        .vid-play-btn {
-          width: 58px; height: 58px; border-radius: 50%;
-          background: #f39c12;
-          display: flex; align-items: center; justify-content: center;
-          box-shadow: 0 4px 20px rgba(243,156,18,0.55);
-          cursor: pointer;
-          transition: transform .2s ease, box-shadow .2s ease;
-          border: none;
-        }
+        .vid-placeholder { position: relative; border-radius: 18px; overflow: hidden; height: 300px; background: linear-gradient(160deg, #d1ede8 0%, #a8ddd3 50%, #c5e8e3 100%); box-shadow: 0 6px 24px rgba(0,0,0,0.10); flex-shrink: 0; }
+        .vid-placeholder .vid-inner { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+        .vid-play-btn { width: 58px; height: 58px; border-radius: 50%; background: #f39c12; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(243,156,18,0.55); cursor: pointer; transition: transform .2s ease, box-shadow .2s ease; border: none; }
         .vid-play-btn:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(243,156,18,0.7); }
-        /* Barre info bas */
-        .vid-info {
-          position: absolute;
-          bottom: 0; left: 0; right: 0;
-          padding: 10px 14px;
-          background: linear-gradient(transparent, rgba(0,0,0,0.52));
-          display: flex;
-          align-items: center;
-          gap: 10px;
-        }
-        .vid-avatar {
-          width: 36px; height: 36px; border-radius: 50%;
-          background: #238d7b;
-          display: flex; align-items: center; justify-content: center;
-          color: white; font-weight: 700; font-size: 11px;
-          border: 2px solid white; flex-shrink: 0;
-        }
+        .vid-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 10px 14px; background: linear-gradient(transparent, rgba(0,0,0,0.52)); display: flex; align-items: center; gap: 10px; }
+        .vid-avatar { width: 36px; height: 36px; border-radius: 50%; background: #238d7b; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 11px; border: 2px solid white; flex-shrink: 0; }
+        .gradient-title { background: linear-gradient(90deg, #1a1a1a 0%, #238d7b 50%, #1a1a1a 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 800; }
+        .signup-bg { background-image: url('/images/Sign Up.png'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; }
+        .stay-ahead-container { background-image: url('/images/Sign Up.png'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; position: relative; padding: 80px 40px; }
+        .stay-ahead-overlay { position: absolute; inset: 0; background: rgba(255, 255, 255, 0.92); }
+        .stay-ahead-content { position: relative; z-index: 10; text-align: center; }
+        .stay-ahead-title { font-size: clamp(24px, 5vw, 48px); font-weight: 800; letter-spacing: -0.5px; line-height: 1.2; background: linear-gradient(90deg, #1a1a1a 0%, #238d7b 50%, #1a1a1a 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .footer-container { background: linear-gradient(135deg, #238d7b 0%, #1a6e60 100%); color: white; padding-top: 60px; padding-bottom: 30px; }
+        .footer-top { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 50px; max-width: 1200px; margin: 0 auto; padding: 0 40px; margin-bottom: 40px; }
+        .footer-col h3 { font-size: 16px; font-weight: 700; color: white; margin-bottom: 20px; text-transform: capitalize; letter-spacing: 0.5px; }
+        .footer-col ul { list-style: none; padding: 0; margin: 0; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 14px; transition: color .3s ease; }
+        .footer-col ul li a:hover { color: white; }
+        .footer-logo { margin-bottom: 20px; }
+        .footer-logo img { height: 40px; width: auto; }
+        .footer-description { color: rgba(255,255,255,0.75); font-size: 14px; line-height: 1.8; margin-bottom: 25px; }
+        .footer-contact { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; color: rgba(255,255,255,0.75); font-size: 14px; }
+        .footer-contact svg { flex-shrink: 0; width: 20px; height: 20px; color: rgba(255,255,255,0.55); }
+        .footer-divider { border-top: 1px solid rgba(255,255,255,0.15); max-width: 1200px; margin: 0 auto; padding: 0 40px; margin-bottom: 30px; }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 40px; flex-wrap: wrap; gap: 20px; }
+        .footer-copyright { color: rgba(255,255,255,0.60); font-size: 13px; }
+        .footer-socials { display: flex; gap: 20px; align-items: center; }
+        .footer-socials a { color: rgba(255,255,255,0.75); transition: color .3s ease; display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; }
+        .footer-socials a:hover { color: white; }
+        @media (max-width: 768px) { .footer-top { gap: 30px; padding: 0 20px; } .footer-divider { padding: 0 20px; } .footer-bottom { padding: 0 20px; justify-content: center; text-align: center; } }
       `}</style>
 
-      {/* ━━━ SIDEBAR WISHLIST ━━━ */}
+      {/* SIDEBAR WISHLIST */}
       <div className={`fixed top-0 right-0 h-full w-full sm:w-[400px] bg-white z-[200] shadow-[-10px_0_30px_rgba(0,0,0,0.2)] transition-transform duration-500 ease-in-out ${isWishlistOpen ? 'translate-x-0' : 'translate-x-full'}`}>
         <div className="p-8 h-full flex flex-col">
           <div className="flex items-center justify-between mb-8">
@@ -386,7 +298,7 @@ const Home = () => {
         </div>
       </div>
 
-      {/* ━━━ SIDEBAR SHOP ━━━ */}
+      {/* SIDEBAR SHOP */}
       <div className={`fixed top-0 right-0 h-full w-full sm:w-[400px] bg-white z-[200] shadow-[-10px_0_30px_rgba(0,0,0,0.2)] transition-transform duration-500 ease-in-out ${isShopOpen ? 'translate-x-0' : 'translate-x-full'}`}>
         <div className="p-8 h-full flex flex-col">
           <div className="flex items-center justify-between mb-8">
@@ -413,7 +325,7 @@ const Home = () => {
 
       <div className={(isWishlistOpen || isShopOpen) ? "pointer-events-none select-none" : ""}>
 
-        {/* HERO — 100% inchangé */}
+        {/* HERO */}
         <header className="relative w-full min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('/images/Rectangle 39.png')" }}>
           <div className="fixed top-0 left-0 z-[100] w-full pt-6 px-4 md:px-10 pointer-events-auto">
             <nav className="mx-auto max-w-7xl nav-fixed-video rounded-full px-6 md:px-10 flex items-center justify-between shadow-2xl">
@@ -469,7 +381,7 @@ const Home = () => {
           </div>
         </header>
 
-        {/* BANDE DYNAMIQUE — 100% inchangée */}
+        {/* BANNER */}
         <div className={`w-full transition-colors duration-700 ease-in-out py-12 flex items-center justify-center overflow-hidden border-y border-white/5 ${bannerData[currentBanner].color}`}>
           <div className="flex items-center gap-8 px-10">
             <span className="text-white transform scale-125">{bannerData[currentBanner].icon}</span>
@@ -479,20 +391,17 @@ const Home = () => {
           </div>
         </div>
 
-        {/* ══════════════════════════════════════════════════════
-            GRAND BLOC SIGN UP BG — Why + Products + They Choose + Stay Ahead
-        ══════════════════════════════════════════════════════ */}
+        {/* MAIN SECTION */}
         <div className="signup-bg">
 
           {/* WHY SHOULD YOU CHOOSE */}
           <div className="py-24 md:py-28 px-6 md:px-12">
             <div className="max-w-5xl mx-auto text-center">
-              <h2 className="text-[32px] md:text-[46px] font-extrabold text-[#238d7b] mb-5 leading-tight">
+              <h2 className="text-[32px] md:text-[46px] gradient-title mb-5 leading-tight">
                 Why Should You Choose S.HOT ?
               </h2>
               <p className="text-gray-500 text-base md:text-[17px] max-w-2xl mx-auto mb-16 leading-relaxed font-medium">
-                Our premium spirulina is carefully cultivated, processed, and tested to ensure the highest
-                nutritional value and health benefits for you and your family.
+                Our premium spirulina is carefully cultivated, processed, and tested to ensure the highest nutritional value and health benefits for you and your family.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                 {whyCards.map((card) => {
@@ -519,10 +428,10 @@ const Home = () => {
             </div>
           </div>
 
-          {/* OUR PREMIUM PRODUCTS — titre + bouton */}
+          {/* OUR PREMIUM PRODUCTS */}
           <div className="pt-4 pb-10 px-6 md:px-12 text-center">
             <div className="max-w-3xl mx-auto">
-              <h2 className="text-[32px] md:text-[46px] font-extrabold text-[#238d7b] mb-5 leading-tight">
+              <h2 className="text-[32px] md:text-[46px] gradient-title mb-5 leading-tight">
                 Our Premium Products
               </h2>
               <p className="text-gray-500 text-base md:text-[17px] mb-10 leading-relaxed font-medium">
@@ -542,7 +451,7 @@ const Home = () => {
             </div>
           </div>
 
-          {/* 3 CARTES PRODUITS */}
+          {/* PRODUCTS */}
           <div className="pb-28 px-6 md:px-12">
             <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
               {products.map((product) => (
@@ -586,29 +495,18 @@ const Home = () => {
             </div>
           </div>
 
-          {/* ══════════════════════════════════════════════
-              THEY CHOOSE SHOT — placeholders vidéo statiques
-              (les vraies vidéos seront ajoutées plus tard)
-          ══════════════════════════════════════════════ */}
+          {/* THEY CHOOSE SHOT */}
           <div className="pb-16 px-6 md:px-12">
             <div className="max-w-6xl mx-auto">
-
-              {/* Titre */}
-              <h2 className="text-[30px] md:text-[42px] font-extrabold text-[#238d7b] text-center mb-4 leading-tight">
+              <h2 className="text-[30px] md:text-[42px] gradient-title text-center mb-4 leading-tight">
                 They Choose SHOT
               </h2>
-
-              {/* Sous-titre */}
               <p className="text-gray-500 text-base md:text-[17px] text-center max-w-2xl mx-auto mb-12 leading-relaxed font-medium">
-                Real energy, captured on camera. See how top influencers fuel their daily hustle and
-                maintain peak performance with S.HOT spirulina.
+                Real energy, captured on camera. See how top influencers fuel their daily hustle and maintain peak performance with S.HOT spirulina.
               </p>
-
-              {/* 5 placeholders vidéo */}
               <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                 {influencers.map((person, i) => (
                   <div key={i} className="vid-placeholder">
-                    {/* Zone centrale = future vidéo */}
                     <div className="vid-inner">
                       <button className="vid-play-btn">
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
@@ -616,7 +514,6 @@ const Home = () => {
                         </svg>
                       </button>
                     </div>
-                    {/* Barre info bas */}
                     <div className="vid-info">
                       <div className="vid-avatar">{person.initials}</div>
                       <div>
@@ -630,40 +527,26 @@ const Home = () => {
             </div>
           </div>
 
-          {/* ══ STAY AHEAD OF THE CURVE ══ */}
-          <div className="pb-24 px-6 md:px-12 text-center">
-            <h2 className="text-[30px] md:text-[42px] font-extrabold text-[#238d7b] leading-tight">
-              Stay Ahead of the Curve
-            </h2>
+          {/* STAY AHEAD */}
+          <div className="stay-ahead-container">
+            <div className="stay-ahead-overlay"></div>
+            <div className="stay-ahead-content max-w-7xl mx-auto px-6 md:px-12">
+              <h2 className="stay-ahead-title">Stay Ahead of the Curve</h2>
+            </div>
           </div>
 
         </div>
-        {/* ══ FIN GRAND BLOC SIGN UP BG ══ */}
 
-        {/* ══════════════════════════════════════════
-            NEWSLETTER — Stay Informed
-        ══════════════════════════════════════════ */}
-        <div style={{
-          background: 'linear-gradient(135deg, #0d3d33 0%, #0f5a47 40%, #0d4a3a 70%, #0a3328 100%)',
-          position: 'relative', overflow: 'hidden',
-        }}>
-          {/* image spiruline décorative droite */}
-          <div style={{
-            position: 'absolute', right: 0, top: 0, bottom: 0, width: '38%',
-            backgroundImage: "url('/images/Frame 302.png')",
-            backgroundSize: 'cover', backgroundPosition: 'center',
-            opacity: 0.22,
-          }} />
+        {/* NEWSLETTER */}
+        <div style={{ background: 'linear-gradient(135deg, #0d3d33 0%, #0f5a47 40%, #0d4a3a 70%, #0a3328 100%)', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '38%', backgroundImage: "url('/images/Frame 302.png')", backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.22 }} />
           <div className="relative z-10 max-w-6xl mx-auto px-8 md:px-16 py-16 md:py-20">
             <div className="max-w-xl">
-              <h2 style={{ color: '#4dd9b8', fontWeight: 800, fontSize: 28, marginBottom: 14 }}>
-                Stay Informed
-              </h2>
+              <h2 style={{ color: '#4dd9b8', fontWeight: 800, fontSize: 28, marginBottom: 14 }}>Stay Informed</h2>
               <p style={{ color: 'rgba(255,255,255,0.80)', fontSize: 15, lineHeight: 1.65, marginBottom: 32 }}>
                 Subscribe to our newsletter to receive health tips, special offers, and new product announcements.
               </p>
               <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
-                {/* Input email */}
                 <input
                   type="email"
                   placeholder="Enter your email to subscribe"
@@ -671,35 +554,19 @@ const Home = () => {
                   onChange={e => setSubscribeEmail(e.target.value)}
                   onKeyDown={e => e.key === 'Enter' && handleSubscribe()}
                   style={{
-                    flex: '1 1 260px',
-                    padding: '15px 22px',
-                    borderRadius: 50,
-                    border: '2px solid rgba(77,217,184,0.55)',
-                    background: 'rgba(255,255,255,0.06)',
-                    color: 'white',
-                    fontSize: 14,
-                    outline: 'none',
-                    backdropFilter: 'blur(6px)',
+                    flex: '1 1 260px', padding: '15px 22px', borderRadius: 50, border: '2px solid rgba(77,217,184,0.55)',
+                    background: 'rgba(255,255,255,0.06)', color: 'white', fontSize: 14, outline: 'none', backdropFilter: 'blur(6px)'
                   }}
                   onFocus={e => e.target.style.borderColor = '#4dd9b8'}
                   onBlur={e => e.target.style.borderColor = 'rgba(77,217,184,0.55)'}
                 />
-                {/* Bouton Subscribe */}
                 <button
                   onClick={handleSubscribe}
                   style={{
-                  padding: '15px 34px',
-                  borderRadius: 50,
-                  background: '#238d7b',
-                  color: 'white',
-                  fontWeight: 700,
-                  fontSize: 15,
-                  border: 'none',
-                  cursor: 'pointer',
-                  whiteSpace: 'nowrap',
-                  transition: 'background .2s ease, transform .15s ease',
-                  boxShadow: '0 6px 20px rgba(35,141,123,0.45)',
-                }}
+                    padding: '15px 34px', borderRadius: 50, background: '#238d7b', color: 'white', fontWeight: 700, fontSize: 15,
+                    border: 'none', cursor: 'pointer', whiteSpace: 'nowrap', transition: 'background .2s ease, transform .15s ease',
+                    boxShadow: '0 6px 20px rgba(35,141,123,0.45)'
+                  }}
                   onMouseEnter={e => { e.currentTarget.style.background = '#1a6e60'; e.currentTarget.style.transform = 'translateY(-1px)'; }}
                   onMouseLeave={e => { e.currentTarget.style.background = '#238d7b'; e.currentTarget.style.transform = 'translateY(0)'; }}
                 >
@@ -710,154 +577,95 @@ const Home = () => {
           </div>
         </div>
 
-        {/* ══════════════════════════════════════════
-            FOOTER
-        ══════════════════════════════════════════ */}
-        <footer style={{ background: 'linear-gradient(180deg, #0a2e26 0%, #071f1a 100%)', color: 'white' }}>
-          <div className="max-w-6xl mx-auto px-8 md:px-16 py-16 md:py-20">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8">
-
-              {/* Col 1 — Logo + description + contacts */}
-              <div className="md:col-span-1">
-                {/* Vrai logo depuis /images/logo_SHOT.png */}
-                <div style={{ marginBottom: 18 }}>
-                  <img src="/images/shot2.png" alt="S.HOT" style={{ height: 40, width: 'auto', objectFit: 'contain' }} />
-                </div>
-                <p style={{ color: 'rgba(255,255,255,0.62)', fontSize: 14, lineHeight: 1.75, marginBottom: 24 }}>
-                  Premium spirulina products for your health and wellbeing. We're committed to providing the highest quality, sustainably sourced spirulina to support your wellness journey.
-                </p>
-                {/* Email */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.55)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-                  </svg>
-                  <span style={{ color: 'rgba(255,255,255,0.65)', fontSize: 13 }}>shotpremiumspirulina@gmail.com</span>
-                </div>
-                {/* Téléphone */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.55)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.43 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
-                  </svg>
-                  <span style={{ color: 'rgba(255,255,255,0.65)', fontSize: 13 }}>+216 46 307 550</span>
-                </div>
-                {/* Adresse */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.55)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
-                  </svg>
-                  <span style={{ color: 'rgba(255,255,255,0.65)', fontSize: 13 }}>Tunis, Tunisia</span>
-                </div>
+        {/* FOOTER */}
+        <footer className="footer-container">
+          <div className="footer-top">
+            <div className="footer-col">
+              <div className="footer-logo">
+                <img src="/images/shot2.png" alt="S.HOT" />
               </div>
-
-              {/* Col 2 — Shop */}
-              <div>
-                <h4 style={{ fontWeight: 700, fontSize: 16, color: 'white', marginBottom: 22 }}>Shop</h4>
-                {['All Products', 'Spirulina Powder', 'Spirulina Tablets', 'Spirulina Diamonds', 'Baby S.HOTs', 'Bundles'].map(link => (
-                  <div key={link} style={{ marginBottom: 13 }}>
-                    <a href="#" style={{ color: 'rgba(255,255,255,0.62)', fontSize: 14, textDecoration: 'none', transition: 'color .2s' }}
-                      onMouseEnter={e => e.target.style.color = '#4dd9b8'}
-                      onMouseLeave={e => e.target.style.color = 'rgba(255,255,255,0.62)'}>
-                      {link}
-                    </a>
-                  </div>
-                ))}
+              <p className="footer-description">Premium spirulina products for your health and wellbeing. We're committed to providing the highest quality, sustainably sourced spirulina to support your wellness journey.</p>
+              <div className="footer-contact">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                </svg>
+                <span>shotpremiumspirulina@gmail.com</span>
               </div>
-
-              {/* Col 3 — Support */}
-              <div>
-                <h4 style={{ fontWeight: 700, fontSize: 16, color: 'white', marginBottom: 22 }}>Support</h4>
-                {['FAQ', 'Shipping Info', 'Returns & Exchanges', 'Size Guide', 'Contact Us'].map(link => (
-                  <div key={link} style={{ marginBottom: 13 }}>
-                    <a href="#" style={{ color: 'rgba(255,255,255,0.62)', fontSize: 14, textDecoration: 'none', transition: 'color .2s' }}
-                      onMouseEnter={e => e.target.style.color = '#4dd9b8'}
-                      onMouseLeave={e => e.target.style.color = 'rgba(255,255,255,0.62)'}>
-                      {link}
-                    </a>
-                  </div>
-                ))}
+              <div className="footer-contact">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.43 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+                <span>+216 46 307 550</span>
               </div>
-
-              {/* Col 4 — Legal */}
-              <div>
-                <h4 style={{ fontWeight: 700, fontSize: 16, color: 'white', marginBottom: 22 }}>Legal</h4>
-                {['Privacy Policy', 'Terms of Service', 'Cookie Policy', 'Accessibility'].map(link => (
-                  <div key={link} style={{ marginBottom: 13 }}>
-                    <a href="#" style={{ color: 'rgba(255,255,255,0.62)', fontSize: 14, textDecoration: 'none', transition: 'color .2s' }}
-                      onMouseEnter={e => e.target.style.color = '#4dd9b8'}
-                      onMouseLeave={e => e.target.style.color = 'rgba(255,255,255,0.62)'}>
-                      {link}
-                    </a>
-                  </div>
-                ))}
+              <div className="footer-contact">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
+                </svg>
+                <span>Tunis, Tunisia</span>
               </div>
-
+            </div>
+            <div className="footer-col">
+              <h3>Shop</h3>
+              <ul>
+                <li><a href="#">All Products</a></li>
+                <li><a href="#">Spirulina Powder</a></li>
+                <li><a href="#">Spirulina Tablets</a></li>
+                <li><a href="#">Spirulina Diamonds</a></li>
+                <li><a href="#">Baby S.HOTs</a></li>
+                <li><a href="#">Bundles</a></li>
+              </ul>
+            </div>
+            <div className="footer-col">
+              <h3>Support</h3>
+              <ul>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Shipping Info</a></li>
+                <li><a href="#">Returns & Exchanges</a></li>
+                <li><a href="#">Size Guide</a></li>
+                <li><a href="#">Contact Us</a></li>
+              </ul>
+            </div>
+            <div className="footer-col">
+              <h3>Legal</h3>
+              <ul>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+                <li><a href="#">Cookie Policy</a></li>
+                <li><a href="#">Accessibility</a></li>
+              </ul>
+            </div>
+          </div>
+          <div className="footer-divider"></div>
+          <div className="footer-bottom">
+            <p className="footer-copyright">© 2026 S.HOT. All rights reserved.</p>
+            <div className="footer-socials">
+              <a href="#" title="Facebook"><Facebook size={20} /></a>
+              <a href="#" title="Instagram"><Instagram size={20} /></a>
+              <a href="#" title="YouTube"><Youtube size={20} /></a>
+              <a href="#" title="Twitter"><Twitter size={20} /></a>
             </div>
           </div>
         </footer>
 
       </div>
 
-      {/* ══ MODAL THANK YOU SUBSCRIBE ══ */}
+      {/* MODAL */}
       {showSubscribeModal && (
-        <div
-          style={{
-            position: 'fixed', inset: 0, zIndex: 999,
-            background: 'rgba(0,0,0,0.5)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            padding: '20px',
-          }}
-          onClick={() => setShowSubscribeModal(false)}
-        >
-          <div
-            style={{
-              background: 'white', borderRadius: 24,
-              padding: '52px 40px 44px',
-              maxWidth: 420, width: '100%',
-              display: 'flex', flexDirection: 'column', alignItems: 'center',
-              textAlign: 'center',
-              boxShadow: '0 24px 60px rgba(0,0,0,0.25)',
-              animation: 'popIn .3s ease',
-            }}
-            onClick={e => e.stopPropagation()}
-          >
-            {/* Logo */}
-            <img src="/images/logo_SHOT.png" alt="S.HOT"
-              style={{ height: 36, objectFit: 'contain', marginBottom: 36 }} />
-
-            {/* Cercle check */}
-            <div style={{
-              width: 90, height: 90, borderRadius: '50%',
-              border: '3px solid #238d7b',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              marginBottom: 28,
-            }}>
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="none"
-                stroke="#238d7b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+        <div style={{ position: 'fixed', inset: 0, zIndex: 999, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}
+          onClick={() => setShowSubscribeModal(false)}>
+          <div style={{ background: 'white', borderRadius: 24, padding: '52px 40px 44px', maxWidth: 420, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', boxShadow: '0 24px 60px rgba(0,0,0,0.25)', animation: 'popIn .3s ease' }}
+            onClick={e => e.stopPropagation()}>
+            <img src="/images/logo_SHOT.png" alt="S.HOT" style={{ height: 36, objectFit: 'contain', marginBottom: 36 }} />
+            <div style={{ width: 90, height: 90, borderRadius: '50%', border: '3px solid #238d7b', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 28 }}>
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#238d7b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <polyline points="20 6 9 17 4 12"/>
               </svg>
             </div>
-
-            {/* Texte */}
-            <h3 style={{ fontWeight: 800, fontSize: 22, color: '#111827', marginBottom: 12 }}>
-              Thank you !
-            </h3>
-            <p style={{ color: '#6b7280', fontSize: 15, lineHeight: 1.6, marginBottom: 36 }}>
-              Please check your inbox to confirm your subscription.
-            </p>
-
-            {/* Bouton Done */}
-            <button
-              onClick={() => setShowSubscribeModal(false)}
-              style={{
-                width: '100%', padding: '16px',
-                borderRadius: 50, background: '#238d7b',
-                color: 'white', fontWeight: 700, fontSize: 16,
-                border: 'none', cursor: 'pointer',
-                transition: 'background .2s ease',
-              }}
+            <h3 style={{ fontWeight: 800, fontSize: 22, color: '#111827', marginBottom: 12 }}>Thank you !</h3>
+            <p style={{ color: '#6b7280', fontSize: 15, lineHeight: 1.6, marginBottom: 36 }}>Please check your inbox to confirm your subscription.</p>
+            <button onClick={() => setShowSubscribeModal(false)} style={{ width: '100%', padding: '16px', borderRadius: 50, background: '#238d7b', color: 'white', fontWeight: 700, fontSize: 16, border: 'none', cursor: 'pointer', transition: 'background .2s ease' }}
               onMouseEnter={e => e.currentTarget.style.background = '#1a6e60'}
-              onMouseLeave={e => e.currentTarget.style.background = '#238d7b'}
-            >
+              onMouseLeave={e => e.currentTarget.style.background = '#238d7b'}>
               Done
             </button>
           </div>
