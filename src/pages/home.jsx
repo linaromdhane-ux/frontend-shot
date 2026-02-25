@@ -199,17 +199,17 @@ const Home = () => {
         * { font-family:'Montserrat',sans-serif; }
 
         .nav-fixed-video { background-color:rgba(45,75,68,.85); height:75px; backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,.1); }
-        .nav-link-item { color:white; opacity:.8; font-weight:600; font-size:15px; transition:all .3s ease; }
+        .nav-link-item { color:white; opacity:.8; font-weight:600; font-size:15px; transition:all .3s ease; cursor:pointer; }
         .nav-link-item:hover,.nav-link-active { opacity:1; text-shadow:0 0 8px rgba(255,255,255,.5); }
         .icon-box-vid { width:44px; height:44px; display:flex; align-items:center; justify-content:center; border-radius:14px; transition:all .2s ease; color:white; cursor:pointer; position:relative; }
         .icon-box-vid:hover,.icon-box-active { background-color:white !important; color:#238d7b !important; transform:translateY(-2px); }
-        .btn-signup-vid { background-color:white; color:#238d7b; font-weight:700; font-size:14px; height:42px; padding:0 25px; border-radius:50px; border:2px solid white; transition:all .3s ease; }
+        .btn-signup-vid { background-color:white; color:#238d7b; font-weight:700; font-size:14px; height:42px; padding:0 25px; border-radius:50px; border:2px solid white; transition:all .3s ease; cursor:pointer; }
         .btn-signup-vid:hover { background-color:#238d7b; color:white !important; border-color:#238d7b; transform:scale(1.05); }
         .why-card { background:rgba(255,255,255,.85); border:1px solid rgba(255,255,255,.95); border-radius:24px; backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); box-shadow:0 4px 20px rgba(0,0,0,.06); padding:44px 28px 36px; display:flex; flex-direction:column; align-items:center; text-align:center; cursor:pointer; transition:transform .35s ease,box-shadow .35s ease,background .35s ease; }
         .why-card.active { transform:translateY(-6px) scale(1.01); box-shadow:0 24px 50px rgba(0,0,0,.18); }
         .why-icon-box { width:90px; height:90px; border-radius:22px; display:flex; align-items:center; justify-content:center; margin-bottom:28px; flex-shrink:0; transition:background .35s ease,box-shadow .35s ease; box-shadow:0 6px 18px rgba(0,0,0,.15); }
         .why-card.active .why-icon-box { background:white !important; box-shadow:0 6px 18px rgba(0,0,0,.12); }
-        .btn-all-products { display:inline-flex; align-items:center; gap:10px; background-color:#238d7b; color:white; font-weight:700; font-size:16px; padding:18px 52px; border-radius:50px; border:none; cursor:pointer; transition:background .3s ease,transform .2s ease,box-shadow .3s ease; box-shadow:0 8px 24px rgba(35,141,123,.35); letter-spacing:.02em; }
+        .btn-all-products { display:inline-flex; align-items:center; gap:10px; background-color:#238d7b; color:white; font-weight:700; font-size:16px; padding:18px 52px; border-radius:50px; border:none; cursor:pointer; transition:background .3s ease,transform .2s ease,box-shadow .3s ease; box-shadow:0 8px 24px rgba(35,141,123,.35); letter-spacing:.02em; text-decoration:none; }
         .btn-all-products:hover { background-color:#1a6e60; transform:translateY(-2px); box-shadow:0 14px 32px rgba(35,141,123,.45); }
         .btn-all-products.clicked { background-color:#0f4f44; transform:scale(.97); }
         .btn-all-products .arrow-icon { display:inline-flex; }
@@ -307,13 +307,12 @@ const Home = () => {
         .stay-ahead-content { position: relative; z-index: 10; text-align: center; }
         .stay-ahead-title { font-size: clamp(24px, 5vw, 48px); font-weight: 800; letter-spacing: -0.5px; line-height: 1.2; color: #0d4a3e; }
         
-        /* FOOTER CLASSES - MATCHING CAPTURE */
         .footer-container { background: radial-gradient(circle at top right, #1f7a6a 0%, #0d4a3e 100%); color: white; padding: 80px 0 40px; }
         .footer-top { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 50px; max-width: 1200px; margin: 0 auto; padding: 0 40px; margin-bottom: 60px; }
         .footer-col h3 { font-size: 18px; font-weight: 700; color: white; margin-bottom: 25px; text-transform: capitalize; }
         .footer-col ul { list-style: none; padding: 0; margin: 0; }
         .footer-col ul li { margin-bottom: 12px; }
-        .footer-col ul li a { color: rgba(255,255,255,0.70); text-decoration: none; font-size: 15px; transition: color .3s ease; }
+        .footer-col ul li a { color: rgba(255,255,255,0.70); text-decoration: none; font-size: 15px; transition: color .3s ease; cursor:pointer; }
         .footer-col ul li a:hover { color: white; }
         .footer-logo { margin-bottom: 25px; }
         .footer-logo img { height: 45px; width: auto; }
@@ -324,7 +323,7 @@ const Home = () => {
         .footer-bottom { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 40px; flex-wrap: wrap; gap: 20px; }
         .footer-copyright { color: rgba(255,255,255,0.60); font-size: 13px; }
         .footer-socials { display: flex; gap: 25px; align-items: center; }
-        .footer-socials a { color: rgba(255,255,255,0.80); transition: all .3s ease; display: flex; align-items: center; justify-content: center; }
+        .footer-socials a { color: rgba(255,255,255,0.80); transition: all .3s ease; display: flex; align-items: center; justify-content: center; cursor:pointer; }
         .footer-socials a:hover { color: white; transform: scale(1.1); }
         @media (max-width: 768px) { .footer-top { gap: 30px; padding: 0 20px; } .footer-bottom { padding: 0 20px; justify-content: center; text-align: center; } }
       `}</style>
@@ -390,9 +389,16 @@ const Home = () => {
         <header className="relative w-full min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('/images/Rectangle 39.png')" }}>
           <div className="fixed top-0 left-0 z-[100] w-full pt-6 px-4 md:px-10 pointer-events-auto">
             <nav className="mx-auto max-w-7xl nav-fixed-video rounded-full px-6 md:px-10 flex items-center justify-between shadow-2xl">
-              <div className="flex-shrink-0"><img src="/images/shot2.png" alt="S.HOT" className="h-7 md:h-9 w-auto" /></div>
+              <Link to="/"><div className="flex-shrink-0"><img src="/images/shot2.png" alt="S.HOT" className="h-7 md:h-9 w-auto cursor-pointer" /></div></Link>
               <div className="hidden lg:flex items-center gap-10" onMouseLeave={() => setActiveLink(null)}>
-                {navLinks.map((item) => (<button key={item} onMouseEnter={() => setActiveLink(item)} className={`nav-link-item ${activeLink === item ? 'nav-link-active' : ''}`}>{item}</button>))}
+                {navLinks.map((item) => {
+                  const linkPath = item === 'Products' ? '/products' : item === 'Home' ? '/' : '#';
+                  return (
+                    <Link key={item} to={linkPath}>
+                      <button onMouseEnter={() => setActiveLink(item)} className={`nav-link-item ${activeLink === item ? 'nav-link-active' : ''}`}>{item}</button>
+                    </Link>
+                  );
+                })}
               </div>
               <div className="flex items-center gap-2 md:gap-4">
                 <div className="flex items-center gap-1">
@@ -458,10 +464,10 @@ const Home = () => {
           {/* WHY SHOULD YOU CHOOSE */}
           <div className="py-24 md:py-28 px-6 md:px-12">
             <div className="max-w-5xl mx-auto text-center">
-              <h2 className="text-[32px] md:text-[40px] gradient-title mb-5 leading-tight">
+              <h2 className="text-[32px] md:text-[46px] gradient-title mb-5 leading-tight">
                 Why Should You Choose S.HOT ?
               </h2>
-              <p className="text-gray-500 text-base md:text-[17px] max-w-8xl mx-auto mb-16 leading-relaxed font-medium">
+              <p className="text-gray-500 text-base md:text-[17px] max-w-2xl mx-auto mb-16 leading-relaxed font-medium">
                 Our premium spirulina is carefully cultivated, processed, and tested to ensure the highest nutritional value and health benefits for you and your family.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
@@ -491,24 +497,26 @@ const Home = () => {
 
           {/* OUR PREMIUM PRODUCTS */}
           <div className="pt-4 pb-10 px-6 md:px-12 text-center">
-            <div className="max-w-8xl mx-auto">
-              <h2 className="text-[32px] md:text-[40px] gradient-title mb-5 leading-tight">
+            <div className="max-w-3xl mx-auto">
+              <h2 className="text-[32px] md:text-[46px] gradient-title mb-5 leading-tight">
                 Our Premium Products
               </h2>
               <p className="text-gray-500 text-base md:text-[17px] mb-10 leading-relaxed font-medium">
                 Discover our most popular spirulina products for your health and wellness.
               </p>
-              <button
-                className={`btn-all-products${btnClicked ? ' clicked' : ''}`}
-                onClick={() => { setBtnClicked(true); setTimeout(() => setBtnClicked(false), 600); }}
-              >
-                All Products
-                <span className="arrow-icon">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                    <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-                  </svg>
-                </span>
-              </button>
+              <Link to="/products">
+                <button
+                  className={`btn-all-products${btnClicked ? ' clicked' : ''}`}
+                  onClick={() => { setBtnClicked(true); setTimeout(() => setBtnClicked(false), 600); }}
+                >
+                  All Products
+                  <span className="arrow-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+                    </svg>
+                  </span>
+                </button>
+              </Link>
             </div>
           </div>
 
@@ -559,7 +567,7 @@ const Home = () => {
           {/* THEY CHOOSE SHOT */}
           <div className="pb-32 px-8 md:px-12">
             <div className="max-w-7xl mx-auto">
-              <h2 className="text-[30px] md:text-[40px] gradient-title text-center mb-4 leading-tight">
+              <h2 className="text-[30px] md:text-[46px] gradient-title text-center mb-4 leading-tight">
                 They Choose SHOT
               </h2>
               <p className="text-gray-700 text-base md:text-[16px] text-center max-w-3xl mx-auto mb-16 leading-relaxed font-medium">
@@ -668,7 +676,7 @@ const Home = () => {
             <div className="footer-col">
               <h3>Shop</h3>
               <ul>
-                <li><a href="#">All Products</a></li>
+                <li><Link to="/products"><a>All Products</a></Link></li>
                 <li><a href="#">Spirulina Powder</a></li>
                 <li><a href="#">Spirulina Tablets</a></li>
                 <li><a href="#">Spirulina Diamonds</a></li>

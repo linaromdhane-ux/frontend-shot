@@ -8,6 +8,7 @@ import VerifyOTP from './pages/VerifyOTP';
 import ForgotPassword from './pages/ForgotPassword'; 
 import ResetPassword from './pages/ResetPassword';   
 import PasswordChanged from './pages/PasswordChanged'; 
+import ProductsPage from './pages/products';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         
         {/* Les autres routes */}
         <Route path="/home" element={<Home />} />
+        <Route path="/products" element={<ProductsPage />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/verify-otp" element={<VerifyOTP />} />
