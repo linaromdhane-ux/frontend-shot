@@ -235,37 +235,98 @@ const Home = () => {
         .btn-shop-orange { display:inline-flex; align-items:center; gap:7px; background-color:#f39c12; color:white; font-weight:700; font-size:13px; padding:11px 22px; border-radius:50px; border:none; cursor:pointer; box-shadow:0 4px 14px rgba(243,156,18,.4); transition:background .2s ease,transform .15s ease; flex-shrink:0; }
         .btn-shop-orange:hover { background-color:#d68910; transform:translateY(-1px); }
         .btn-shop-orange:active { transform:scale(.96); }
-        .vid-placeholder { position: relative; border-radius: 18px; overflow: hidden; height: 300px; background: linear-gradient(160deg, #d1ede8 0%, #a8ddd3 50%, #c5e8e3 100%); box-shadow: 0 6px 24px rgba(0,0,0,0.10); flex-shrink: 0; }
-        .vid-placeholder .vid-inner { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
-        .vid-play-btn { width: 58px; height: 58px; border-radius: 50%; background: #f39c12; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(243,156,18,0.55); cursor: pointer; transition: transform .2s ease, box-shadow .2s ease; border: none; }
-        .vid-play-btn:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(243,156,18,0.7); }
-        .vid-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 10px 14px; background: linear-gradient(transparent, rgba(0,0,0,0.52)); display: flex; align-items: center; gap: 10px; }
-        .vid-avatar { width: 36px; height: 36px; border-radius: 50%; background: #238d7b; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 11px; border: 2px solid white; flex-shrink: 0; }
+        
+        .vid-placeholder { 
+          position: relative; 
+          border-radius: 24px; 
+          overflow: hidden; 
+          height: 380px; 
+          background: linear-gradient(160deg, #d1ede8 0%, #a8ddd3 50%, #c5e8e3 100%); 
+          box-shadow: 0 8px 32px rgba(0,0,0,0.15); 
+          flex-shrink: 0; 
+        }
+        
+        .vid-placeholder .vid-inner { 
+          position: absolute; 
+          inset: 0; 
+          display: flex; 
+          align-items: center; 
+          justify-content: center; 
+        }
+        
+        .vid-play-btn { 
+          width: 80px; 
+          height: 80px; 
+          border-radius: 50%; 
+          background: #f39c12; 
+          display: flex; 
+          align-items: center; 
+          justify-content: center; 
+          box-shadow: 0 8px 32px rgba(243,156,18,0.65); 
+          cursor: pointer; 
+          transition: transform .2s ease, box-shadow .2s ease; 
+          border: none; 
+        }
+        
+        .vid-play-btn:hover { 
+          transform: scale(1.12); 
+          box-shadow: 0 12px 40px rgba(243,156,18,0.8); 
+        }
+        
+        .vid-info { 
+          position: absolute; 
+          bottom: 0; 
+          left: 0; 
+          right: 0; 
+          padding: 16px 20px; 
+          background: linear-gradient(transparent, rgba(0,0,0,0.7)); 
+          display: flex; 
+          align-items: center; 
+          gap: 12px; 
+        }
+        
+        .vid-avatar { 
+          width: 48px; 
+          height: 48px; 
+          border-radius: 50%; 
+          background: #238d7b; 
+          display: flex; 
+          align-items: center; 
+          justify-content: center; 
+          color: white; 
+          font-weight: 700; 
+          font-size: 13px; 
+          border: 3px solid white; 
+          flex-shrink: 0; 
+        }
+        
         .gradient-title { background: linear-gradient(90deg, #1a1a1a 0%, #238d7b 50%, #1a1a1a 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 800; }
         .signup-bg { background-image: url('/images/Sign Up.png'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; }
         .stay-ahead-container { background-image: url('/images/Sign Up.png'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; position: relative; padding: 80px 40px; }
-        .stay-ahead-overlay { position: absolute; inset: 0; background: rgba(255, 255, 255, 0.92); }
+        .stay-ahead-overlay { position: absolute; inset: 0; background: transparent; }
         .stay-ahead-content { position: relative; z-index: 10; text-align: center; }
-        .stay-ahead-title { font-size: clamp(24px, 5vw, 48px); font-weight: 800; letter-spacing: -0.5px; line-height: 1.2; background: linear-gradient(90deg, #1a1a1a 0%, #238d7b 50%, #1a1a1a 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .footer-container { background: linear-gradient(135deg, #238d7b 0%, #1a6e60 100%); color: white; padding-top: 60px; padding-bottom: 30px; }
-        .footer-top { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 50px; max-width: 1200px; margin: 0 auto; padding: 0 40px; margin-bottom: 40px; }
-        .footer-col h3 { font-size: 16px; font-weight: 700; color: white; margin-bottom: 20px; text-transform: capitalize; letter-spacing: 0.5px; }
+        .stay-ahead-title { font-size: clamp(24px, 5vw, 48px); font-weight: 800; letter-spacing: -0.5px; line-height: 1.2; color: #0d4a3e; }
+        
+        /* FOOTER CLASSES - MATCHING CAPTURE */
+        .footer-container { background: radial-gradient(circle at top right, #1f7a6a 0%, #0d4a3e 100%); color: white; padding: 80px 0 40px; }
+        .footer-top { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 50px; max-width: 1200px; margin: 0 auto; padding: 0 40px; margin-bottom: 60px; }
+        .footer-col h3 { font-size: 18px; font-weight: 700; color: white; margin-bottom: 25px; text-transform: capitalize; }
         .footer-col ul { list-style: none; padding: 0; margin: 0; }
         .footer-col ul li { margin-bottom: 12px; }
-        .footer-col ul li a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 14px; transition: color .3s ease; }
+        .footer-col ul li a { color: rgba(255,255,255,0.70); text-decoration: none; font-size: 15px; transition: color .3s ease; }
         .footer-col ul li a:hover { color: white; }
-        .footer-logo { margin-bottom: 20px; }
-        .footer-logo img { height: 40px; width: auto; }
-        .footer-description { color: rgba(255,255,255,0.75); font-size: 14px; line-height: 1.8; margin-bottom: 25px; }
-        .footer-contact { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; color: rgba(255,255,255,0.75); font-size: 14px; }
-        .footer-contact svg { flex-shrink: 0; width: 20px; height: 20px; color: rgba(255,255,255,0.55); }
-        .footer-divider { border-top: 1px solid rgba(255,255,255,0.15); max-width: 1200px; margin: 0 auto; padding: 0 40px; margin-bottom: 30px; }
+        .footer-logo { margin-bottom: 25px; }
+        .footer-logo img { height: 45px; width: auto; }
+        .footer-description { color: rgba(255,255,255,0.85); font-size: 14px; line-height: 1.8; margin-bottom: 25px; font-weight: 500; }
+        .footer-contact { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; color: rgba(255,255,255,0.80); font-size: 14px; }
+        .footer-contact svg { flex-shrink: 0; width: 18px; height: 18px; color: rgba(255,255,255,0.6); }
+        .footer-divider { border-top: 1px solid rgba(255,255,255,0.1); max-width: 1200px; margin: 0 auto; padding: 0 40px; margin-bottom: 30px; }
         .footer-bottom { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 40px; flex-wrap: wrap; gap: 20px; }
         .footer-copyright { color: rgba(255,255,255,0.60); font-size: 13px; }
-        .footer-socials { display: flex; gap: 20px; align-items: center; }
-        .footer-socials a { color: rgba(255,255,255,0.75); transition: color .3s ease; display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; }
-        .footer-socials a:hover { color: white; }
-        @media (max-width: 768px) { .footer-top { gap: 30px; padding: 0 20px; } .footer-divider { padding: 0 20px; } .footer-bottom { padding: 0 20px; justify-content: center; text-align: center; } }
+        .footer-socials { display: flex; gap: 25px; align-items: center; }
+        .footer-socials a { color: rgba(255,255,255,0.80); transition: all .3s ease; display: flex; align-items: center; justify-content: center; }
+        .footer-socials a:hover { color: white; transform: scale(1.1); }
+        @media (max-width: 768px) { .footer-top { gap: 30px; padding: 0 20px; } .footer-bottom { padding: 0 20px; justify-content: center; text-align: center; } }
       `}</style>
 
       {/* SIDEBAR WISHLIST */}
@@ -397,10 +458,10 @@ const Home = () => {
           {/* WHY SHOULD YOU CHOOSE */}
           <div className="py-24 md:py-28 px-6 md:px-12">
             <div className="max-w-5xl mx-auto text-center">
-              <h2 className="text-[32px] md:text-[46px] gradient-title mb-5 leading-tight">
+              <h2 className="text-[32px] md:text-[40px] gradient-title mb-5 leading-tight">
                 Why Should You Choose S.HOT ?
               </h2>
-              <p className="text-gray-500 text-base md:text-[17px] max-w-2xl mx-auto mb-16 leading-relaxed font-medium">
+              <p className="text-gray-500 text-base md:text-[17px] max-w-8xl mx-auto mb-16 leading-relaxed font-medium">
                 Our premium spirulina is carefully cultivated, processed, and tested to ensure the highest nutritional value and health benefits for you and your family.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
@@ -430,8 +491,8 @@ const Home = () => {
 
           {/* OUR PREMIUM PRODUCTS */}
           <div className="pt-4 pb-10 px-6 md:px-12 text-center">
-            <div className="max-w-3xl mx-auto">
-              <h2 className="text-[32px] md:text-[46px] gradient-title mb-5 leading-tight">
+            <div className="max-w-8xl mx-auto">
+              <h2 className="text-[32px] md:text-[40px] gradient-title mb-5 leading-tight">
                 Our Premium Products
               </h2>
               <p className="text-gray-500 text-base md:text-[17px] mb-10 leading-relaxed font-medium">
@@ -496,20 +557,20 @@ const Home = () => {
           </div>
 
           {/* THEY CHOOSE SHOT */}
-          <div className="pb-16 px-6 md:px-12">
-            <div className="max-w-6xl mx-auto">
-              <h2 className="text-[30px] md:text-[42px] gradient-title text-center mb-4 leading-tight">
+          <div className="pb-32 px-8 md:px-12">
+            <div className="max-w-7xl mx-auto">
+              <h2 className="text-[30px] md:text-[40px] gradient-title text-center mb-4 leading-tight">
                 They Choose SHOT
               </h2>
-              <p className="text-gray-500 text-base md:text-[17px] text-center max-w-2xl mx-auto mb-12 leading-relaxed font-medium">
+              <p className="text-gray-700 text-base md:text-[16px] text-center max-w-3xl mx-auto mb-16 leading-relaxed font-medium">
                 Real energy, captured on camera. See how top influencers fuel their daily hustle and maintain peak performance with S.HOT spirulina.
               </p>
-              <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-6 md:gap-5">
                 {influencers.map((person, i) => (
                   <div key={i} className="vid-placeholder">
                     <div className="vid-inner">
                       <button className="vid-play-btn">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="white">
                           <polygon points="5 3 19 12 5 21 5 3"/>
                         </svg>
                       </button>
@@ -517,8 +578,8 @@ const Home = () => {
                     <div className="vid-info">
                       <div className="vid-avatar">{person.initials}</div>
                       <div>
-                        <div style={{ color: 'white', fontWeight: 700, fontSize: 13, lineHeight: 1.2 }}>{person.name}</div>
-                        <div style={{ color: 'rgba(255,255,255,0.80)', fontSize: 11 }}>{person.role}</div>
+                        <div style={{ color: 'white', fontWeight: 700, fontSize: 14, lineHeight: 1.2 }}>{person.name}</div>
+                        <div style={{ color: 'rgba(255,255,255,0.85)', fontSize: 12, fontWeight: 500 }}>{person.role}</div>
                       </div>
                     </div>
                   </div>
@@ -637,12 +698,12 @@ const Home = () => {
           </div>
           <div className="footer-divider"></div>
           <div className="footer-bottom">
-            <p className="footer-copyright">© 2026 S.HOT. All rights reserved.</p>
+            <p className="footer-copyright">© 2026 SHOT. All rights reserved.</p>
             <div className="footer-socials">
-              <a href="#" title="Facebook"><Facebook size={20} /></a>
-              <a href="#" title="Instagram"><Instagram size={20} /></a>
-              <a href="#" title="YouTube"><Youtube size={20} /></a>
-              <a href="#" title="Twitter"><Twitter size={20} /></a>
+              <a href="#" title="Facebook"><Facebook size={22} /></a>
+              <a href="#" title="Instagram"><Instagram size={22} /></a>
+              <a href="#" title="YouTube"><Youtube size={22} /></a>
+              <a href="#" title="Twitter" className="font-bold text-xl ml-2">X</a>
             </div>
           </div>
         </footer>
