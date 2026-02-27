@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Heart, ShoppingCart, User, Moon, Globe, X, Trash2, ShieldCheck, Zap, Headset, Leaf, Facebook, Instagram, Youtube, Twitter } from 'lucide-react';
 
 const Home = () => {
+  const navigate = useNavigate();
   const words = ["Health", "Energy"];
   const [index, setIndex] = useState(0);
   const [displayText, setDisplayText] = useState("");
@@ -86,6 +87,11 @@ const Home = () => {
     }
   };
   const isInWishlist = (id) => wishlistItems.some(i => i.id === id);
+
+  const openProductDetails = (product) => {
+    navigate(`/product/${product.id}`);
+    window.scrollTo(0, 0);
+  };
 
   const addProductToCart = (product) => {
     if (!cartItems.find(i => i.id === product.id)) {
@@ -220,8 +226,9 @@ const Home = () => {
         .prod-img-wrap img { width:100%; height:100%; object-fit:cover; transition:transform .4s ease; }
         .prod-card:hover .prod-img-wrap img { transform:scale(1.04); }
         .prod-badge { position:absolute; top:14px; left:14px; z-index:3; color:white; font-weight:700; font-size:12px; padding:5px 14px; border-radius:50px; pointer-events:none; }
-        .prod-heart { position:absolute; top:12px; right:12px; z-index:3; width:36px; height:36px; border-radius:50%; background:white; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 10px rgba(0,0,0,.12); transition:transform .2s ease; }
-        .prod-heart:hover { transform:scale(1.18); }
+        .prod-heart { position:absolute; top:12px; right:12px; z-index:3; width:48px; height:48px; border-radius:50%; background:white; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(0,0,0,.15); transition:transform .2s ease; }
+        .prod-heart:hover { transform:scale(1.12); }
+        .prod-heart svg { width:26px; height:26px; }
         .prod-cart-overlay { position:absolute; inset:0; z-index:2; display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity .25s ease; background:rgba(0,0,0,.04); }
         .prod-card:hover .prod-cart-overlay { opacity:1; }
         .prod-cart-btn { width:54px; height:54px; border-radius:50%; background:white; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 16px rgba(0,0,0,.18); cursor:pointer; border:none; animation:popIn .22s ease; transition:transform .2s ease; }
@@ -538,7 +545,7 @@ const Home = () => {
                     </button>
                     {hoveredProduct === product.id && (
                       <div className="prod-cart-overlay">
-                        <button className="prod-cart-btn" onClick={(e) => { e.stopPropagation(); addProductToCart(product); }}>
+                        <button className="prod-cart-btn" onClick={(e) => { e.stopPropagation(); openProductDetails(product); }}>
                           <ShoppingCart size={22} color="#238d7b" strokeWidth={2} />
                         </button>
                       </div>
@@ -551,7 +558,7 @@ const Home = () => {
                     <div className="prod-price">{product.price}</div>
                     <div className="flex items-center justify-between mt-auto pt-3">
                       <span className="prod-stock">{product.stock}</span>
-                      <button className="btn-shop-orange" onClick={(e) => { e.stopPropagation(); addProductToCart(product); }}>
+                      <button className="btn-shop-orange" onClick={(e) => { e.stopPropagation(); openProductDetails(product); }}>
                         Shop
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                           <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
