@@ -250,30 +250,46 @@ const Home = () => {
         .vid-avatar { width: 48px; height: 48px; border-radius: 50%; background: #238d7b; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 13px; border: 3px solid white; flex-shrink: 0; }
         .gradient-title { background: linear-gradient(90deg, #1a1a1a 0%, #238d7b 50%, #1a1a1a 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 800; }
         .signup-bg { background-image: url('/images/Sign Up.png'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; }
-        .stay-ahead-container { background-image: url('/images/Sign Up.png'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; position: relative; padding: 80px 40px; }
+        
+        /* CONSISTENT NEWSLETTER & FOOTER STYLES */
+        .stay-ahead-container { 
+          background-image: url('/images/Sign Up.png'); 
+          background-size: cover; 
+          background-position: center; 
+          background-repeat: no-repeat; 
+          background-attachment: fixed; 
+          position: relative; 
+          padding: 80px 40px; 
+          margin-top: 40px; 
+        }
         .stay-ahead-overlay { position: absolute; inset: 0; background: transparent; }
         .stay-ahead-content { position: relative; z-index: 10; text-align: center; }
-        .stay-ahead-title { font-size: clamp(24px, 5vw, 48px); font-weight: 800; letter-spacing: -0.5px; line-height: 1.2; color: #0d4a3e; }
-        
-        .footer-container { background: linear-gradient(135deg, #1f7a6a 0%, #0d4a3e 100%); color: white; padding: 70px 0 50px; }
-        .footer-top { display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap: 100px; max-width: 1400px; margin: 0 auto; padding: 0 60px; margin-bottom: 60px; }
-        .footer-col { }
-        .footer-col h3 { font-size: 17px; font-weight: 700; color: white; margin-bottom: 28px; letter-spacing: 0px; }
+        .stay-ahead-title { 
+          font-size: clamp(24px, 5vw, 48px); 
+          font-weight: 800; 
+          letter-spacing: -0.5px; 
+          line-height: 1.2; 
+          color: #0d4a3e; 
+        }
+
+        .footer-container { background: radial-gradient(circle at top right, #1f7a6a 0%, #0d4a3e 100%); color: white; padding: 65px 0 35px; }
+        .footer-top { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 35px; max-width: 1200px; margin: 0 auto; padding: 0 35px; margin-bottom: 45px; }
+        .footer-col h3 { font-size: 15px; font-weight: 700; color: white; margin-bottom: 18px; }
         .footer-col ul { list-style: none; padding: 0; margin: 0; }
-        .footer-col ul li { margin-bottom: 18px; }
-        .footer-col ul li a { color: white; text-decoration: none; font-size: 15px; transition: color .3s ease; cursor:pointer; font-weight: 400; line-height: 1.6; }
-        .footer-col ul li a:hover { color: #4dd9b8; }
-        .footer-logo { margin-bottom: 28px; }
+        .footer-col ul li { margin-bottom: 9px; }
+        .footer-col ul li a { color: rgba(255,255,255,0.72); text-decoration: none; font-size: 13px; transition: color .3s ease; cursor:pointer; font-weight:500; }
+        .footer-col ul li a:hover { color: white; }
+        .footer-logo { margin-bottom: 20px; }
         .footer-logo img { height: 45px; width: auto; }
-        .footer-description { color: white; font-size: 15px; line-height: 1.8; margin-bottom: 36px; font-weight: 400; }
-        .footer-contact { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 18px; color: white; font-size: 15px; font-weight: 400; line-height: 1.6; }
-        .footer-contact svg { flex-shrink: 0; width: 20px; height: 20px; color: rgba(255,255,255,0.70); margin-top: 2px; }
-        .footer-divider { border-top: 1px solid rgba(255,255,255,0.15); max-width: 1400px; margin: 0 auto; padding: 0 60px; margin-bottom: 50px; }
-        .footer-bottom { display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto; padding: 0 60px; flex-wrap: wrap; gap: 20px; }
-        .footer-copyright { color: white; font-size: 15px; font-weight: 400; }
-        .footer-socials { display: flex; gap: 28px; align-items: center; }
-        .footer-socials a { color: white; transition: all .3s ease; display: flex; align-items: center; justify-content: center; cursor:pointer; }
-        .footer-socials a:hover { color: #4dd9b8; transform: scale(1.15); }
+        .footer-description { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.6; margin-bottom: 24px; }
+        .footer-contact { display: flex; align-items: center; gap: 12px; font-size: 13px; color: rgba(255,255,255,0.75); margin-bottom: 12px; }
+        .footer-contact svg { width: 18px; height: 18px; flex-shrink: 0; }
+        .footer-divider { border-top: 1px solid rgba(255,255,255,0.1); max-width: 1200px; margin: 0 auto; padding: 0 35px; margin-bottom: 30px; }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 35px; flex-wrap: wrap; gap: 20px; }
+        .footer-copyright { color: rgba(255,255,255,0.60); font-size: 13px; }
+        .footer-socials { display: flex; gap: 25px; }
+        .footer-socials a { color: rgba(255,255,255,0.80); cursor: pointer; transition: color .3s ease; }
+        .footer-socials a:hover { color: white; }
         
         @media (max-width: 1024px) { 
           .footer-top { grid-template-columns: repeat(2, 1fr); gap: 50px; padding: 0 40px; } 
@@ -383,12 +399,14 @@ const Home = () => {
               </span>
             </h1>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 md:gap-5 mt-12 md:mt-16">
-              <button className="bg-[#238d7b] text-white px-9 py-4 rounded-full font-extrabold flex items-center gap-4 transition-all shadow-[0_0_25px_rgba(35,141,123,0.5)] pointer-events-auto group hover:bg-[#1f7a6a] active:!bg-[#47cab4] active:scale-95">
-                Shop now
-                <span className="bg-white text-[#238d7b] rounded-full w-7 h-7 flex items-center justify-center group-hover:translate-x-1 transition-transform">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                </span>
-              </button>
+              <Link to="/products">
+                <button className="bg-[#238d7b] text-white px-9 py-4 rounded-full font-extrabold flex items-center gap-4 transition-all shadow-[0_0_25px_rgba(35,141,123,0.5)] pointer-events-auto group hover:bg-[#1f7a6a] active:!bg-[#47cab4] active:scale-95">
+                  Shop now
+                  <span className="bg-white text-[#238d7b] rounded-full w-7 h-7 flex items-center justify-center group-hover:translate-x-1 transition-transform">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </span>
+                </button>
+              </Link>
               <button className="group bg-white text-black border border-black/10 px-9 py-4 rounded-full font-bold flex items-center gap-3 transition-all pointer-events-auto hover:bg-gray-100 active:!bg-[#238d7b] active:!text-white active:scale-95">
                 Join our community
                 <svg className="text-[#0e8471] group-active:!text-white transition-colors" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
@@ -553,10 +571,8 @@ const Home = () => {
             </div>
           </div>
 
-          {/*
-Join our Newsletter */}
-          <div className="
-Join our Newsletter">
+          {/* Join our Newsletter */}
+          <div className="stay-ahead-container">
             <div className="stay-ahead-overlay"></div>
             <div className="stay-ahead-content max-w-7xl mx-auto px-6 md:px-12">
               <h2 className="stay-ahead-title">Join our Newsletter</h2>
@@ -571,7 +587,7 @@ Join our Newsletter">
           <div className="relative z-10 max-w-6xl mx-auto px-8 md:px-16 py-16 md:py-20">
             <div className="max-w-2xl mx-auto text-center">
               <h3 style={{ color: '#4dd9b8', fontWeight: 700, fontSize: 30, marginBottom: 24, textAlign: 'center' }}>Stay Informed</h3>
-              <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: 20, lineHeight:1.7, marginBottom: 15, textAlign: 'center' }}>
+              <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: 20, lineHeight: 1.7, marginBottom: 15, textAlign: 'center' }}>
                 Subscribe to our newsletter to receive health tips, special offers, and new product announcements.
               </p>
               <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', justifyContent: 'center' }}>

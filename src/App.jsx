@@ -1,5 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
+// Import du composant ScrollToTop (Assure-toi que le chemin est correct)
+import ScrollToTop from './ScrollToTop';
+
 // Importations depuis le dossier "pages"
 import Home from './pages/home';                
 import Register from './pages/Register';        
@@ -11,10 +14,15 @@ import PasswordChanged from './pages/PasswordChanged';
 import Products from './pages/products';
 import ProductDetails from './pages/ProductDetails';
 
-
 function App() {
   return (
     <Router>
+      {/* 
+         C'est ici que la magie opère ! 
+         Cela force la page à remonter en haut à chaque changement de route.
+      */}
+      <ScrollToTop />
+
       <Routes>
         {/* Pages principales */}
         <Route path="/" element={<Home />} />
