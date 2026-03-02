@@ -569,24 +569,24 @@ const ProductsPage = () => {
         )}
       </div>
 
-      {/* STAY AHEAD */}
+      {/* Join our Newsletter */}
       <div className="stay-ahead-container">
         <div className="stay-ahead-overlay"></div>
         <div className="stay-ahead-content max-w-7xl mx-auto px-6 md:px-12">
-          <h2 className="stay-ahead-title">Stay Ahead of the Curve</h2>
+          <h2 className="stay-ahead-title">Join our Newsletter</h2>
         </div>
       </div>
 
       {/* NEWSLETTER */}
-      <div style={{ background: 'linear-gradient(135deg, #0d3d33 0%, #0f5a47 40%, #0d4a3a 70%, #0a3328 100%)', position: 'relative', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '38%', backgroundImage: "url('/images/Frame 302.png')", backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.22 }} />
+      <div style={{ background: 'linear-gradient(135deg, #0d3d33 0%, #0f5a47 40%, #0d4a3a 70%, #0a3328 100%)', backgroundImage: "url('/images/NL_bg.png')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundBlendMode: 'overlay', position: 'relative', overflow: 'hidden' }}>
+        <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '100%', backgroundImage: "url('/images/NL_bg.png')", backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.3, zIndex: 0 }} />
         <div className="relative z-10 max-w-6xl mx-auto px-8 md:px-16 py-16 md:py-20">
-          <div className="max-w-xl">
-            <h2 style={{ color: '#4dd9b8', fontWeight: 800, fontSize: 28, marginBottom: 14 }}>Stay Informed</h2>
-            <p style={{ color: 'rgba(255,255,255,0.80)', fontSize: 15, lineHeight: 1.65, marginBottom: 32 }}>
+          <div className="max-w-2xl mx-auto text-center">
+            <h3 style={{ color: '#4dd9b8', fontWeight: 700, fontSize: 30, marginBottom: 24, textAlign: 'center' }}>Stay Informed</h3>
+            <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: 20, lineHeight: 1.7, marginBottom: 15, textAlign: 'center' }}>
               Subscribe to our newsletter to receive health tips, special offers, and new product announcements.
             </p>
-            <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', justifyContent: 'center' }}>
               <input
                 type="email"
                 placeholder="Enter your email to subscribe"
@@ -595,7 +595,7 @@ const ProductsPage = () => {
                 onKeyDown={e => e.key === 'Enter' && handleSubscribe()}
                 style={{
                   flex: '1 1 260px', padding: '15px 22px', borderRadius: 50, border: '2px solid rgba(77,217,184,0.55)',
-                  background: 'rgba(255,255,255,0.06)', color: 'white', fontSize: 14, outline: 'none', backdropFilter: 'blur(6px)'
+                  background: 'rgba(255,255,255,0.06)', color: 'white', fontSize: 14, outline: 'none', backdropFilter: 'blur(6px)', maxWidth: '400px'
                 }}
                 onFocus={e => e.target.style.borderColor = '#4dd9b8'}
                 onBlur={e => e.target.style.borderColor = 'rgba(77,217,184,0.55)'}
@@ -699,7 +699,7 @@ const ProductsPage = () => {
                 <polyline points="20 6 9 17 4 12"/>
               </svg>
             </div>
-            <h3 style={{ fontWeight: 800, fontSize: 22, color: '#111827', marginBottom: 12 }}>Thank you!</h3>
+            <h3 style={{ fontWeight: 800, fontSize: 22, color: '#111827', marginBottom: 12 }}>Thank you !</h3>
             <p style={{ color: '#6b7280', fontSize: 15, lineHeight: 1.6, marginBottom: 36 }}>Please check your inbox to confirm your subscription.</p>
             <button onClick={() => setShowSubscribeModal(false)} style={{ width: '100%', padding: '16px', borderRadius: 50, background: '#238d7b', color: 'white', fontWeight: 700, fontSize: 16, border: 'none', cursor: 'pointer', transition: 'background .2s ease' }}
               onMouseEnter={e => e.currentTarget.style.background = '#1a6e60'}

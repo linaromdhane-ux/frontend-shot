@@ -553,8 +553,10 @@ const Home = () => {
             </div>
           </div>
 
-          {/* STAY AHEAD */}
-          <div className="stay-ahead-container">
+          {/*
+Join our Newsletter */}
+          <div className="
+Join our Newsletter">
             <div className="stay-ahead-overlay"></div>
             <div className="stay-ahead-content max-w-7xl mx-auto px-6 md:px-12">
               <h2 className="stay-ahead-title">Join our Newsletter</h2>
