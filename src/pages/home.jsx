@@ -251,7 +251,6 @@ const Home = () => {
         .gradient-title { background: linear-gradient(90deg, #1a1a1a 0%, #238d7b 50%, #1a1a1a 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 800; }
         .signup-bg { background-image: url('/images/Sign Up.png'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; }
         
-        /* CONSISTENT NEWSLETTER & FOOTER STYLES */
         .stay-ahead-container { 
           background-image: url('/images/Sign Up.png'); 
           background-size: cover; 
@@ -365,7 +364,7 @@ const Home = () => {
               <Link to="/"><div className="flex-shrink-0"><img src="/images/shot2.png" alt="S.HOT" className="h-7 md:h-9 w-auto cursor-pointer" /></div></Link>
               <div className="hidden lg:flex items-center gap-10" onMouseLeave={() => setActiveLink(null)}>
                 {navLinks.map((item) => {
-                  const linkPath = item === 'Products' ? '/products' : item === 'Home' ? '/' : '#';
+                  const linkPath = item === 'Products' ? '/products' : item === 'Home' ? '/' : item === 'About us' ? '/about' : '#';
                   return (
                     <Link key={item} to={linkPath}>
                       <button onMouseEnter={() => setActiveLink(item)} className={`nav-link-item ${activeLink === item ? 'nav-link-active' : ''}`}>{item}</button>

@@ -13,6 +13,7 @@ import ResetPassword from './pages/ResetPassword';
 import PasswordChanged from './pages/PasswordChanged'; 
 import Products from './pages/products';
 import ProductDetails from './pages/ProductDetails';
+import AboutUs from './pages/AboutUs';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/products" element={<Products />} />
         <Route path="/product/:productId" element={<ProductDetails />} />
+        <Route path="/about" element={<AboutUs />} />
         
         {/* Authentication routes */}
         <Route path="/register" element={<Register />} />
