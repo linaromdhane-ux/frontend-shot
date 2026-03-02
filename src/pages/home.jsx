@@ -242,71 +242,12 @@ const Home = () => {
         .btn-shop-orange { display:inline-flex; align-items:center; gap:7px; background-color:#f39c12; color:white; font-weight:700; font-size:13px; padding:11px 22px; border-radius:50px; border:none; cursor:pointer; box-shadow:0 4px 14px rgba(243,156,18,.4); transition:background .2s ease,transform .15s ease; flex-shrink:0; }
         .btn-shop-orange:hover { background-color:#d68910; transform:translateY(-1px); }
         .btn-shop-orange:active { transform:scale(.96); }
-        
-        .vid-placeholder { 
-          position: relative; 
-          border-radius: 24px; 
-          overflow: hidden; 
-          height: 380px; 
-          background: linear-gradient(160deg, #d1ede8 0%, #a8ddd3 50%, #c5e8e3 100%); 
-          box-shadow: 0 8px 32px rgba(0,0,0,0.15); 
-          flex-shrink: 0; 
-        }
-        
-        .vid-placeholder .vid-inner { 
-          position: absolute; 
-          inset: 0; 
-          display: flex; 
-          align-items: center; 
-          justify-content: center; 
-        }
-        
-        .vid-play-btn { 
-          width: 80px; 
-          height: 80px; 
-          border-radius: 50%; 
-          background: #f39c12; 
-          display: flex; 
-          align-items: center; 
-          justify-content: center; 
-          box-shadow: 0 8px 32px rgba(243,156,18,0.65); 
-          cursor: pointer; 
-          transition: transform .2s ease, box-shadow .2s ease; 
-          border: none; 
-        }
-        
-        .vid-play-btn:hover { 
-          transform: scale(1.12); 
-          box-shadow: 0 12px 40px rgba(243,156,18,0.8); 
-        }
-        
-        .vid-info { 
-          position: absolute; 
-          bottom: 0; 
-          left: 0; 
-          right: 0; 
-          padding: 16px 20px; 
-          background: linear-gradient(transparent, rgba(0,0,0,0.7)); 
-          display: flex; 
-          align-items: center; 
-          gap: 12px; 
-        }
-        
-        .vid-avatar { 
-          width: 48px; 
-          height: 48px; 
-          border-radius: 50%; 
-          background: #238d7b; 
-          display: flex; 
-          align-items: center; 
-          justify-content: center; 
-          color: white; 
-          font-weight: 700; 
-          font-size: 13px; 
-          border: 3px solid white; 
-          flex-shrink: 0; 
-        }
-        
+        .vid-placeholder { position: relative; border-radius: 24px; overflow: hidden; height: 380px; background: linear-gradient(160deg, #d1ede8 0%, #a8ddd3 50%, #c5e8e3 100%); box-shadow: 0 8px 32px rgba(0,0,0,0.15); flex-shrink: 0; }
+        .vid-placeholder .vid-inner { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+        .vid-play-btn { width: 80px; height: 80px; border-radius: 50%; background: #f39c12; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 32px rgba(243,156,18,0.65); cursor: pointer; transition: transform .2s ease, box-shadow .2s ease; border: none; }
+        .vid-play-btn:hover { transform: scale(1.12); box-shadow: 0 12px 40px rgba(243,156,18,0.8); }
+        .vid-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 16px 20px; background: linear-gradient(transparent, rgba(0,0,0,0.7)); display: flex; align-items: center; gap: 12px; }
+        .vid-avatar { width: 48px; height: 48px; border-radius: 50%; background: #238d7b; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 13px; border: 3px solid white; flex-shrink: 0; }
         .gradient-title { background: linear-gradient(90deg, #1a1a1a 0%, #238d7b 50%, #1a1a1a 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 800; }
         .signup-bg { background-image: url('/images/Sign Up.png'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; }
         .stay-ahead-container { background-image: url('/images/Sign Up.png'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; position: relative; padding: 80px 40px; }
@@ -314,25 +255,34 @@ const Home = () => {
         .stay-ahead-content { position: relative; z-index: 10; text-align: center; }
         .stay-ahead-title { font-size: clamp(24px, 5vw, 48px); font-weight: 800; letter-spacing: -0.5px; line-height: 1.2; color: #0d4a3e; }
         
-        .footer-container { background: radial-gradient(circle at top right, #1f7a6a 0%, #0d4a3e 100%); color: white; padding: 80px 0 40px; }
-        .footer-top { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 50px; max-width: 1200px; margin: 0 auto; padding: 0 40px; margin-bottom: 60px; }
-        .footer-col h3 { font-size: 18px; font-weight: 700; color: white; margin-bottom: 25px; text-transform: capitalize; }
+        .footer-container { background: linear-gradient(135deg, #1f7a6a 0%, #0d4a3e 100%); color: white; padding: 70px 0 50px; }
+        .footer-top { display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap: 100px; max-width: 1400px; margin: 0 auto; padding: 0 60px; margin-bottom: 60px; }
+        .footer-col { }
+        .footer-col h3 { font-size: 17px; font-weight: 700; color: white; margin-bottom: 28px; letter-spacing: 0px; }
         .footer-col ul { list-style: none; padding: 0; margin: 0; }
-        .footer-col ul li { margin-bottom: 12px; }
-        .footer-col ul li a { color: rgba(255,255,255,0.70); text-decoration: none; font-size: 15px; transition: color .3s ease; cursor:pointer; }
-        .footer-col ul li a:hover { color: white; }
-        .footer-logo { margin-bottom: 25px; }
+        .footer-col ul li { margin-bottom: 18px; }
+        .footer-col ul li a { color: white; text-decoration: none; font-size: 15px; transition: color .3s ease; cursor:pointer; font-weight: 400; line-height: 1.6; }
+        .footer-col ul li a:hover { color: #4dd9b8; }
+        .footer-logo { margin-bottom: 28px; }
         .footer-logo img { height: 45px; width: auto; }
-        .footer-description { color: rgba(255,255,255,0.85); font-size: 14px; line-height: 1.8; margin-bottom: 25px; font-weight: 500; }
-        .footer-contact { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; color: rgba(255,255,255,0.80); font-size: 14px; }
-        .footer-contact svg { flex-shrink: 0; width: 18px; height: 18px; color: rgba(255,255,255,0.6); }
-        .footer-divider { border-top: 1px solid rgba(255,255,255,0.1); max-width: 1200px; margin: 0 auto; padding: 0 40px; margin-bottom: 30px; }
-        .footer-bottom { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 40px; flex-wrap: wrap; gap: 20px; }
-        .footer-copyright { color: rgba(255,255,255,0.60); font-size: 13px; }
-        .footer-socials { display: flex; gap: 25px; align-items: center; }
-        .footer-socials a { color: rgba(255,255,255,0.80); transition: all .3s ease; display: flex; align-items: center; justify-content: center; cursor:pointer; }
-        .footer-socials a:hover { color: white; transform: scale(1.1); }
-        @media (max-width: 768px) { .footer-top { gap: 30px; padding: 0 20px; } .footer-bottom { padding: 0 20px; justify-content: center; text-align: center; } }
+        .footer-description { color: white; font-size: 15px; line-height: 1.8; margin-bottom: 36px; font-weight: 400; }
+        .footer-contact { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 18px; color: white; font-size: 15px; font-weight: 400; line-height: 1.6; }
+        .footer-contact svg { flex-shrink: 0; width: 20px; height: 20px; color: rgba(255,255,255,0.70); margin-top: 2px; }
+        .footer-divider { border-top: 1px solid rgba(255,255,255,0.15); max-width: 1400px; margin: 0 auto; padding: 0 60px; margin-bottom: 50px; }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto; padding: 0 60px; flex-wrap: wrap; gap: 20px; }
+        .footer-copyright { color: white; font-size: 15px; font-weight: 400; }
+        .footer-socials { display: flex; gap: 28px; align-items: center; }
+        .footer-socials a { color: white; transition: all .3s ease; display: flex; align-items: center; justify-content: center; cursor:pointer; }
+        .footer-socials a:hover { color: #4dd9b8; transform: scale(1.15); }
+        
+        @media (max-width: 1024px) { 
+          .footer-top { grid-template-columns: repeat(2, 1fr); gap: 50px; padding: 0 40px; } 
+        }
+        @media (max-width: 768px) { 
+          .footer-top { grid-template-columns: 1fr; gap: 40px; padding: 0 30px; } 
+          .footer-bottom { padding: 0 30px; justify-content: center; text-align: center; flex-direction: column; } 
+          .footer-divider { padding: 0 30px; }
+        }
       `}</style>
 
       {/* SIDEBAR WISHLIST */}
@@ -607,22 +557,22 @@ const Home = () => {
           <div className="stay-ahead-container">
             <div className="stay-ahead-overlay"></div>
             <div className="stay-ahead-content max-w-7xl mx-auto px-6 md:px-12">
-              <h2 className="stay-ahead-title">Stay Ahead of the Curve</h2>
+              <h2 className="stay-ahead-title">Join our Newsletter</h2>
             </div>
           </div>
 
         </div>
 
         {/* NEWSLETTER */}
-        <div style={{ background: 'linear-gradient(135deg, #0d3d33 0%, #0f5a47 40%, #0d4a3a 70%, #0a3328 100%)', position: 'relative', overflow: 'hidden' }}>
-          <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '38%', backgroundImage: "url('/images/Frame 302.png')", backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.22 }} />
+        <div style={{ background: 'linear-gradient(135deg, #0d3d33 0%, #0f5a47 40%, #0d4a3a 70%, #0a3328 100%)', backgroundImage: "url('/images/NL_bg.png')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundBlendMode: 'overlay', position: 'relative', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '100%', backgroundImage: "url('/images/NL_bg.png')", backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.3, zIndex: 0 }} />
           <div className="relative z-10 max-w-6xl mx-auto px-8 md:px-16 py-16 md:py-20">
-            <div className="max-w-xl">
-              <h2 style={{ color: '#4dd9b8', fontWeight: 800, fontSize: 28, marginBottom: 14 }}>Stay Informed</h2>
-              <p style={{ color: 'rgba(255,255,255,0.80)', fontSize: 15, lineHeight: 1.65, marginBottom: 32 }}>
+            <div className="max-w-2xl mx-auto text-center">
+              <h3 style={{ color: '#4dd9b8', fontWeight: 700, fontSize: 30, marginBottom: 24, textAlign: 'center' }}>Stay Informed</h3>
+              <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: 20, lineHeight:1.7, marginBottom: 15, textAlign: 'center' }}>
                 Subscribe to our newsletter to receive health tips, special offers, and new product announcements.
               </p>
-              <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', justifyContent: 'center' }}>
                 <input
                   type="email"
                   placeholder="Enter your email to subscribe"
@@ -631,7 +581,7 @@ const Home = () => {
                   onKeyDown={e => e.key === 'Enter' && handleSubscribe()}
                   style={{
                     flex: '1 1 260px', padding: '15px 22px', borderRadius: 50, border: '2px solid rgba(77,217,184,0.55)',
-                    background: 'rgba(255,255,255,0.06)', color: 'white', fontSize: 14, outline: 'none', backdropFilter: 'blur(6px)'
+                    background: 'rgba(255,255,255,0.06)', color: 'white', fontSize: 14, outline: 'none', backdropFilter: 'blur(6px)', maxWidth: '400px'
                   }}
                   onFocus={e => e.target.style.borderColor = '#4dd9b8'}
                   onBlur={e => e.target.style.borderColor = 'rgba(77,217,184,0.55)'}
@@ -718,7 +668,7 @@ const Home = () => {
               <a href="#" title="Facebook"><Facebook size={22} /></a>
               <a href="#" title="Instagram"><Instagram size={22} /></a>
               <a href="#" title="YouTube"><Youtube size={22} /></a>
-              <a href="#" title="Twitter" className="font-bold text-xl ml-2">X</a>
+              <a href="#" title="Twitter" className="font-bold text-xl">X</a>
             </div>
           </div>
         </footer>
