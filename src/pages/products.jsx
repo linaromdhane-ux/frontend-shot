@@ -569,6 +569,8 @@ const ProductsPage = () => {
         )}
       </div>
 
+      
+
       {/* Join our Newsletter */}
       <div className="stay-ahead-container">
         <div className="stay-ahead-overlay"></div>
