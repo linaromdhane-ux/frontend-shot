@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Heart, ShoppingCart, User, Moon, Globe, X, Trash2, ShieldCheck, Zap, Headset, Leaf, Facebook, Instagram, Youtube, Twitter } from 'lucide-react';
+import { Heart, ShoppingCart, User, Moon, Globe, X, Trash2, ShieldCheck, Zap, Headset, Leaf, Facebook, Instagram, Youtube, Twitter, Menu } from 'lucide-react';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -18,6 +18,7 @@ const Home = () => {
   const [activeCard, setActiveCard] = useState(null);
   const [btnClicked, setBtnClicked] = useState(false);
   const [hoveredProduct, setHoveredProduct] = useState(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const bannerData = [
     { text: "0% Preservatives", color: "bg-[#f39c12]", icon: <Zap size={32} strokeWidth={3} /> },
@@ -135,7 +136,12 @@ const Home = () => {
     return () => clearTimeout(timer);
   }, [handleTyping, speed]);
 
-  const closeSidebars = () => { setIsWishlistOpen(false); setIsShopOpen(false); setActiveIcon(null); };
+  const closeSidebars = () => { 
+    setIsWishlistOpen(false); 
+    setIsShopOpen(false); 
+    setActiveIcon(null); 
+    setIsMobileMenuOpen(false);
+  };
 
   const icons = [
     { id: 'moon', icon: Moon },
@@ -211,6 +217,137 @@ const Home = () => {
         .icon-box-vid:hover,.icon-box-active { background-color:white !important; color:#238d7b !important; transform:translateY(-2px); }
         .btn-signup-vid { background-color:white; color:#238d7b; font-weight:700; font-size:14px; height:42px; padding:0 25px; border-radius:50px; border:2px solid white; transition:all .3s ease; cursor:pointer; }
         .btn-signup-vid:hover { background-color:#238d7b; color:white !important; border-color:#238d7b; transform:scale(1.05); }
+        
+        /* MOBILE HEADER - SIMPLE */
+        .mobile-header {
+          display: none;
+        }
+        @media (max-width: 1023px) {
+          .mobile-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: rgba(45,75,68,.85);
+            height: 70px;
+            backdrop-filter: blur(12px);
+            padding: 0 20px;
+            border-bottom: 1px solid rgba(255,255,255,.1);
+          }
+          .desktop-nav {
+            display: none !important;
+          }
+        }
+
+        /* MOBILE MENU */
+        .mobile-menu-overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(0,0,0,0.7);
+          backdrop-filter: blur(4px);
+          z-index: 250;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          pointer-events: none;
+        }
+        .mobile-menu-overlay.open {
+          opacity: 1;
+          pointer-events: auto;
+        }
+
+        .mobile-menu {
+          position: fixed;
+          top: 0;
+          right: 0;
+          width: 280px;
+          height: 100vh;
+          background: linear-gradient(135deg, #238d7b 0%, #1a6e60 100%);
+          z-index: 300;
+          padding: 30px 20px;
+          transform: translateX(100%);
+          transition: transform 0.3s ease;
+          display: flex;
+          flex-direction: column;
+          box-shadow: -5px 0 25px rgba(0,0,0,0.3);
+        }
+        .mobile-menu.open {
+          transform: translateX(0);
+        }
+
+        .mobile-menu-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 40px;
+          padding-bottom: 20px;
+          border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        .mobile-menu-close {
+          width: 36px;
+          height: 36px;
+          background: rgba(255,255,255,0.2);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+        .mobile-menu-close:hover {
+          background: white;
+          transform: rotate(90deg);
+        }
+        .mobile-menu-close:hover svg {
+          color: #238d7b;
+        }
+
+        .mobile-menu-links {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+          flex: 1;
+        }
+        .mobile-menu-link {
+          color: white;
+          font-size: 17px;
+          font-weight: 600;
+          padding: 14px 18px;
+          border-radius: 12px;
+          background: rgba(255,255,255,0.1);
+          transition: all 0.3s ease;
+          text-decoration: none;
+          display: block;
+        }
+        .mobile-menu-link:hover {
+          background: white;
+          color: #238d7b;
+          transform: translateX(5px);
+        }
+
+        .mobile-menu-footer {
+          margin-top: 20px;
+          padding-top: 20px;
+          border-top: 1px solid rgba(255,255,255,0.2);
+        }
+        .mobile-signup-btn {
+          width: 100%;
+          background: white;
+          color: #238d7b;
+          padding: 14px;
+          border-radius: 12px;
+          font-weight: 700;
+          font-size: 16px;
+          border: none;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          text-decoration: none;
+          display: block;
+          text-align: center;
+        }
+        .mobile-signup-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
         .why-card { background:rgba(255,255,255,.85); border:1px solid rgba(255,255,255,.95); border-radius:24px; backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); box-shadow:0 4px 20px rgba(0,0,0,.06); padding:44px 28px 36px; display:flex; flex-direction:column; align-items:center; text-align:center; cursor:pointer; transition:transform .35s ease,box-shadow .35s ease,background .35s ease; }
         .why-card.active { transform:translateY(-6px) scale(1.01); box-shadow:0 24px 50px rgba(0,0,0,.18); }
         .why-icon-box { width:90px; height:90px; border-radius:22px; display:flex; align-items:center; justify-content:center; margin-bottom:28px; flex-shrink:0; transition:background .35s ease,box-shadow .35s ease; box-shadow:0 6px 18px rgba(0,0,0,.15); }
@@ -300,6 +437,44 @@ const Home = () => {
         }
       `}</style>
 
+      {/* MOBILE MENU OVERLAY */}
+      <div 
+        className={`mobile-menu-overlay ${isMobileMenuOpen ? 'open' : ''}`}
+        onClick={() => setIsMobileMenuOpen(false)}
+      />
+
+      {/* MOBILE MENU */}
+      <div className={`mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}>
+        <div className="mobile-menu-header">
+          <img src="/images/shot2.png" alt="S.HOT" style={{ height: '35px' }} />
+          <button className="mobile-menu-close" onClick={() => setIsMobileMenuOpen(false)}>
+            <X size={18} color="white" />
+          </button>
+        </div>
+
+        <div className="mobile-menu-links">
+          {navLinks.map((item) => {
+            const linkPath = item === 'Products' ? '/products' : item === 'Home' ? '/' : item === 'About us' ? '/about' : item === 'Contact' ? '/contact' : '#';
+            return (
+              <Link 
+                key={item} 
+                to={linkPath} 
+                className="mobile-menu-link"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {item}
+              </Link>
+            );
+          })}
+        </div>
+
+        <div className="mobile-menu-footer">
+          <Link to="/register" onClick={() => setIsMobileMenuOpen(false)}>
+            <div className="mobile-signup-btn">Sign Up</div>
+          </Link>
+        </div>
+      </div>
+
       {/* SIDEBAR WISHLIST */}
       <div className={`fixed top-0 right-0 h-full w-full sm:w-[400px] bg-white z-[200] shadow-[-10px_0_30px_rgba(0,0,0,0.2)] transition-transform duration-500 ease-in-out ${isWishlistOpen ? 'translate-x-0' : 'translate-x-full'}`}>
         <div className="p-8 h-full flex flex-col">
@@ -353,18 +528,41 @@ const Home = () => {
         </div>
       </div>
 
-      {(isWishlistOpen || isShopOpen) && <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[150] transition-opacity" onClick={closeSidebars} />}
+      {(isWishlistOpen || isShopOpen || isMobileMenuOpen) && <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[150] transition-opacity" onClick={closeSidebars} />}
 
       <div className={(isWishlistOpen || isShopOpen) ? "pointer-events-none select-none" : ""}>
 
         {/* HERO */}
         <header className="relative w-full min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('/images/Rectangle 39.png')" }}>
-          <div className="fixed top-0 left-0 z-[100] w-full pt-6 px-4 md:px-10 pointer-events-auto">
+          
+          {/* MOBILE HEADER - UNIQUEMENT SUR MOBILE */}
+          <div className="mobile-header fixed top-0 left-0 z-[100] w-full">
+            <Link to="/">
+              <img src="/images/shot2.png" alt="S.HOT" style={{ height: '32px' }} />
+            </Link>
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1">
+                {icons.map((item) => (
+                  <div key={item.id} onClick={() => { setActiveIcon(item.id); if(item.action) item.action(); }} className={`icon-box-vid ${activeIcon === item.id ? 'icon-box-active' : 'opacity-80'}`}>
+                    <item.icon size={18} strokeWidth={2.5} />
+                    {item.id === 'cart' && cartItems.length > 0 && <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">{cartItems.length}</span>}
+                  </div>
+                ))}
+              </div>
+              <button className="icon-box-vid" onClick={() => setIsMobileMenuOpen(true)}>
+                <Menu size={20} strokeWidth={2.5} />
+              </button>
+            </div>
+          </div>
+
+          {/* DESKTOP NAV - UNIQUEMENT SUR DESKTOP */}
+          <div className="desktop-nav fixed top-0 left-0 z-[100] w-full pt-6 px-4 md:px-10 pointer-events-auto">
             <nav className="mx-auto max-w-7xl nav-fixed-video rounded-full px-6 md:px-10 flex items-center justify-between shadow-2xl">
               <Link to="/"><div className="flex-shrink-0"><img src="/images/shot2.png" alt="S.HOT" className="h-7 md:h-9 w-auto cursor-pointer" /></div></Link>
-              <div className="hidden lg:flex items-center gap-10" onMouseLeave={() => setActiveLink(null)}>
+              
+              <div className="flex items-center gap-10" onMouseLeave={() => setActiveLink(null)}>
                 {navLinks.map((item) => {
-                  const linkPath = item === 'Products' ? '/products' : item === 'Home' ? '/' : item === 'About us' ? '/about' : '#';
+                  const linkPath = item === 'Products' ? '/products' : item === 'Home' ? '/' : item === 'About us' ? '/about' : item === 'Contact' ? '/contact' : '#';
                   return (
                     <Link key={item} to={linkPath}>
                       <button onMouseEnter={() => setActiveLink(item)} className={`nav-link-item ${activeLink === item ? 'nav-link-active' : ''}`}>{item}</button>
@@ -372,6 +570,7 @@ const Home = () => {
                   );
                 })}
               </div>
+
               <div className="flex items-center gap-2 md:gap-4">
                 <div className="flex items-center gap-1">
                   {icons.map((item) => (
@@ -635,7 +834,7 @@ Real energy. Real focus. Real results. From founders to fitness coaches, creator
               </div>
               <div className="footer-contact">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.43A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.43 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
                 </svg>
                 <span>+216 46 307 550</span>
               </div>
@@ -664,7 +863,7 @@ Real energy. Real focus. Real results. From founders to fitness coaches, creator
                 <li><a href="#">Shipping Info</a></li>
                 <li><a href="#">Returns & Exchanges</a></li>
                 <li><a href="#">Size Guide</a></li>
-                <li><a href="#">Contact Us</a></li>
+                <li><Link to="/contact"><a>Contact Us</a></Link></li>
               </ul>
             </div>
             <div className="footer-col">

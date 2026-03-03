@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Heart, ShoppingCart, User, Moon, Globe, X, Search, Facebook, Instagram, Youtube, Filter, Minus, Plus } from 'lucide-react';
+import { Heart, ShoppingCart, User, Moon, Globe, X, Search, Facebook, Instagram, Youtube, Filter, Minus, Plus, Menu } from 'lucide-react';
 
 const ProductsPage = () => {
   const navigate = useNavigate();
@@ -15,6 +15,7 @@ const ProductsPage = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [productQuantity, setProductQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState('description');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Filter states
   const [selectedCategories, setSelectedCategories] = useState([]);
@@ -159,6 +160,7 @@ const ProductsPage = () => {
     setIsShopOpen(false);
     setActiveIcon(null);
     setSelectedProduct(null);
+    setIsMobileMenuOpen(false);
   };
 
   const toggleHeart = (id) => setWishlistItems(prev => prev.filter(item => item.id !== id));
@@ -206,6 +208,136 @@ const ProductsPage = () => {
         .icon-box-vid:hover,.icon-box-active { background-color:white !important; color:#238d7b !important; transform:translateY(-2px); }
         .btn-signup-vid { background-color:white; color:#238d7b; font-weight:700; font-size:14px; height:42px; padding:0 25px; border-radius:50px; border:2px solid white; transition:all .3s ease; cursor:pointer; }
         .btn-signup-vid:hover { background-color:#238d7b; color:white !important; border-color:#238d7b; transform:scale(1.05); }
+
+        /* MOBILE HEADER */
+        .mobile-header {
+          display: none;
+        }
+        @media (max-width: 1023px) {
+          .mobile-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: rgba(45,75,68,.85);
+            height: 70px;
+            backdrop-filter: blur(12px);
+            padding: 0 20px;
+            border-bottom: 1px solid rgba(255,255,255,.1);
+          }
+          .desktop-nav {
+            display: none !important;
+          }
+        }
+
+        /* MOBILE MENU */
+        .mobile-menu-overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(0,0,0,0.7);
+          backdrop-filter: blur(4px);
+          z-index: 250;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          pointer-events: none;
+        }
+        .mobile-menu-overlay.open {
+          opacity: 1;
+          pointer-events: auto;
+        }
+
+        .mobile-menu {
+          position: fixed;
+          top: 0;
+          right: 0;
+          width: 280px;
+          height: 100vh;
+          background: linear-gradient(135deg, #238d7b 0%, #1a6e60 100%);
+          z-index: 300;
+          padding: 30px 20px;
+          transform: translateX(100%);
+          transition: transform 0.3s ease;
+          display: flex;
+          flex-direction: column;
+          box-shadow: -5px 0 25px rgba(0,0,0,0.3);
+        }
+        .mobile-menu.open {
+          transform: translateX(0);
+        }
+
+        .mobile-menu-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 40px;
+          padding-bottom: 20px;
+          border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        .mobile-menu-close {
+          width: 36px;
+          height: 36px;
+          background: rgba(255,255,255,0.2);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+        .mobile-menu-close:hover {
+          background: white;
+          transform: rotate(90deg);
+        }
+        .mobile-menu-close:hover svg {
+          color: #238d7b;
+        }
+
+        .mobile-menu-links {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+          flex: 1;
+        }
+        .mobile-menu-link {
+          color: white;
+          font-size: 17px;
+          font-weight: 600;
+          padding: 14px 18px;
+          border-radius: 12px;
+          background: rgba(255,255,255,0.1);
+          transition: all 0.3s ease;
+          text-decoration: none;
+          display: block;
+        }
+        .mobile-menu-link:hover {
+          background: white;
+          color: #238d7b;
+          transform: translateX(5px);
+        }
+
+        .mobile-menu-footer {
+          margin-top: 20px;
+          padding-top: 20px;
+          border-top: 1px solid rgba(255,255,255,0.2);
+        }
+        .mobile-signup-btn {
+          width: 100%;
+          background: white;
+          color: #238d7b;
+          padding: 14px;
+          border-radius: 12px;
+          font-weight: 700;
+          font-size: 16px;
+          border: none;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          text-decoration: none;
+          display: block;
+          text-align: center;
+        }
+        .mobile-signup-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
 
         .prod-card { background:white; border:1px solid #eef0f0; border-radius:20px; overflow:hidden; box-shadow:0 4px 18px rgba(0,0,0,.07); transition:transform .3s ease,box-shadow .3s ease; display:flex; flex-direction:column; position:relative; }
         .prod-card:hover { transform:translateY(-6px); box-shadow:0 18px 40px rgba(0,0,0,.13); }
@@ -298,6 +430,44 @@ const ProductsPage = () => {
         }
       `}</style>
 
+      {/* MOBILE MENU OVERLAY */}
+      <div 
+        className={`mobile-menu-overlay ${isMobileMenuOpen ? 'open' : ''}`}
+        onClick={() => setIsMobileMenuOpen(false)}
+      />
+
+      {/* MOBILE MENU */}
+      <div className={`mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}>
+        <div className="mobile-menu-header">
+          <img src="/images/shot2.png" alt="S.HOT" style={{ height: '35px' }} />
+          <button className="mobile-menu-close" onClick={() => setIsMobileMenuOpen(false)}>
+            <X size={18} color="white" />
+          </button>
+        </div>
+
+        <div className="mobile-menu-links">
+          {navLinks.map((item) => {
+            const linkPath = item === 'Products' ? '/products' : item === 'Home' ? '/' : item === 'About us' ? '/about' : item === 'Contact' ? '/contact' : '#';
+            return (
+              <Link 
+                key={item} 
+                to={linkPath} 
+                className="mobile-menu-link"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {item}
+              </Link>
+            );
+          })}
+        </div>
+
+        <div className="mobile-menu-footer">
+          <Link to="/register" onClick={() => setIsMobileMenuOpen(false)}>
+            <div className="mobile-signup-btn">Sign Up</div>
+          </Link>
+        </div>
+      </div>
+
       {/* SIDEBAR WISHLIST */}
       <div className={`fixed top-0 right-0 h-full w-full sm:w-[400px] bg-white z-[200] shadow-[-10px_0_30px_rgba(0,0,0,0.2)] transition-transform duration-500 ease-in-out ${isWishlistOpen ? 'translate-x-0' : 'translate-x-full'}`}>
         <div className="p-8 h-full flex flex-col">
@@ -344,15 +514,35 @@ const ProductsPage = () => {
         </div>
       </div>
 
-      {(isWishlistOpen || isShopOpen) && <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[150] transition-opacity" onClick={closeSidebars} />}
+      {(isWishlistOpen || isShopOpen || isMobileMenuOpen) && <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[150] transition-opacity" onClick={closeSidebars} />}
 
-      {/* NAVBAR */}
-      <nav className="fixed top-0 left-0 z-[100] w-full pt-6 px-4 md:px-10 pointer-events-auto">
+      {/* MOBILE HEADER */}
+      <div className="mobile-header fixed top-0 left-0 z-[100] w-full">
+        <Link to="/">
+          <img src="/images/shot2.png" alt="S.HOT" style={{ height: '32px' }} />
+        </Link>
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
+            {icons.map((item) => (
+              <div key={item.id} onClick={() => { setActiveIcon(item.id); if(item.action) item.action(); }} className={`icon-box-vid ${activeIcon === item.id ? 'icon-box-active' : 'opacity-80'}`}>
+                <item.icon size={18} strokeWidth={2.5} />
+                {item.id === 'cart' && cartItems.length > 0 && <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">{cartItems.length}</span>}
+              </div>
+            ))}
+          </div>
+          <button className="icon-box-vid" onClick={() => setIsMobileMenuOpen(true)}>
+            <Menu size={20} strokeWidth={2.5} />
+          </button>
+        </div>
+      </div>
+
+      {/* DESKTOP NAVBAR */}
+      <nav className="desktop-nav fixed top-0 left-0 z-[100] w-full pt-6 px-4 md:px-10 pointer-events-auto">
         <div className="mx-auto max-w-7xl nav-fixed-video rounded-full px-6 md:px-10 flex items-center justify-between shadow-2xl">
           <Link to="/"><div className="flex-shrink-0 cursor-pointer"><img src="/images/shot2.png" alt="S.HOT" className="h-7 md:h-9 w-auto" /></div></Link>
-          <div className="hidden lg:flex items-center gap-10">
+          <div className="flex items-center gap-10">
             {navLinks.map((item) => {
-              const linkPath = item === 'Products' ? '/products' : item === 'Home' ? '/' : item === 'About us' ? '/about' : '#';
+              const linkPath = item === 'Products' ? '/products' : item === 'Home' ? '/' : item === 'About us' ? '/about' : item === 'Contact' ? '/contact' : '#';
               return (
                 <Link key={item} to={linkPath}>
                   <button className="nav-link-item">{item}</button>
@@ -569,8 +759,6 @@ const ProductsPage = () => {
         )}
       </div>
 
-
-
       {/* Join our Newsletter */}
       <div className="stay-ahead-container">
         <div className="stay-ahead-overlay"></div>
@@ -664,7 +852,7 @@ const ProductsPage = () => {
                 <li><a href="#">Shipping Info</a></li>
                 <li><a href="#">Returns & Exchanges</a></li>
                 <li><a href="#">Size Guide</a></li>
-                <li><a href="#">Contact Us</a></li>
+                <li><Link to="/contact"><a>Contact Us</a></Link></li>
               </ul>
             </div>
             <div className="footer-col">

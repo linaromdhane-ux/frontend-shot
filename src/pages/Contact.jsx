@@ -1,0 +1,735 @@
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Heart, ShoppingCart, User, Moon, Globe, MapPin, Phone, Mail, Facebook, Instagram, Youtube, X, Menu } from 'lucide-react';
+
+const Contact = () => {
+  const [activeIcon, setActiveIcon] = useState(null);
+  const [activeLink, setActiveLink] = useState(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    surname: '',
+    email: '',
+    message: ''
+  });
+  const [subscribeEmail, setSubscribeEmail] = useState('');
+
+  const closeSidebars = () => {
+    setIsMobileMenuOpen(false);
+    setActiveIcon(null);
+  };
+
+  const icons = [
+    { id: 'moon', icon: Moon },
+    { id: 'globe', icon: Globe },
+    { id: 'heart', icon: Heart },
+    { id: 'cart', icon: ShoppingCart },
+    { id: 'user', icon: User }
+  ];
+
+  const navLinks = ['Home', 'Products', 'About us', 'Contact'];
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Form submitted:', formData);
+    // Add your form submission logic here
+  };
+
+  const handleSubscribe = () => {
+    if (subscribeEmail.trim()) {
+      console.log('Subscribed:', subscribeEmail);
+      setSubscribeEmail('');
+      // Add your subscription logic here
+    }
+  };
+
+  return (
+    <div className="relative min-h-screen w-full font-['Montserrat'] bg-white overflow-x-hidden">
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+
+        * { font-family:'Montserrat',sans-serif; }
+
+        .nav-fixed-contact { background-color:rgba(45,75,68,.85); height:75px; backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,.1); }
+        .nav-link-item { color:white; opacity:.8; font-weight:600; font-size:15px; transition:all .3s ease; cursor:pointer; }
+        .nav-link-item:hover,.nav-link-active { opacity:1; text-shadow:0 0 8px rgba(255,255,255,.5); }
+        .icon-box-contact { width:44px; height:44px; display:flex; align-items:center; justify-content:center; border-radius:14px; transition:all .2s ease; color:white; cursor:pointer; position:relative; }
+        .icon-box-contact:hover,.icon-box-active { background-color:white !important; color:#238d7b !important; transform:translateY(-2px); }
+        .btn-signup-contact { background-color:white; color:#238d7b; font-weight:700; font-size:14px; height:42px; padding:0 25px; border-radius:50px; border:2px solid white; transition:all .3s ease; cursor:pointer; }
+        .btn-signup-contact:hover { background-color:#238d7b; color:white !important; border-color:#238d7b; transform:scale(1.05); }
+
+        /* MOBILE HEADER */
+        .mobile-header {
+          display: none;
+        }
+        @media (max-width: 1023px) {
+          .mobile-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: rgba(45,75,68,.85);
+            height: 70px;
+            backdrop-filter: blur(12px);
+            padding: 0 20px;
+            border-bottom: 1px solid rgba(255,255,255,.1);
+          }
+          .desktop-nav {
+            display: none !important;
+          }
+        }
+
+        /* MOBILE MENU */
+        .mobile-menu-overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(0,0,0,0.7);
+          backdrop-filter: blur(4px);
+          z-index: 250;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          pointer-events: none;
+        }
+        .mobile-menu-overlay.open {
+          opacity: 1;
+          pointer-events: auto;
+        }
+
+        .mobile-menu {
+          position: fixed;
+          top: 0;
+          right: 0;
+          width: 280px;
+          height: 100vh;
+          background: linear-gradient(135deg, #238d7b 0%, #1a6e60 100%);
+          z-index: 300;
+          padding: 30px 20px;
+          transform: translateX(100%);
+          transition: transform 0.3s ease;
+          display: flex;
+          flex-direction: column;
+          box-shadow: -5px 0 25px rgba(0,0,0,0.3);
+        }
+        .mobile-menu.open {
+          transform: translateX(0);
+        }
+
+        .mobile-menu-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 40px;
+          padding-bottom: 20px;
+          border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        .mobile-menu-close {
+          width: 36px;
+          height: 36px;
+          background: rgba(255,255,255,0.2);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+        .mobile-menu-close:hover {
+          background: white;
+          transform: rotate(90deg);
+        }
+        .mobile-menu-close:hover svg {
+          color: #238d7b;
+        }
+
+        .mobile-menu-links {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+          flex: 1;
+        }
+        .mobile-menu-link {
+          color: white;
+          font-size: 17px;
+          font-weight: 600;
+          padding: 14px 18px;
+          border-radius: 12px;
+          background: rgba(255,255,255,0.1);
+          transition: all 0.3s ease;
+          text-decoration: none;
+          display: block;
+        }
+        .mobile-menu-link:hover {
+          background: white;
+          color: #238d7b;
+          transform: translateX(5px);
+        }
+
+        .mobile-menu-footer {
+          margin-top: 20px;
+          padding-top: 20px;
+          border-top: 1px solid rgba(255,255,255,0.2);
+        }
+        .mobile-signup-btn {
+          width: 100%;
+          background: white;
+          color: #238d7b;
+          padding: 14px;
+          border-radius: 12px;
+          font-weight: 700;
+          font-size: 16px;
+          border: none;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          text-decoration: none;
+          display: block;
+          text-align: center;
+        }
+        .mobile-signup-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .contact-hero { 
+          background-image: url('/images/7.png'); 
+          background-size: cover; 
+          background-position: center; 
+          background-repeat: no-repeat;
+          min-height: 500px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          position: relative;
+          padding-top: 120px;
+        }
+
+        .contact-hero::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: rgba(13, 74, 62, 0.3);
+          z-index: 1;
+        }
+
+        .contact-hero-content {
+          position: relative;
+          z-index: 2;
+          text-align: center;
+          color: white;
+          padding: 0 20px;
+        }
+
+        .contact-card {
+          background: white;
+          border-radius: 24px;
+          box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+          padding: 40px;
+          margin-bottom: 40px;
+        }
+
+        .contact-icon-box {
+          width: 56px;
+          height: 56px;
+          border-radius: 50%;
+          background: #16a085;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          margin-bottom: 16px;
+        }
+
+        .form-input, .form-textarea {
+          width: 100%;
+          padding: 16px 20px;
+          border: 2px solid #e5e7eb;
+          border-radius: 16px;
+          font-size: 15px;
+          font-weight: 500;
+          transition: all .3s ease;
+          outline: none;
+          font-family: 'Montserrat', sans-serif;
+        }
+
+        .form-input:focus, .form-textarea:focus {
+          border-color: #16a085;
+          box-shadow: 0 0 0 4px rgba(22,160,133,0.1);
+        }
+
+        .form-textarea {
+          min-height: 140px;
+          resize: vertical;
+        }
+
+        .btn-send {
+          width: 100%;
+          padding: 18px;
+          background: #16a085;
+          color: white;
+          border: none;
+          border-radius: 16px;
+          font-weight: 700;
+          font-size: 16px;
+          cursor: pointer;
+          transition: all .3s ease;
+        }
+
+        .btn-send:hover {
+          background: #138f76;
+          transform: translateY(-2px);
+          box-shadow: 0 8px 24px rgba(22,160,133,0.3);
+        }
+
+        .social-btn {
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all .3s ease;
+          cursor: pointer;
+        }
+
+        .social-btn:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+
+        .newsletter-section {
+          background: linear-gradient(135deg, #0d3d33 0%, #0f5a47 40%, #0d4a3a 70%, #0a3328 100%);
+          padding: 80px 40px;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .newsletter-section::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background-image: url('/images/NL_bg.png');
+          background-size: cover;
+          background-position: center;
+          opacity: 0.2;
+          z-index: 0;
+        }
+
+        .newsletter-content {
+          position: relative;
+          z-index: 10;
+        }
+
+        .newsletter-input {
+          flex: 1;
+          min-width: 280px;
+          padding: 16px 24px;
+          border-radius: 50px;
+          border: 2px solid rgba(77,217,184,0.4);
+          background: rgba(255,255,255,0.08);
+          color: white;
+          font-size: 15px;
+          outline: none;
+          backdrop-filter: blur(8px);
+          transition: all .3s ease;
+        }
+
+        .newsletter-input::placeholder {
+          color: rgba(255,255,255,0.6);
+        }
+
+        .newsletter-input:focus {
+          border-color: #4dd9b8;
+          background: rgba(255,255,255,0.12);
+        }
+
+        .btn-subscribe {
+          padding: 16px 40px;
+          border-radius: 50px;
+          background: #238d7b;
+          color: white;
+          font-weight: 700;
+          font-size: 15px;
+          border: none;
+          cursor: pointer;
+          white-space: nowrap;
+          transition: all .3s ease;
+          box-shadow: 0 6px 20px rgba(35,141,123,0.4);
+        }
+
+        .btn-subscribe:hover {
+          background: #1a6e60;
+          transform: translateY(-2px);
+          box-shadow: 0 8px 24px rgba(35,141,123,0.5);
+        }
+
+        .footer-container { background: radial-gradient(circle at top right, #1f7a6a 0%, #0d4a3e 100%); color: white; padding: 65px 0 35px; }
+        .footer-top { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 35px; max-width: 1200px; margin: 0 auto; padding: 0 35px; margin-bottom: 45px; }
+        .footer-col h3 { font-size: 15px; font-weight: 700; color: white; margin-bottom: 18px; }
+        .footer-col ul { list-style: none; padding: 0; margin: 0; }
+        .footer-col ul li { margin-bottom: 9px; }
+        .footer-col ul li a { color: rgba(255,255,255,0.72); text-decoration: none; font-size: 13px; transition: color .3s ease; cursor:pointer; font-weight:500; }
+        .footer-col ul li a:hover { color: white; }
+        .footer-logo { margin-bottom: 20px; }
+        .footer-logo img { height: 45px; width: auto; }
+        .footer-description { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.6; margin-bottom: 24px; }
+        .footer-contact { display: flex; align-items: center; gap: 12px; font-size: 13px; color: rgba(255,255,255,0.75); margin-bottom: 12px; }
+        .footer-contact svg { width: 18px; height: 18px; flex-shrink: 0; }
+        .footer-divider { border-top: 1px solid rgba(255,255,255,0.1); max-width: 1200px; margin: 0 auto; padding: 0 35px; margin-bottom: 30px; }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 35px; flex-wrap: wrap; gap: 20px; }
+        .footer-copyright { color: rgba(255,255,255,0.60); font-size: 13px; }
+        .footer-socials { display: flex; gap: 25px; }
+        .footer-socials a { color: rgba(255,255,255,0.80); cursor: pointer; transition: color .3s ease; }
+        .footer-socials a:hover { color: white; }
+
+        @media (max-width: 768px) {
+          .contact-grid { grid-template-columns: 1fr !important; }
+          .footer-top { grid-template-columns: 1fr; gap: 40px; padding: 0 30px; }
+          .footer-bottom { padding: 0 30px; justify-content: center; text-align: center; flex-direction: column; }
+        }
+      `}</style>
+
+      {/* MOBILE MENU OVERLAY */}
+      <div 
+        className={`mobile-menu-overlay ${isMobileMenuOpen ? 'open' : ''}`}
+        onClick={() => setIsMobileMenuOpen(false)}
+      />
+
+      {/* MOBILE MENU */}
+      <div className={`mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}>
+        <div className="mobile-menu-header">
+          <img src="/images/shot2.png" alt="S.HOT" style={{ height: '35px' }} />
+          <button className="mobile-menu-close" onClick={() => setIsMobileMenuOpen(false)}>
+            <X size={18} color="white" />
+          </button>
+        </div>
+
+        <div className="mobile-menu-links">
+          {navLinks.map((item) => {
+            const linkPath = item === 'Products' ? '/products' : item === 'Home' ? '/' : item === 'About us' ? '/about' : item === 'Contact' ? '/contact' : '#';
+            return (
+              <Link 
+                key={item} 
+                to={linkPath} 
+                className="mobile-menu-link"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {item}
+              </Link>
+            );
+          })}
+        </div>
+
+        <div className="mobile-menu-footer">
+          <Link to="/register" onClick={() => setIsMobileMenuOpen(false)}>
+            <div className="mobile-signup-btn">Sign Up</div>
+          </Link>
+        </div>
+      </div>
+
+      {/* MOBILE HEADER */}
+      <div className="mobile-header fixed top-0 left-0 z-[100] w-full">
+        <Link to="/">
+          <img src="/images/shot2.png" alt="S.HOT" style={{ height: '32px' }} />
+        </Link>
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
+            {icons.map((item) => (
+              <div key={item.id} onClick={() => setActiveIcon(item.id)} className={`icon-box-contact ${activeIcon === item.id ? 'icon-box-active' : 'opacity-80'}`}>
+                <item.icon size={18} strokeWidth={2.5} />
+              </div>
+            ))}
+          </div>
+          <button className="icon-box-contact" onClick={() => setIsMobileMenuOpen(true)}>
+            <Menu size={20} strokeWidth={2.5} />
+          </button>
+        </div>
+      </div>
+
+      {/* NAVIGATION DESKTOP */}
+      <div className="desktop-nav fixed top-0 left-0 z-[100] w-full pt-6 px-4 md:px-10">
+        <nav className="mx-auto max-w-7xl nav-fixed-contact rounded-full px-6 md:px-10 flex items-center justify-between shadow-2xl">
+          <Link to="/"><div className="flex-shrink-0"><img src="/images/shot2.png" alt="S.HOT" className="h-7 md:h-9 w-auto cursor-pointer" /></div></Link>
+          <div className="flex items-center gap-10" onMouseLeave={() => setActiveLink(null)}>
+            {navLinks.map((item) => {
+              const linkPath = item === 'Products' ? '/products' : item === 'Home' ? '/' : item === 'About us' ? '/about' : item === 'Contact' ? '/contact' : '#';
+              return (
+                <Link key={item} to={linkPath}>
+                  <button onMouseEnter={() => setActiveLink(item)} className={`nav-link-item ${activeLink === item ? 'nav-link-active' : ''}`}>{item}</button>
+                </Link>
+              );
+            })}
+          </div>
+          <div className="flex items-center gap-2 md:gap-4">
+            <div className="flex items-center gap-1">
+              {icons.map((item) => (
+                <div key={item.id} onClick={() => setActiveIcon(item.id)} className={`icon-box-contact ${activeIcon === item.id ? 'icon-box-active' : 'opacity-80'}`}>
+                  <item.icon size={18} strokeWidth={2.5} />
+                </div>
+              ))}
+            </div>
+            <Link to="/register"><button className="btn-signup-contact ml-1 md:ml-2 text-xs md:text-sm">Sign Up</button></Link>
+          </div>
+        </nav>
+      </div>
+
+      {(isMobileMenuOpen) && <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[150] transition-opacity" onClick={closeSidebars} />}
+
+      {/* HERO */}
+      <div className="contact-hero">
+        <div className="contact-hero-content">
+          <h1 style={{ fontSize: 'clamp(36px, 6vw, 56px)', fontWeight: 800, marginBottom: 16, letterSpacing: '-0.5px' }}>
+            Contact Us
+          </h1>
+          <p style={{ fontSize: 'clamp(16px, 2vw, 20px)', fontWeight: 500, maxWidth: 700, margin: '0 auto', opacity: 0.95 }}>
+            Contact our specialists for personalized guidance on your S.HOT journey.
+          </p>
+        </div>
+      </div>
+
+      {/* MAIN CONTENT */}
+      <div className="max-w-6xl mx-auto px-6 md:px-12 py-16 md:py-20" style={{ marginTop: '-80px', position: 'relative', zIndex: 10 }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 contact-grid">
+          
+          {/* GET IN TOUCH */}
+          <div className="contact-card">
+            <h2 style={{ fontSize: 32, fontWeight: 800, color: '#16a085', marginBottom: 12 }}>
+              Get in Touch
+            </h2>
+            <p style={{ fontSize: 15, color: '#6b7280', marginBottom: 40, lineHeight: 1.6 }}>
+              Contact us for any questions about our products or your order.
+            </p>
+
+            <div style={{ marginBottom: 32 }}>
+              <div className="contact-icon-box">
+                <MapPin size={28} strokeWidth={2.5} />
+              </div>
+              <h3 style={{ fontSize: 18, fontWeight: 700, color: '#1f2937', marginBottom: 4 }}>Office</h3>
+              <p style={{ fontSize: 15, color: '#6b7280' }}>Tunis, Tunisia</p>
+            </div>
+
+            <div style={{ marginBottom: 32 }}>
+              <div className="contact-icon-box">
+                <Phone size={28} strokeWidth={2.5} />
+              </div>
+              <h3 style={{ fontSize: 18, fontWeight: 700, color: '#1f2937', marginBottom: 4 }}>Phone</h3>
+              <p style={{ fontSize: 15, color: '#6b7280' }}>+216 46 307 550</p>
+            </div>
+
+            <div style={{ marginBottom: 40 }}>
+              <div className="contact-icon-box">
+                <Mail size={28} strokeWidth={2.5} />
+              </div>
+              <h3 style={{ fontSize: 18, fontWeight: 700, color: '#1f2937', marginBottom: 4 }}>Email</h3>
+              <p style={{ fontSize: 15, color: '#6b7280' }}>shotpremiumspirulina@gmail.com</p>
+            </div>
+
+            <div style={{ borderTop: '2px solid #e5e7eb', paddingTop: 32 }}>
+              <h3 style={{ fontSize: 18, fontWeight: 700, color: '#1f2937', marginBottom: 20 }}>
+                Follow Us on Social Media
+              </h3>
+              <div style={{ display: 'flex', gap: 12 }}>
+                <a href="#" className="social-btn" style={{ background: '#1877f2' }}>
+                  <Facebook size={24} color="white" />
+                </a>
+                <a href="#" className="social-btn" style={{ background: 'linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%)' }}>
+                  <Instagram size={24} color="white" />
+                </a>
+                <a href="#" className="social-btn" style={{ background: '#ff0000' }}>
+                  <Youtube size={24} color="white" />
+                </a>
+                <a href="#" className="social-btn" style={{ background: '#000000' }}>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* SEND MESSAGE FORM */}
+          <div className="contact-card">
+            <h2 style={{ fontSize: 32, fontWeight: 800, color: '#16a085', marginBottom: 32 }}>
+              Send Us a Message
+            </h2>
+
+            <form onSubmit={handleSubmit}>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 20 }}>
+                <div>
+                  <label style={{ display: 'block', fontSize: 14, fontWeight: 600, color: '#374151', marginBottom: 8 }}>
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    placeholder="Mark"
+                    className="form-input"
+                    required
+                  />
+                </div>
+                <div>
+                  <label style={{ display: 'block', fontSize: 14, fontWeight: 600, color: '#374151', marginBottom: 8 }}>
+                    Surname
+                  </label>
+                  <input
+                    type="text"
+                    name="surname"
+                    value={formData.surname}
+                    onChange={handleInputChange}
+                    placeholder="Nova"
+                    className="form-input"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div style={{ marginBottom: 20 }}>
+                <label style={{ display: 'block', fontSize: 14, fontWeight: 600, color: '#374151', marginBottom: 8 }}>
+                  Email
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  placeholder="mark1980@gmail.com"
+                  className="form-input"
+                  required
+                />
+              </div>
+
+              <div style={{ marginBottom: 28 }}>
+                <label style={{ display: 'block', fontSize: 14, fontWeight: 600, color: '#374151', marginBottom: 8 }}>
+                  Message
+                </label>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  placeholder="Write here..."
+                  className="form-textarea"
+                  required
+                />
+              </div>
+
+              <button type="submit" className="btn-send">
+                Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      {/* JOIN NEWSLETTER */}
+      <div style={{ background: '#f9fafb', padding: '80px 40px', textAlign: 'center' }}>
+        <h2 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: 800, color: '#16a085', marginBottom: 16 }}>
+          Join our Newsletter
+        </h2>
+      </div>
+
+      {/* NEWSLETTER */}
+      <div className="newsletter-section">
+        <div className="newsletter-content max-w-4xl mx-auto text-center">
+          <h3 style={{ color: '#4dd9b8', fontWeight: 700, fontSize: 28, marginBottom: 16 }}>
+            Stay Informed
+          </h3>
+          <p style={{ color: 'rgba(255,255,255,0.9)', fontSize: 18, lineHeight: 1.6, marginBottom: 32 }}>
+            Subscribe to our newsletter to receive health tips, special offers, and new product announcements.
+          </p>
+          <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', justifyContent: 'center', maxWidth: 600, margin: '0 auto' }}>
+            <input
+              type="email"
+              placeholder="Enter your email to subscribe"
+              value={subscribeEmail}
+              onChange={(e) => setSubscribeEmail(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleSubscribe()}
+              className="newsletter-input"
+            />
+            <button onClick={handleSubscribe} className="btn-subscribe">
+              Subscribe
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* FOOTER */}
+      <footer className="footer-container">
+        <div className="footer-top">
+          <div className="footer-col">
+            <div className="footer-logo">
+              <img src="/images/shot2.png" alt="S.HOT" />
+            </div>
+            <p className="footer-description">Premium spirulina products for your health and wellbeing. We're committed to providing the highest quality, sustainably sourced spirulina to support your wellness journey.</p>
+            <div className="footer-contact">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+              </svg>
+              <span>shotpremiumspirulina@gmail.com</span>
+            </div>
+            <div className="footer-contact">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.43 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+              <span>+216 46 307 550</span>
+            </div>
+            <div className="footer-contact">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
+              </svg>
+              <span>Tunis, Tunisia</span>
+            </div>
+          </div>
+          <div className="footer-col">
+            <h3>Shop</h3>
+            <ul>
+              <li><Link to="/products"><a>All Products</a></Link></li>
+              <li><a href="#">Spirulina Powder</a></li>
+              <li><a href="#">Spirulina Tablets</a></li>
+              <li><a href="#">Spirulina Diamonds</a></li>
+              <li><a href="#">Baby S.HOTs</a></li>
+              <li><a href="#">Bundles</a></li>
+            </ul>
+          </div>
+          <div className="footer-col">
+            <h3>Support</h3>
+            <ul>
+              <li><a href="#">FAQ</a></li>
+              <li><a href="#">Shipping Info</a></li>
+              <li><a href="#">Returns & Exchanges</a></li>
+              <li><a href="#">Size Guide</a></li>
+              <li><Link to="/contact"><a>Contact Us</a></Link></li>
+            </ul>
+          </div>
+          <div className="footer-col">
+            <h3>Legal</h3>
+            <ul>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Terms of Service</a></li>
+              <li><a href="#">Cookie Policy</a></li>
+              <li><a href="#">Accessibility</a></li>
+            </ul>
+          </div>
+        </div>
+        <div className="footer-divider"></div>
+        <div className="footer-bottom">
+          <p className="footer-copyright">© 2026 SHOT. All rights reserved.</p>
+          <div className="footer-socials">
+            <a href="#" title="Facebook"><Facebook size={22} /></a>
+            <a href="#" title="Instagram"><Instagram size={22} /></a>
+            <a href="#" title="YouTube"><Youtube size={22} /></a>
+            <a href="#" title="Twitter" className="font-bold text-xl">X</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+};
+
+export default Contact;

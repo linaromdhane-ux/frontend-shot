@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Heart, ShoppingCart, User, Moon, Globe, X, Play, Leaf, Recycle, HeartHandshake, Facebook, Instagram, Youtube } from 'lucide-react';
+import { Heart, ShoppingCart, User, Moon, Globe, X, Play, Leaf, Recycle, HeartHandshake, Facebook, Instagram, Youtube, Menu } from 'lucide-react';
 
 const AboutUs = () => {
   const navigate = useNavigate();
@@ -10,11 +10,17 @@ const AboutUs = () => {
   const [subscribeEmail, setSubscribeEmail] = useState('');
   const [showSubscribeModal, setShowSubscribeModal] = useState(false);
   const [activeValueCard, setActiveValueCard] = useState(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   const [wishlistItems, setWishlistItems] = useState([]);
   const [cartItems, setCartItems] = useState([]);
 
-  const closeSidebars = () => { setIsWishlistOpen(false); setIsShopOpen(false); setActiveIcon(null); };
+  const closeSidebars = () => { 
+    setIsWishlistOpen(false); 
+    setIsShopOpen(false); 
+    setActiveIcon(null); 
+    setIsMobileMenuOpen(false);
+  };
   const handleSubscribe = () => { if (subscribeEmail.trim()) { setShowSubscribeModal(true); setSubscribeEmail(''); } };
 
   const navLinks = ['Home', 'Products', 'About us', 'Contact'];
@@ -22,7 +28,7 @@ const AboutUs = () => {
     { id: 'moon', icon: Moon },
     { id: 'globe', icon: Globe },
     { id: 'heart', icon: Heart, action: () => { setIsWishlistOpen(true); setIsShopOpen(false); } },
-    { id: 'cart', icon: ShoppingCart, action: () => { setIsShopOpen(true); setIsShopOpen(false); } },
+    { id: 'cart', icon: ShoppingCart, action: () => { setIsShopOpen(true); setIsWishlistOpen(false); } },
     { id: 'user', icon: User }
   ];
 
@@ -101,6 +107,136 @@ const AboutUs = () => {
           .icon-box-vid:hover,.icon-box-active { background-color:white !important; color:#238d7b !important; transform:translateY(-2px); }
           .btn-signup-vid { background-color:white; color:#238d7b; font-weight:700; font-size:14px; height:42px; padding:0 25px; border-radius:50px; border:2px solid white; transition:all .3s ease; cursor:pointer; }
           .btn-signup-vid:hover { background-color:#238d7b; color:white !important; }
+
+          /* MOBILE HEADER */
+          .mobile-header {
+            display: none;
+          }
+          @media (max-width: 1023px) {
+            .mobile-header {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              background-color: rgba(45,75,68,.85);
+              height: 70px;
+              backdrop-filter: blur(12px);
+              padding: 0 20px;
+              border-bottom: 1px solid rgba(255,255,255,.1);
+            }
+            .desktop-nav {
+              display: none !important;
+            }
+          }
+
+          /* MOBILE MENU */
+          .mobile-menu-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(4px);
+            z-index: 250;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+          }
+          .mobile-menu-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+          }
+
+          .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 280px;
+            height: 100vh;
+            background: linear-gradient(135deg, #238d7b 0%, #1a6e60 100%);
+            z-index: 300;
+            padding: 30px 20px;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.3);
+          }
+          .mobile-menu.open {
+            transform: translateX(0);
+          }
+
+          .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+          }
+          .mobile-menu-close {
+            width: 36px;
+            height: 36px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+          }
+          .mobile-menu-close:hover {
+            background: white;
+            transform: rotate(90deg);
+          }
+          .mobile-menu-close:hover svg {
+            color: #238d7b;
+          }
+
+          .mobile-menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            flex: 1;
+          }
+          .mobile-menu-link {
+            color: white;
+            font-size: 17px;
+            font-weight: 600;
+            padding: 14px 18px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
+          }
+          .mobile-menu-link:hover {
+            background: white;
+            color: #238d7b;
+            transform: translateX(5px);
+          }
+
+          .mobile-menu-footer {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+          }
+          .mobile-signup-btn {
+            width: 100%;
+            background: white;
+            color: #238d7b;
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+          }
+          .mobile-signup-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+          }
 
           /* HERO CARD STYLES - VERSION PROFESSIONNELLE */
           .hero-card-container {
@@ -292,13 +428,70 @@ const AboutUs = () => {
           }
         `}</style>
 
-        {/* NAVBAR */}
-        <nav className="fixed top-0 left-0 z-[100] w-full pt-6 px-4 md:px-10 pointer-events-auto">
+        {/* MOBILE MENU OVERLAY */}
+        <div 
+          className={`mobile-menu-overlay ${isMobileMenuOpen ? 'open' : ''}`}
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+
+        {/* MOBILE MENU */}
+        <div className={`mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}>
+          <div className="mobile-menu-header">
+            <img src="/images/shot2.png" alt="S.HOT" style={{ height: '35px' }} />
+            <button className="mobile-menu-close" onClick={() => setIsMobileMenuOpen(false)}>
+              <X size={18} color="white" />
+            </button>
+          </div>
+
+          <div className="mobile-menu-links">
+            {navLinks.map((item) => {
+              const linkPath = item === 'Products' ? '/products' : item === 'Home' ? '/' : item === 'About us' ? '/about' : item === 'Contact' ? '/contact' : '#';
+              return (
+                <Link 
+                  key={item} 
+                  to={linkPath} 
+                  className="mobile-menu-link"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {item}
+                </Link>
+              );
+            })}
+          </div>
+
+          <div className="mobile-menu-footer">
+            <Link to="/register" onClick={() => setIsMobileMenuOpen(false)}>
+              <div className="mobile-signup-btn">Sign Up</div>
+            </Link>
+          </div>
+        </div>
+
+        {/* MOBILE HEADER - UNIQUEMENT SUR MOBILE */}
+        <div className="mobile-header fixed top-0 left-0 z-[100] w-full">
+          <Link to="/">
+            <img src="/images/shot2.png" alt="S.HOT" style={{ height: '32px' }} />
+          </Link>
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1">
+              {icons.map((item) => (
+                <div key={item.id} onClick={() => { setActiveIcon(item.id); if(item.action) item.action(); }} className={`icon-box-vid ${activeIcon === item.id ? 'icon-box-active' : 'opacity-80'}`}>
+                  <item.icon size={18} strokeWidth={2.5} />
+                </div>
+              ))}
+            </div>
+            <button className="icon-box-vid" onClick={() => setIsMobileMenuOpen(true)}>
+              <Menu size={20} strokeWidth={2.5} />
+            </button>
+          </div>
+        </div>
+
+        {/* NAVBAR DESKTOP - UNIQUEMENT SUR DESKTOP */}
+        <nav className="desktop-nav fixed top-0 left-0 z-[100] w-full pt-6 px-4 md:px-10 pointer-events-auto">
           <div className="mx-auto max-w-7xl nav-fixed-video rounded-full px-6 md:px-10 flex items-center justify-between shadow-2xl">
             <Link to="/"><div className="flex-shrink-0 cursor-pointer"><img src="/images/shot2.png" alt="S.HOT" className="h-7 md:h-9 w-auto" /></div></Link>
-            <div className="hidden lg:flex items-center gap-10">
+            <div className="flex items-center gap-10">
               {navLinks.map((item) => {
-                const linkPath = item === 'Products' ? '/products' : item === 'Home' ? '/' : item === 'About us' ? '/about' : '#';
+                const linkPath = item === 'Products' ? '/products' : item === 'Home' ? '/' : item === 'About us' ? '/about' : item === 'Contact' ? '/contact' : '#';
                 return (
                   <Link key={item} to={linkPath}>
                     <button className="nav-link-item">{item}</button>
@@ -335,7 +528,7 @@ const AboutUs = () => {
             <div className="hero-overlay"></div>
             <div className="hero-content">
               <div className="hero-logo-wrapper">
-                <img src="/images/p10.png" alt="S.HOT" className="hero-logo-img" />
+                <img src="/images/1.png" alt="S.HOT" className="hero-logo-img" />
               </div>
               <div className="hero-divider"></div>
               <div className="hero-text-wrapper">
@@ -487,7 +680,7 @@ const AboutUs = () => {
               </div>
               <div className="footer-contact">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.43A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.43 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
                 </svg>
                 <span>+216 46 307 550</span>
               </div>
@@ -516,7 +709,7 @@ const AboutUs = () => {
                 <li><a href="#">Shipping Info</a></li>
                 <li><a href="#">Returns & Exchanges</a></li>
                 <li><a href="#">Size Guide</a></li>
-                <li><a href="#">Contact Us</a></li>
+                <li><Link to="/contact"><a>Contact Us</a></Link></li>
               </ul>
             </div>
             <div className="footer-col">

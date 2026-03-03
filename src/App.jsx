@@ -14,6 +14,7 @@ import PasswordChanged from './pages/PasswordChanged';
 import Products from './pages/products';
 import ProductDetails from './pages/ProductDetails';
 import AboutUs from './pages/AboutUs';
+import Contact from './pages/Contact';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route path="/products" element={<Products />} />
         <Route path="/product/:productId" element={<ProductDetails />} />
         <Route path="/about" element={<AboutUs />} />
+        <Route path="/contact" element={<Contact />} />
         
         {/* Authentication routes */}
         <Route path="/register" element={<Register />} />
