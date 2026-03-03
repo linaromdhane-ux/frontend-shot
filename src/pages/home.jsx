@@ -148,20 +148,20 @@ const Home = () => {
 
   const whyCards = [
     {
-      id: 0, title: "Eco-Friendly Spirulina Production",
-      description: "Our spirulina is sustainably sourced to promote both your health and the health of the environment.",
+      id: 0, title: "Sustainably Crafted ",
+      description: "Eco-responsible production with zero compromise on purity or potency..",
       activeColor: "#16a085", iconBg: "#16a085",
       icon: (<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>),
     },
     {
-      id: 1, title: "Spirulina for Energy and Immune Support",
-      description: "Packed with essential nutrients, our spirulina supports your energy, immune system, and overall wellness.",
+      id: 1, title: "Clean Energy & Immunity Boost",
+      description: "Rich in protein, iron, antioxidants, and essential nutrients to support endurance and immune strength.s.",
       activeColor: "#a855f7", iconBg: "#a855f7",
       icon: (<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>),
     },
     {
-      id: 2, title: "Pure and Natural Spirulina Supplement",
-      description: "100% natural, pesticide-free, and GMO-free spirulina for optimal health and vitality.",
+      id: 2, title: "Pure. Potent. Transparent.",
+      description: "No additives. No fillers. Just premium spirulina in its most powerful form.",
       activeColor: "#f39c12", iconBg: "#f39c12",
       icon: (<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" y1="20" x2="20" y2="4"/><path d="M8.5 8.5L4 4"/><path d="M15.5 15.5L20 20"/><path d="M4 20l4-4"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="18" r="2"/></svg>),
     },
@@ -258,8 +258,8 @@ const Home = () => {
           background-repeat: no-repeat; 
           background-attachment: fixed; 
           position: relative; 
-          padding: 80px 40px; 
-          margin-top: 40px; 
+          padding: 60px 40px; 
+          margin-top: 0px; 
         }
         .stay-ahead-overlay { position: absolute; inset: 0; background: transparent; }
         .stay-ahead-content { position: relative; z-index: 10; text-align: center; }
@@ -392,8 +392,8 @@ const Home = () => {
               <span className="text-[10px] md:text-[12px] font-bold uppercase tracking-[0.2em] opacity-90">Experience the Power of Spirulina</span>
             </div>
             <h1 className="text-4xl md:text-7xl font-black leading-[1.1]">
-              Premium <br /> Spirulina Supplement <br />
-              For <span className="text-[#238d7b] font-kemangi text-6xl md:text-9xl ml-2 md:ml-4 inline-block">
+              Spirulina Excellence <br /> 
+              For Elevated <span className="text-[#238d7b] font-kemangi text-6xl md:text-9xl ml-2 md:ml-4 inline-block">
                 {displayText}<span className="animate-pulse text-white/50 font-sans text-3xl md:text-5xl ml-1">|</span>
               </span>
             </h1>
@@ -439,7 +439,7 @@ const Home = () => {
           <div className="py-24 md:py-28 px-6 md:px-12">
             <div className="max-w-5xl mx-auto text-center">
               <h2 className="text-[32px] md:text-[46px] gradient-title mb-5 leading-tight">
-                Why Should You Choose S.HOT ?
+                Why choose SHOT ?
               </h2>
               <p className="text-gray-500 text-base md:text-[17px] max-w-2xl mx-auto mb-16 leading-relaxed font-medium">
                 Our premium spirulina is carefully cultivated, processed, and tested to ensure the highest nutritional value and health benefits for you and your family.
@@ -476,7 +476,7 @@ const Home = () => {
                 Our Premium Products
               </h2>
               <p className="text-gray-500 text-base md:text-[17px] mb-10 leading-relaxed font-medium">
-                Discover our most popular spirulina products for your health and wellness.
+              Choose your format. Experience the same uncompromising quality..
               </p>
               <Link to="/products">
                 <button
@@ -539,14 +539,13 @@ const Home = () => {
           </div>
 
           {/* THEY CHOOSE SHOT */}
-          <div className="pb-32 px-8 md:px-12">
+          <div className="pb-16 px-8 md:px-12">
             <div className="max-w-7xl mx-auto">
               <h2 className="text-[30px] md:text-[46px] gradient-title text-center mb-4 leading-tight">
-                They Choose SHOT
+                S.HOT
               </h2>
               <p className="text-gray-700 text-base md:text-[16px] text-center max-w-3xl mx-auto mb-16 leading-relaxed font-medium">
-                Real energy, captured on camera. See how top influencers fuel their daily hustle and maintain peak performance with S.HOT spirulina.
-              </p>
+Real energy. Real focus. Real results. From founders to fitness coaches, creators to athletes, S.HOT powers ambitious lifestyles.              </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-6 md:gap-5">
                 {influencers.map((person, i) => (
                   <div key={i} className="vid-placeholder">
@@ -574,7 +573,7 @@ const Home = () => {
           <div className="stay-ahead-container">
             <div className="stay-ahead-overlay"></div>
             <div className="stay-ahead-content max-w-7xl mx-auto px-6 md:px-12">
-              <h2 className="stay-ahead-title">Join our Newsletter</h2>
+              <h2 className="stay-ahead-title">Join the S.HOT Community</h2>
             </div>
           </div>
 
@@ -636,7 +635,7 @@ const Home = () => {
               </div>
               <div className="footer-contact">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.43 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.43A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
                 </svg>
                 <span>+216 46 307 550</span>
               </div>

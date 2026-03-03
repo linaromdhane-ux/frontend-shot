@@ -73,7 +73,7 @@ const AboutUs = () => {
 
   return (
     <div className="relative min-h-screen w-full font-['Montserrat'] overflow-x-hidden">
-      {/* BACKGROUND IMAGE SIGN UP */}
+      {/* BACKGROUND IMAGE SIGN UP POUR TOUTE LA PAGE */}
       <div 
         className="fixed inset-0 z-0"
         style={{
@@ -142,10 +142,11 @@ const AboutUs = () => {
             display: flex;
             justify-content: center;
             align-items: center;
+            margin-left: -5mm;
           }
           
           .hero-logo-img {
-            height: 95px;
+            height: 60px;
             width: auto;
             display: block;
             filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
@@ -245,6 +246,15 @@ const AboutUs = () => {
           .play-btn { width: 80px; height: 80px; border-radius: 50%; background: #f59e0b; display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; transition: transform 0.2s; }
           .play-btn:hover { transform: scale(1.1); }
 
+          .stay-ahead-container { 
+            position: relative; 
+            padding: 50px 40px; 
+            margin-top: 0px; 
+          }
+          .stay-ahead-overlay { position: absolute; inset: 0; background: transparent; }
+          .stay-ahead-content { position: relative; z-index: 10; text-align: center; }
+          .stay-ahead-title { font-size: clamp(24px, 5vw, 48px); font-weight: 800; letter-spacing: -0.5px; line-height: 1.2; color: #0d4a3e; }
+
           .footer-container { background: radial-gradient(circle at top right, #1f7a6a 0%, #0d4a3e 100%); color: white; padding: 65px 0 35px; }
           .footer-top { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 35px; max-width: 1200px; margin: 0 auto; padding: 0 35px; margin-bottom: 45px; }
           .footer-col h3 { font-size: 15px; font-weight: 700; color: white; margin-bottom: 18px; }
@@ -267,7 +277,7 @@ const AboutUs = () => {
           @media (max-width: 1024px) {
             .hero-content { gap: 35px; width: 90%; }
             .hero-text-p { font-size: 17px; }
-            .hero-logo-img { height: 75px; }
+            .hero-logo-img { height: 52px; }
             .hero-divider { height: 110px; }
           }
 
@@ -275,7 +285,8 @@ const AboutUs = () => {
             .hero-card-container { height: auto; padding: 50px 0; }
             .hero-content { flex-direction: column; text-align: center; gap: 25px; }
             .hero-divider { width: 70px; height: 2px; } 
-            .hero-logo-img { height: 65px; }
+            .hero-logo-wrapper { margin-left: 0; }
+            .hero-logo-img { height: 48px; }
             .hero-text-wrapper { text-align: center; }
             .hero-text-p { font-size: 16px; text-align: center; }
           }
@@ -324,7 +335,7 @@ const AboutUs = () => {
             <div className="hero-overlay"></div>
             <div className="hero-content">
               <div className="hero-logo-wrapper">
-                <img src="/images/shot2.png" alt="S.HOT" className="hero-logo-img" />
+                <img src="/images/p10.png" alt="S.HOT" className="hero-logo-img" />
               </div>
               <div className="hero-divider"></div>
               <div className="hero-text-wrapper">
@@ -385,7 +396,7 @@ const AboutUs = () => {
           </div>
 
           {/* SECTION 5: WHAT PEOPLE SAY */}
-          <div className="text-center mb-12 max-w-7xl mx-auto">
+          <div className="text-center mb-4 max-w-7xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-[#0f766e] mb-4">What People Say</h2>
             <p className="text-gray-600 mb-12 font-medium">Discover the life-changing vitality and health benefits shared by our loyal customers.</p>
             
@@ -410,6 +421,14 @@ const AboutUs = () => {
             </div>
           </div>
 
+        </div>
+
+        {/* JOIN OUR NEWSLETTER */}
+        <div className="stay-ahead-container">
+          <div className="stay-ahead-overlay"></div>
+          <div className="stay-ahead-content max-w-7xl mx-auto px-6 md:px-12">
+            <h2 className="stay-ahead-title">Join our Newsletter</h2>
+          </div>
         </div>
 
         {/* NEWSLETTER FORM */}
@@ -468,7 +487,7 @@ const AboutUs = () => {
               </div>
               <div className="footer-contact">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.43 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.43A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
                 </svg>
                 <span>+216 46 307 550</span>
               </div>
