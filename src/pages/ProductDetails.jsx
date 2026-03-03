@@ -493,7 +493,7 @@ const ProductDetails = () => {
           <Link to="/"><div className="flex-shrink-0 cursor-pointer"><img src="/images/shot2.png" alt="S.HOT" className="h-7 md:h-9 w-auto" /></div></Link>
           <div className="hidden lg:flex items-center gap-10">
             {navLinks.map((item) => {
-              const linkPath = item === 'Products' ? '/products' : item === 'Home' ? '/' : '#';
+              const linkPath = item === 'Products' ? '/products' : item === 'Home' ? '/' : item === 'About us' ? '/about' : '#';
               return (
                 <Link key={item} to={linkPath}>
                   <button className="nav-link-item">{item}</button>

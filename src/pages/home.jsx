@@ -4,7 +4,7 @@ import { Heart, ShoppingCart, User, Moon, Globe, X, Trash2, ShieldCheck, Zap, He
 
 const Home = () => {
   const navigate = useNavigate();
-  const words = ["Health", "Energy"];
+  const words = ["wellness"];
   const [index, setIndex] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
