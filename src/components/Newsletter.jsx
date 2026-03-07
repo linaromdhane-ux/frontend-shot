@@ -17,8 +17,7 @@ const Newsletter = ({ onSubscribe }) => {
         <div className="max-w-2xl mx-auto text-center">
           <h3 style={{ color: '#4dd9b8', fontWeight: 700, fontSize: 30, marginBottom: 24, textAlign: 'center' }}>Stay Informed</h3>
           <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: 20, lineHeight: 1.7, marginBottom: 15, textAlign: 'center' }}>
-            Subscribe to our newsletter to receive health tips, special offers, and new product announcements.
-          </p>
+Get wellness insights, exclusive offers, and science-backed nutrition tips delivered to your inbox.          </p>
           <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', justifyContent: 'center' }}>
             <input
               type="email"
