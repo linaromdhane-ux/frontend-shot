@@ -1,9 +1,17 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Heart, ShoppingCart, User, Moon, Globe, X, Play, Leaf, Recycle, HeartHandshake, Facebook, Instagram, Youtube, Menu } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Play, Leaf, Recycle, HeartHandshake } from 'lucide-react';
+
+// Import des components - CHEMINS CORRIGÉS
+import Navbar from '../components/Navbar';
+import MobileMenu from '../components/MobileMenu';
+import WishlistSidebar from '../components/WishlistSidebar';
+import ShopSidebar from '../components/ShopSidebar';
+import Newsletter from '../components/Newsletter';
+import Footer from '../components/Footer';
+import SubscribeModal from '../components/SubscribeModal';
 
 const AboutUs = () => {
-  const navigate = useNavigate();
   const [activeIcon, setActiveIcon] = useState(null);
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
   const [isShopOpen, setIsShopOpen] = useState(false);
@@ -11,6 +19,7 @@ const AboutUs = () => {
   const [showSubscribeModal, setShowSubscribeModal] = useState(false);
   const [activeValueCard, setActiveValueCard] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isClearing, setIsClearing] = useState(false);
   
   const [wishlistItems, setWishlistItems] = useState([]);
   const [cartItems, setCartItems] = useState([]);
@@ -21,16 +30,38 @@ const AboutUs = () => {
     setActiveIcon(null); 
     setIsMobileMenuOpen(false);
   };
-  const handleSubscribe = () => { if (subscribeEmail.trim()) { setShowSubscribeModal(true); setSubscribeEmail(''); } };
 
-  const navLinks = ['Home', 'Products', 'About us', 'Contact'];
-  const icons = [
-    { id: 'moon', icon: Moon },
-    { id: 'globe', icon: Globe },
-    { id: 'heart', icon: Heart, action: () => { setIsWishlistOpen(true); setIsShopOpen(false); } },
-    { id: 'cart', icon: ShoppingCart, action: () => { setIsShopOpen(true); setIsWishlistOpen(false); } },
-    { id: 'user', icon: User }
-  ];
+  const handleIconClick = (type) => {
+    setActiveIcon(type);
+    if (type === 'wishlist') {
+      setIsWishlistOpen(true);
+      setIsShopOpen(false);
+    } else if (type === 'cart') {
+      setIsShopOpen(true);
+      setIsWishlistOpen(false);
+    }
+  };
+
+  const handleSubscribe = () => { 
+    if (subscribeEmail.trim()) { 
+      setShowSubscribeModal(true); 
+      setSubscribeEmail(''); 
+    } 
+  };
+
+  const toggleHeart = (id) => setWishlistItems(prev => prev.filter(item => item.id !== id));
+  
+  const addToShop = (item) => {
+    if (!cartItems.find(i => i.id === item.id)) setCartItems(prev => [...prev, item]);
+    setIsShopOpen(true);
+    setIsWishlistOpen(false);
+  };
+
+  const clearAllWishlist = () => {
+    if (wishlistItems.length === 0) return;
+    setIsClearing(true);
+    setTimeout(() => { setWishlistItems([]); setIsClearing(false); }, 600);
+  };
 
   const values = [
     {
@@ -108,137 +139,27 @@ const AboutUs = () => {
           .btn-signup-vid { background-color:white; color:#238d7b; font-weight:700; font-size:14px; height:42px; padding:0 25px; border-radius:50px; border:2px solid white; transition:all .3s ease; cursor:pointer; }
           .btn-signup-vid:hover { background-color:#238d7b; color:white !important; }
 
-          /* MOBILE HEADER */
-          .mobile-header {
-            display: none;
-          }
+          .mobile-header { display: none; }
           @media (max-width: 1023px) {
-            .mobile-header {
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-              background-color: rgba(45,75,68,.85);
-              height: 70px;
-              backdrop-filter: blur(12px);
-              padding: 0 20px;
-              border-bottom: 1px solid rgba(255,255,255,.1);
-            }
-            .desktop-nav {
-              display: none !important;
-            }
+            .mobile-header { display: flex; align-items: center; justify-content: space-between; background-color: rgba(45,75,68,.85); height: 70px; backdrop-filter: blur(12px); padding: 0 20px; border-bottom: 1px solid rgba(255,255,255,.1); }
+            .desktop-nav { display: none !important; }
           }
 
-          /* MOBILE MENU */
-          .mobile-menu-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(4px);
-            z-index: 250;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-          }
-          .mobile-menu-overlay.open {
-            opacity: 1;
-            pointer-events: auto;
-          }
+          .mobile-menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); z-index: 250; opacity: 0; transition: opacity 0.3s ease; pointer-events: none; }
+          .mobile-menu-overlay.open { opacity: 1; pointer-events: auto; }
+          .mobile-menu { position: fixed; top: 0; right: 0; width: 280px; height: 100vh; background: linear-gradient(135deg, #238d7b 0%, #1a6e60 100%); z-index: 300; padding: 30px 20px; transform: translateX(100%); transition: transform 0.3s ease; display: flex; flex-direction: column; box-shadow: -5px 0 25px rgba(0,0,0,0.3); }
+          .mobile-menu.open { transform: translateX(0); }
+          .mobile-menu-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.2); }
+          .mobile-menu-close { width: 36px; height: 36px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; }
+          .mobile-menu-close:hover { background: white; transform: rotate(90deg); }
+          .mobile-menu-close:hover svg { color: #238d7b; }
+          .mobile-menu-links { display: flex; flex-direction: column; gap: 5px; flex: 1; }
+          .mobile-menu-link { color: white; font-size: 17px; font-weight: 600; padding: 14px 18px; border-radius: 12px; background: rgba(255,255,255,0.1); transition: all 0.3s ease; text-decoration: none; display: block; }
+          .mobile-menu-link:hover { background: white; color: #238d7b; transform: translateX(5px); }
+          .mobile-menu-footer { margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); }
+          .mobile-signup-btn { width: 100%; background: white; color: #238d7b; padding: 14px; border-radius: 12px; font-weight: 700; font-size: 16px; border: none; cursor: pointer; transition: all 0.3s ease; text-decoration: none; display: block; text-align: center; }
+          .mobile-signup-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
 
-          .mobile-menu {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 280px;
-            height: 100vh;
-            background: linear-gradient(135deg, #238d7b 0%, #1a6e60 100%);
-            z-index: 300;
-            padding: 30px 20px;
-            transform: translateX(100%);
-            transition: transform 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            box-shadow: -5px 0 25px rgba(0,0,0,0.3);
-          }
-          .mobile-menu.open {
-            transform: translateX(0);
-          }
-
-          .mobile-menu-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 40px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(255,255,255,0.2);
-          }
-          .mobile-menu-close {
-            width: 36px;
-            height: 36px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-          }
-          .mobile-menu-close:hover {
-            background: white;
-            transform: rotate(90deg);
-          }
-          .mobile-menu-close:hover svg {
-            color: #238d7b;
-          }
-
-          .mobile-menu-links {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            flex: 1;
-          }
-          .mobile-menu-link {
-            color: white;
-            font-size: 17px;
-            font-weight: 600;
-            padding: 14px 18px;
-            border-radius: 12px;
-            background: rgba(255,255,255,0.1);
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: block;
-          }
-          .mobile-menu-link:hover {
-            background: white;
-            color: #238d7b;
-            transform: translateX(5px);
-          }
-
-          .mobile-menu-footer {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.2);
-          }
-          .mobile-signup-btn {
-            width: 100%;
-            background: white;
-            color: #238d7b;
-            padding: 14px;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 16px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: block;
-            text-align: center;
-          }
-          .mobile-signup-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-          }
-
-          /* HERO CARD STYLES - VERSION PROFESSIONNELLE */
           .hero-card-container {
             width: 100%;
             max-width: 1440px;
@@ -382,11 +303,7 @@ const AboutUs = () => {
           .play-btn { width: 80px; height: 80px; border-radius: 50%; background: #f59e0b; display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; transition: transform 0.2s; }
           .play-btn:hover { transform: scale(1.1); }
 
-          .stay-ahead-container { 
-            position: relative; 
-            padding: 50px 40px; 
-            margin-top: 0px; 
-          }
+          .stay-ahead-container { position: relative; padding: 50px 40px; margin-top: 0px; }
           .stay-ahead-overlay { position: absolute; inset: 0; background: transparent; }
           .stay-ahead-content { position: relative; z-index: 10; text-align: center; }
           .stay-ahead-title { font-size: clamp(24px, 5vw, 48px); font-weight: 800; letter-spacing: -0.5px; line-height: 1.2; color: #0d4a3e; }
@@ -428,89 +345,38 @@ const AboutUs = () => {
           }
         `}</style>
 
-        {/* MOBILE MENU OVERLAY */}
-        <div 
-          className={`mobile-menu-overlay ${isMobileMenuOpen ? 'open' : ''}`}
-          onClick={() => setIsMobileMenuOpen(false)}
+        {/* NAVBAR */}
+        <Navbar 
+          cartCount={cartItems.length}
+          wishlistCount={wishlistItems.length}
+          onIconClick={handleIconClick}
+          onMenuToggle={() => setIsMobileMenuOpen(true)}
+          activeIcon={activeIcon}
         />
 
         {/* MOBILE MENU */}
-        <div className={`mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}>
-          <div className="mobile-menu-header">
-            <img src="/images/shot2.png" alt="S.HOT" style={{ height: '35px' }} />
-            <button className="mobile-menu-close" onClick={() => setIsMobileMenuOpen(false)}>
-              <X size={18} color="white" />
-            </button>
-          </div>
+        <MobileMenu 
+          isOpen={isMobileMenuOpen}
+          onClose={() => setIsMobileMenuOpen(false)}
+        />
 
-          <div className="mobile-menu-links">
-            {navLinks.map((item) => {
-              const linkPath = item === 'Products' ? '/products' : item === 'Home' ? '/' : item === 'About us' ? '/about' : item === 'Contact' ? '/contact' : '#';
-              return (
-                <Link 
-                  key={item} 
-                  to={linkPath} 
-                  className="mobile-menu-link"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {item}
-                </Link>
-              );
-            })}
-          </div>
+        {/* WISHLIST SIDEBAR */}
+        <WishlistSidebar 
+          isOpen={isWishlistOpen}
+          items={wishlistItems}
+          onClose={closeSidebars}
+          onToggleHeart={toggleHeart}
+          onAddToShop={addToShop}
+          isClearing={isClearing}
+          onClearAll={clearAllWishlist}
+        />
 
-          <div className="mobile-menu-footer">
-            <Link to="/register" onClick={() => setIsMobileMenuOpen(false)}>
-              <div className="mobile-signup-btn">Sign Up</div>
-            </Link>
-          </div>
-        </div>
-
-        {/* MOBILE HEADER - UNIQUEMENT SUR MOBILE */}
-        <div className="mobile-header fixed top-0 left-0 z-[100] w-full">
-          <Link to="/">
-            <img src="/images/shot2.png" alt="S.HOT" style={{ height: '32px' }} />
-          </Link>
-          <div className="flex items-center gap-2">
-            <div className="flex items-center gap-1">
-              {icons.map((item) => (
-                <div key={item.id} onClick={() => { setActiveIcon(item.id); if(item.action) item.action(); }} className={`icon-box-vid ${activeIcon === item.id ? 'icon-box-active' : 'opacity-80'}`}>
-                  <item.icon size={18} strokeWidth={2.5} />
-                </div>
-              ))}
-            </div>
-            <button className="icon-box-vid" onClick={() => setIsMobileMenuOpen(true)}>
-              <Menu size={20} strokeWidth={2.5} />
-            </button>
-          </div>
-        </div>
-
-        {/* NAVBAR DESKTOP - UNIQUEMENT SUR DESKTOP */}
-        <nav className="desktop-nav fixed top-0 left-0 z-[100] w-full pt-6 px-4 md:px-10 pointer-events-auto">
-          <div className="mx-auto max-w-7xl nav-fixed-video rounded-full px-6 md:px-10 flex items-center justify-between shadow-2xl">
-            <Link to="/"><div className="flex-shrink-0 cursor-pointer"><img src="/images/shot2.png" alt="S.HOT" className="h-7 md:h-9 w-auto" /></div></Link>
-            <div className="flex items-center gap-10">
-              {navLinks.map((item) => {
-                const linkPath = item === 'Products' ? '/products' : item === 'Home' ? '/' : item === 'About us' ? '/about' : item === 'Contact' ? '/contact' : '#';
-                return (
-                  <Link key={item} to={linkPath}>
-                    <button className="nav-link-item">{item}</button>
-                  </Link>
-                );
-              })}
-            </div>
-            <div className="flex items-center gap-2 md:gap-4">
-              <div className="flex items-center gap-1">
-                {icons.map((item) => (
-                  <div key={item.id} onClick={() => { setActiveIcon(item.id); if(item.action) item.action(); }} className={`icon-box-vid ${activeIcon === item.id ? 'icon-box-active' : 'opacity-80'}`}>
-                    <item.icon size={18} strokeWidth={2.5} />
-                  </div>
-                ))}
-              </div>
-              <Link to="/register"><button className="btn-signup-vid ml-1 md:ml-2 text-xs md:text-sm">Sign Up</button></Link>
-            </div>
-          </div>
-        </nav>
+        {/* SHOP SIDEBAR */}
+        <ShopSidebar 
+          isOpen={isShopOpen}
+          items={cartItems}
+          onClose={closeSidebars}
+        />
 
         {/* MAIN CONTENT */}
         <div className="pt-32 pb-16 px-4 md:px-6 w-[98%] max-w-[1600px] mx-auto">
@@ -624,137 +490,21 @@ const AboutUs = () => {
           </div>
         </div>
 
-        {/* NEWSLETTER FORM */}
-        <div style={{ background: 'linear-gradient(135deg, #0d3d33 0%, #0f5a47 40%, #0d4a3a 70%, #0a3328 100%)', backgroundImage: "url('/images/NL_bg.png')", backgroundSize: 'cover', backgroundPosition: 'center', backgroundBlendMode: 'overlay', position: 'relative', overflow: 'hidden' }}>
-          <div style={{ position: 'absolute', right: 0, top: 0, bottom: 0, width: '100%', backgroundImage: "url('/images/NL_bg.png')", backgroundSize: 'cover', backgroundPosition: 'center', opacity: 0.3, zIndex: 0 }} />
-          <div className="relative z-10 max-w-6xl mx-auto px-8 md:px-16 py-16 md:py-20">
-            <div className="max-w-2xl mx-auto text-center">
-              <h3 style={{ color: '#4dd9b8', fontWeight: 700, fontSize: 30, marginBottom: 24 }}>Stay Informed</h3>
-              <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: 20, lineHeight: 1.7, marginBottom: 15 }}>
-                Subscribe to our newsletter to receive health tips, special offers, and new product announcements.
-              </p>
-              <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', justifyContent: 'center' }}>
-                <input
-                  type="email"
-                  placeholder="Enter your email to subscribe"
-                  value={subscribeEmail}
-                  onChange={e => setSubscribeEmail(e.target.value)}
-                  onKeyDown={e => e.key === 'Enter' && handleSubscribe()}
-                  style={{
-                    flex: '1 1 260px', padding: '15px 22px', borderRadius: 50, border: '2px solid rgba(77,217,184,0.55)',
-                    background: 'rgba(255,255,255,0.06)', color: 'white', fontSize: 14, outline: 'none', backdropFilter: 'blur(6px)', maxWidth: '400px'
-                  }}
-                  onFocus={e => e.target.style.borderColor = '#4dd9b8'}
-                  onBlur={e => e.target.style.borderColor = 'rgba(77,217,184,0.55)'}
-                />
-                <button
-                  onClick={handleSubscribe}
-                  style={{
-                    padding: '15px 34px', borderRadius: 50, background: '#238d7b', color: 'white', fontWeight: 700, fontSize: 15,
-                    border: 'none', cursor: 'pointer', whiteSpace: 'nowrap', transition: 'background .2s ease, transform .15s ease',
-                    boxShadow: '0 6px 20px rgba(35,141,123,0.45)'
-                  }}
-                  onMouseEnter={e => { e.currentTarget.style.background = '#1a6e60'; e.currentTarget.style.transform = 'translateY(-1px)'; }}
-                  onMouseLeave={e => { e.currentTarget.style.background = '#238d7b'; e.currentTarget.style.transform = 'translateY(0)'; }}
-                >
-                  Subscribe
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        {/* NEWSLETTER */}
+        <Newsletter 
+          subscribeEmail={subscribeEmail}
+          onEmailChange={(e) => setSubscribeEmail(e.target.value)}
+          onSubscribe={handleSubscribe}
+        />
 
         {/* FOOTER */}
-        <footer className="footer-container">
-          <div className="footer-top">
-            <div className="footer-col">
-              <div className="footer-logo">
-                <img src="/images/shot2.png" alt="S.HOT" />
-              </div>
-              <p className="footer-description">Premium spirulina products for your health and wellbeing. We're committed to providing the highest quality, sustainably sourced spirulina to support your wellness journey.</p>
-              <div className="footer-contact">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-                </svg>
-                <span>shotpremiumspirulina@gmail.com</span>
-              </div>
-              <div className="footer-contact">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.43 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
-                </svg>
-                <span>+216 46 307 550</span>
-              </div>
-              <div className="footer-contact">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
-                </svg>
-                <span>Tunis, Tunisia</span>
-              </div>
-            </div>
-            <div className="footer-col">
-              <h3>Shop</h3>
-              <ul>
-                <li><Link to="/products"><a>All Products</a></Link></li>
-                <li><a href="#">Spirulina Powder</a></li>
-                <li><a href="#">Spirulina Tablets</a></li>
-                <li><a href="#">Spirulina Diamonds</a></li>
-                <li><a href="#">Baby S.HOTs</a></li>
-                <li><a href="#">Bundles</a></li>
-              </ul>
-            </div>
-            <div className="footer-col">
-              <h3>Support</h3>
-              <ul>
-                <li><a href="#">FAQ</a></li>
-                <li><a href="#">Shipping Info</a></li>
-                <li><a href="#">Returns & Exchanges</a></li>
-                <li><a href="#">Size Guide</a></li>
-                <li><Link to="/contact"><a>Contact Us</a></Link></li>
-              </ul>
-            </div>
-            <div className="footer-col">
-              <h3>Legal</h3>
-              <ul>
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">Terms of Service</a></li>
-                <li><a href="#">Cookie Policy</a></li>
-                <li><a href="#">Accessibility</a></li>
-              </ul>
-            </div>
-          </div>
-          <div className="footer-divider"></div>
-          <div className="footer-bottom">
-            <p className="footer-copyright">© 2026 SHOT. All rights reserved.</p>
-            <div className="footer-socials">
-              <a href="#" title="Facebook"><Facebook size={22} /></a>
-              <a href="#" title="Instagram"><Instagram size={22} /></a>
-              <a href="#" title="YouTube"><Youtube size={22} /></a>
-              <a href="#" title="Twitter" className="font-bold text-xl">X</a>
-            </div>
-          </div>
-        </footer>
+        <Footer />
 
         {/* SUBSCRIBE MODAL */}
-        {showSubscribeModal && (
-          <div style={{ position: 'fixed', inset: 0, zIndex: 999, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}
-            onClick={() => setShowSubscribeModal(false)}>
-            <div style={{ background: 'white', borderRadius: 24, padding: '52px 40px 44px', maxWidth: 420, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', boxShadow: '0 24px 60px rgba(0,0,0,0.25)' }}
-              onClick={e => e.stopPropagation()}>
-              <div style={{ width: 90, height: 90, borderRadius: '50%', border: '3px solid #238d7b', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 28 }}>
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#238d7b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg>
-              </div>
-              <h3 style={{ fontWeight: 800, fontSize: 22, color: '#111827', marginBottom: 12 }}>Thank You!</h3>
-              <p style={{ color: '#6b7280', fontSize: 15, lineHeight: 1.6, marginBottom: 36 }}>Please check your inbox to confirm your subscription.</p>
-              <button onClick={() => setShowSubscribeModal(false)} style={{ width: '100%', padding: '16px', borderRadius: 50, background: '#238d7b', color: 'white', fontWeight: 700, fontSize: 16, border: 'none', cursor: 'pointer', transition: 'background .2s ease' }}
-                onMouseEnter={e => e.currentTarget.style.background = '#1a6e60'}
-                onMouseLeave={e => e.currentTarget.style.background = '#238d7b'}>
-                Done
-              </button>
-            </div>
-          </div>
-        )}
+        <SubscribeModal 
+          isOpen={showSubscribeModal}
+          onClose={() => setShowSubscribeModal(false)}
+        />
       </div>
     </div>
   );

@@ -1,11 +1,23 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Heart, ShoppingCart, User, Moon, Globe, MapPin, Phone, Mail, Facebook, Instagram, Youtube, X, Menu } from 'lucide-react';
+import { MapPin, Phone, Mail, Facebook, Instagram, Youtube } from 'lucide-react';
+
+// Import des components - CHEMINS CORRIGÉS
+import Navbar from '../components/Navbar';
+import MobileMenu from '../components/MobileMenu';
+import WishlistSidebar from '../components/WishlistSidebar';
+import ShopSidebar from '../components/ShopSidebar';
+import Newsletter from '../components/Newsletter';
+import Footer from '../components/Footer';
 
 const Contact = () => {
   const [activeIcon, setActiveIcon] = useState(null);
   const [activeLink, setActiveLink] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isWishlistOpen, setIsWishlistOpen] = useState(false);
+  const [isShopOpen, setIsShopOpen] = useState(false);
+  const [isClearing, setIsClearing] = useState(false);
+  
   const [formData, setFormData] = useState({
     name: '',
     surname: '',
@@ -13,21 +25,40 @@ const Contact = () => {
     message: ''
   });
   const [subscribeEmail, setSubscribeEmail] = useState('');
+  const [wishlistItems, setWishlistItems] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
 
   const closeSidebars = () => {
     setIsMobileMenuOpen(false);
+    setIsWishlistOpen(false);
+    setIsShopOpen(false);
     setActiveIcon(null);
   };
 
-  const icons = [
-    { id: 'moon', icon: Moon },
-    { id: 'globe', icon: Globe },
-    { id: 'heart', icon: Heart },
-    { id: 'cart', icon: ShoppingCart },
-    { id: 'user', icon: User }
-  ];
+  const handleIconClick = (type) => {
+    setActiveIcon(type);
+    if (type === 'wishlist') {
+      setIsWishlistOpen(true);
+      setIsShopOpen(false);
+    } else if (type === 'cart') {
+      setIsShopOpen(true);
+      setIsWishlistOpen(false);
+    }
+  };
 
-  const navLinks = ['Home', 'Products', 'About us', 'Contact'];
+  const toggleHeart = (id) => setWishlistItems(prev => prev.filter(item => item.id !== id));
+  
+  const addToShop = (item) => {
+    if (!cartItems.find(i => i.id === item.id)) setCartItems(prev => [...prev, item]);
+    setIsShopOpen(true);
+    setIsWishlistOpen(false);
+  };
+
+  const clearAllWishlist = () => {
+    if (wishlistItems.length === 0) return;
+    setIsClearing(true);
+    setTimeout(() => { setWishlistItems([]); setIsClearing(false); }, 600);
+  };
 
   const handleInputChange = (e) => {
     setFormData({
@@ -65,135 +96,26 @@ const Contact = () => {
         .btn-signup-contact { background-color:white; color:#238d7b; font-weight:700; font-size:14px; height:42px; padding:0 25px; border-radius:50px; border:2px solid white; transition:all .3s ease; cursor:pointer; }
         .btn-signup-contact:hover { background-color:#238d7b; color:white !important; border-color:#238d7b; transform:scale(1.05); }
 
-        /* MOBILE HEADER */
-        .mobile-header {
-          display: none;
-        }
+        .mobile-header { display: none; }
         @media (max-width: 1023px) {
-          .mobile-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background-color: rgba(45,75,68,.85);
-            height: 70px;
-            backdrop-filter: blur(12px);
-            padding: 0 20px;
-            border-bottom: 1px solid rgba(255,255,255,.1);
-          }
-          .desktop-nav {
-            display: none !important;
-          }
+          .mobile-header { display: flex; align-items: center; justify-content: space-between; background-color: rgba(45,75,68,.85); height: 70px; backdrop-filter: blur(12px); padding: 0 20px; border-bottom: 1px solid rgba(255,255,255,.1); }
+          .desktop-nav { display: none !important; }
         }
 
-        /* MOBILE MENU */
-        .mobile-menu-overlay {
-          position: fixed;
-          inset: 0;
-          background: rgba(0,0,0,0.7);
-          backdrop-filter: blur(4px);
-          z-index: 250;
-          opacity: 0;
-          transition: opacity 0.3s ease;
-          pointer-events: none;
-        }
-        .mobile-menu-overlay.open {
-          opacity: 1;
-          pointer-events: auto;
-        }
-
-        .mobile-menu {
-          position: fixed;
-          top: 0;
-          right: 0;
-          width: 280px;
-          height: 100vh;
-          background: linear-gradient(135deg, #238d7b 0%, #1a6e60 100%);
-          z-index: 300;
-          padding: 30px 20px;
-          transform: translateX(100%);
-          transition: transform 0.3s ease;
-          display: flex;
-          flex-direction: column;
-          box-shadow: -5px 0 25px rgba(0,0,0,0.3);
-        }
-        .mobile-menu.open {
-          transform: translateX(0);
-        }
-
-        .mobile-menu-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 40px;
-          padding-bottom: 20px;
-          border-bottom: 1px solid rgba(255,255,255,0.2);
-        }
-        .mobile-menu-close {
-          width: 36px;
-          height: 36px;
-          background: rgba(255,255,255,0.2);
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-          transition: all 0.3s ease;
-        }
-        .mobile-menu-close:hover {
-          background: white;
-          transform: rotate(90deg);
-        }
-        .mobile-menu-close:hover svg {
-          color: #238d7b;
-        }
-
-        .mobile-menu-links {
-          display: flex;
-          flex-direction: column;
-          gap: 5px;
-          flex: 1;
-        }
-        .mobile-menu-link {
-          color: white;
-          font-size: 17px;
-          font-weight: 600;
-          padding: 14px 18px;
-          border-radius: 12px;
-          background: rgba(255,255,255,0.1);
-          transition: all 0.3s ease;
-          text-decoration: none;
-          display: block;
-        }
-        .mobile-menu-link:hover {
-          background: white;
-          color: #238d7b;
-          transform: translateX(5px);
-        }
-
-        .mobile-menu-footer {
-          margin-top: 20px;
-          padding-top: 20px;
-          border-top: 1px solid rgba(255,255,255,0.2);
-        }
-        .mobile-signup-btn {
-          width: 100%;
-          background: white;
-          color: #238d7b;
-          padding: 14px;
-          border-radius: 12px;
-          font-weight: 700;
-          font-size: 16px;
-          border: none;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          text-decoration: none;
-          display: block;
-          text-align: center;
-        }
-        .mobile-signup-btn:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
+        .mobile-menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); z-index: 250; opacity: 0; transition: opacity 0.3s ease; pointer-events: none; }
+        .mobile-menu-overlay.open { opacity: 1; pointer-events: auto; }
+        .mobile-menu { position: fixed; top: 0; right: 0; width: 280px; height: 100vh; background: linear-gradient(135deg, #238d7b 0%, #1a6e60 100%); z-index: 300; padding: 30px 20px; transform: translateX(100%); transition: transform 0.3s ease; display: flex; flex-direction: column; box-shadow: -5px 0 25px rgba(0,0,0,0.3); }
+        .mobile-menu.open { transform: translateX(0); }
+        .mobile-menu-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.2); }
+        .mobile-menu-close { width: 36px; height: 36px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; }
+        .mobile-menu-close:hover { background: white; transform: rotate(90deg); }
+        .mobile-menu-close:hover svg { color: #238d7b; }
+        .mobile-menu-links { display: flex; flex-direction: column; gap: 5px; flex: 1; }
+        .mobile-menu-link { color: white; font-size: 17px; font-weight: 600; padding: 14px 18px; border-radius: 12px; background: rgba(255,255,255,0.1); transition: all 0.3s ease; text-decoration: none; display: block; }
+        .mobile-menu-link:hover { background: white; color: #238d7b; transform: translateX(5px); }
+        .mobile-menu-footer { margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); }
+        .mobile-signup-btn { width: 100%; background: white; color: #238d7b; padding: 14px; border-radius: 12px; font-weight: 700; font-size: 16px; border: none; cursor: pointer; transition: all 0.3s ease; text-decoration: none; display: block; text-align: center; }
+        .mobile-signup-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
 
         .contact-hero { 
           background-image: url('/images/7.png'); 
@@ -394,91 +316,42 @@ const Contact = () => {
         }
       `}</style>
 
-      {/* MOBILE MENU OVERLAY */}
-      <div 
-        className={`mobile-menu-overlay ${isMobileMenuOpen ? 'open' : ''}`}
-        onClick={() => setIsMobileMenuOpen(false)}
+      {/* NAVBAR */}
+      <Navbar 
+        cartCount={cartItems.length}
+        wishlistCount={wishlistItems.length}
+        onIconClick={handleIconClick}
+        onMenuToggle={() => setIsMobileMenuOpen(true)}
+        activeIcon={activeIcon}
+        activeLink={activeLink}
+        onLinkHover={setActiveLink}
       />
 
       {/* MOBILE MENU */}
-      <div className={`mobile-menu ${isMobileMenuOpen ? 'open' : ''}`}>
-        <div className="mobile-menu-header">
-          <img src="/images/shot2.png" alt="S.HOT" style={{ height: '35px' }} />
-          <button className="mobile-menu-close" onClick={() => setIsMobileMenuOpen(false)}>
-            <X size={18} color="white" />
-          </button>
-        </div>
+      <MobileMenu 
+        isOpen={isMobileMenuOpen}
+        onClose={() => setIsMobileMenuOpen(false)}
+      />
 
-        <div className="mobile-menu-links">
-          {navLinks.map((item) => {
-            const linkPath = item === 'Products' ? '/products' : item === 'Home' ? '/' : item === 'About us' ? '/about' : item === 'Contact' ? '/contact' : '#';
-            return (
-              <Link 
-                key={item} 
-                to={linkPath} 
-                className="mobile-menu-link"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {item}
-              </Link>
-            );
-          })}
-        </div>
+      {/* WISHLIST SIDEBAR */}
+      <WishlistSidebar 
+        isOpen={isWishlistOpen}
+        items={wishlistItems}
+        onClose={closeSidebars}
+        onToggleHeart={toggleHeart}
+        onAddToShop={addToShop}
+        isClearing={isClearing}
+        onClearAll={clearAllWishlist}
+      />
 
-        <div className="mobile-menu-footer">
-          <Link to="/register" onClick={() => setIsMobileMenuOpen(false)}>
-            <div className="mobile-signup-btn">Sign Up</div>
-          </Link>
-        </div>
-      </div>
+      {/* SHOP SIDEBAR */}
+      <ShopSidebar 
+        isOpen={isShopOpen}
+        items={cartItems}
+        onClose={closeSidebars}
+      />
 
-      {/* MOBILE HEADER */}
-      <div className="mobile-header fixed top-0 left-0 z-[100] w-full">
-        <Link to="/">
-          <img src="/images/shot2.png" alt="S.HOT" style={{ height: '32px' }} />
-        </Link>
-        <div className="flex items-center gap-2">
-          <div className="flex items-center gap-1">
-            {icons.map((item) => (
-              <div key={item.id} onClick={() => setActiveIcon(item.id)} className={`icon-box-contact ${activeIcon === item.id ? 'icon-box-active' : 'opacity-80'}`}>
-                <item.icon size={18} strokeWidth={2.5} />
-              </div>
-            ))}
-          </div>
-          <button className="icon-box-contact" onClick={() => setIsMobileMenuOpen(true)}>
-            <Menu size={20} strokeWidth={2.5} />
-          </button>
-        </div>
-      </div>
-
-      {/* NAVIGATION DESKTOP */}
-      <div className="desktop-nav fixed top-0 left-0 z-[100] w-full pt-6 px-4 md:px-10">
-        <nav className="mx-auto max-w-7xl nav-fixed-contact rounded-full px-6 md:px-10 flex items-center justify-between shadow-2xl">
-          <Link to="/"><div className="flex-shrink-0"><img src="/images/shot2.png" alt="S.HOT" className="h-7 md:h-9 w-auto cursor-pointer" /></div></Link>
-          <div className="flex items-center gap-10" onMouseLeave={() => setActiveLink(null)}>
-            {navLinks.map((item) => {
-              const linkPath = item === 'Products' ? '/products' : item === 'Home' ? '/' : item === 'About us' ? '/about' : item === 'Contact' ? '/contact' : '#';
-              return (
-                <Link key={item} to={linkPath}>
-                  <button onMouseEnter={() => setActiveLink(item)} className={`nav-link-item ${activeLink === item ? 'nav-link-active' : ''}`}>{item}</button>
-                </Link>
-              );
-            })}
-          </div>
-          <div className="flex items-center gap-2 md:gap-4">
-            <div className="flex items-center gap-1">
-              {icons.map((item) => (
-                <div key={item.id} onClick={() => setActiveIcon(item.id)} className={`icon-box-contact ${activeIcon === item.id ? 'icon-box-active' : 'opacity-80'}`}>
-                  <item.icon size={18} strokeWidth={2.5} />
-                </div>
-              ))}
-            </div>
-            <Link to="/register"><button className="btn-signup-contact ml-1 md:ml-2 text-xs md:text-sm">Sign Up</button></Link>
-          </div>
-        </nav>
-      </div>
-
-      {(isMobileMenuOpen) && <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[150] transition-opacity" onClick={closeSidebars} />}
+      {(isMobileMenuOpen || isWishlistOpen || isShopOpen) && <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[150] transition-opacity" onClick={closeSidebars} />}
 
       {/* HERO */}
       <div className="contact-hero">
@@ -635,99 +508,14 @@ const Contact = () => {
       </div>
 
       {/* NEWSLETTER */}
-      <div className="newsletter-section">
-        <div className="newsletter-content max-w-4xl mx-auto text-center">
-          <h3 style={{ color: '#4dd9b8', fontWeight: 700, fontSize: 28, marginBottom: 16 }}>
-            Stay Informed
-          </h3>
-          <p style={{ color: 'rgba(255,255,255,0.9)', fontSize: 18, lineHeight: 1.6, marginBottom: 32 }}>
-            Subscribe to our newsletter to receive health tips, special offers, and new product announcements.
-          </p>
-          <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', justifyContent: 'center', maxWidth: 600, margin: '0 auto' }}>
-            <input
-              type="email"
-              placeholder="Enter your email to subscribe"
-              value={subscribeEmail}
-              onChange={(e) => setSubscribeEmail(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleSubscribe()}
-              className="newsletter-input"
-            />
-            <button onClick={handleSubscribe} className="btn-subscribe">
-              Subscribe
-            </button>
-          </div>
-        </div>
-      </div>
+      <Newsletter 
+        subscribeEmail={subscribeEmail}
+        onEmailChange={(e) => setSubscribeEmail(e.target.value)}
+        onSubscribe={handleSubscribe}
+      />
 
       {/* FOOTER */}
-      <footer className="footer-container">
-        <div className="footer-top">
-          <div className="footer-col">
-            <div className="footer-logo">
-              <img src="/images/shot2.png" alt="S.HOT" />
-            </div>
-            <p className="footer-description">Premium spirulina products for your health and wellbeing. We're committed to providing the highest quality, sustainably sourced spirulina to support your wellness journey.</p>
-            <div className="footer-contact">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-              </svg>
-              <span>shotpremiumspirulina@gmail.com</span>
-            </div>
-            <div className="footer-contact">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.43 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
-              </svg>
-              <span>+216 46 307 550</span>
-            </div>
-            <div className="footer-contact">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
-              </svg>
-              <span>Tunis, Tunisia</span>
-            </div>
-          </div>
-          <div className="footer-col">
-            <h3>Shop</h3>
-            <ul>
-              <li><Link to="/products"><a>All Products</a></Link></li>
-              <li><a href="#">Spirulina Powder</a></li>
-              <li><a href="#">Spirulina Tablets</a></li>
-              <li><a href="#">Spirulina Diamonds</a></li>
-              <li><a href="#">Baby S.HOTs</a></li>
-              <li><a href="#">Bundles</a></li>
-            </ul>
-          </div>
-          <div className="footer-col">
-            <h3>Support</h3>
-            <ul>
-              <li><a href="#">FAQ</a></li>
-              <li><a href="#">Shipping Info</a></li>
-              <li><a href="#">Returns & Exchanges</a></li>
-              <li><a href="#">Size Guide</a></li>
-              <li><Link to="/contact"><a>Contact Us</a></Link></li>
-            </ul>
-          </div>
-          <div className="footer-col">
-            <h3>Legal</h3>
-            <ul>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Terms of Service</a></li>
-              <li><a href="#">Cookie Policy</a></li>
-              <li><a href="#">Accessibility</a></li>
-            </ul>
-          </div>
-        </div>
-        <div className="footer-divider"></div>
-        <div className="footer-bottom">
-          <p className="footer-copyright">© 2026 SHOT. All rights reserved.</p>
-          <div className="footer-socials">
-            <a href="#" title="Facebook"><Facebook size={22} /></a>
-            <a href="#" title="Instagram"><Instagram size={22} /></a>
-            <a href="#" title="YouTube"><Youtube size={22} /></a>
-            <a href="#" title="Twitter" className="font-bold text-xl">X</a>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };
