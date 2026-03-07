@@ -33,7 +33,7 @@ const Contact = () => {
 
         /* Classe calquée sur ton exemple ProductsPage pour tout le fond */
         .signup-bg {
-          background-image: url('/images/sign up.png'); /* Vérifie bien le nom exact du fichier */
+          background-image: url('/images/Sign Up.png'); /* Vérifie bien le nom exact du fichier */
           background-size: cover;
           background-position: center;
           background-attachment: fixed; /* L'image reste fixe pour un rendu pro */
