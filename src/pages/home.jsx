@@ -214,7 +214,7 @@ const Home = () => {
 
       {/* HERO */}
       <header className="relative w-full min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('/images/Rectangle 39.png')" }}>
-        <div className="relative z-20 container mx-auto px-6 md:px-15 pt-48 md:pt-56 text-white">
+        <div className="relative z-20 container mx-auto md:px-15 pt-48 md:pt-56 text-white">
           <div className="flex items-center gap-3 mb-6 bg-gray-950/70 w-fit px-4 py-2.5 md:py-3 rounded-full backdrop-blur-md border border-white/20">
             <div className="w-2 h-2 bg-[#238d7b] rounded-full relative flex items-center justify-center"><div className="absolute w-full h-full bg-[#238d7b] rounded-full animate-ping opacity-75"></div></div>
             <span className="text-[10px] md:text-[12px] font-bold uppercase tracking-[0.2em] opacity-90">Experience the Power of Spirulina</span>
