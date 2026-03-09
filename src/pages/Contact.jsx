@@ -1,22 +1,50 @@
 import { useState } from 'react';
 import { MapPin, Phone, Mail, Facebook, Instagram, Youtube, Check } from 'lucide-react';
 
+// Hooks des Contexts
+import { useCart } from '../context/CartContext';
+import { useWishlist } from '../context/WishlistContext';
+
 // Import des components
 import Navbar from '../components/Navbar';
+import MobileHeader from '../components/MobileHeader'; // Ajouté pour la cohérence mobile
 import MobileMenu from '../components/MobileMenu';
+import WishlistSidebar from '../components/WishlistSidebar';
+import ShopSidebar from '../components/ShopSidebar';
 import Newsletter from '../components/Newsletter';
 import Footer from '../components/Footer';
 
 const Contact = () => {
   const [activeIcon, setActiveIcon] = useState(null);
+  const [activeLink, setActiveLink] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
-  
-  const [cartItems] = useState([]);
-  const [wishlistItems] = useState([]);
 
-  const handleIconClick = (type) => {
-    setActiveIcon(type);
+  // 1. Récupération de la Wishlist via le Context global
+  const { 
+    wishlistItems, 
+    isClearing, 
+    toggleWishlist, 
+    removeItem, 
+    clearAll, 
+    isInWishlist 
+  } = useWishlist();
+
+  // 2. Récupération du Panier et des contrôles de sidebars
+  const {
+    cartItems,
+    isWishlistOpen,
+    isShopOpen,
+    addToCart,
+    openWishlist,
+    openShop,
+    closeSidebars,
+  } = useCart();
+
+  const handleCloseSidebars = () => {
+    closeSidebars();
+    setActiveIcon(null);
+    setIsMobileMenuOpen(false);
   };
 
   const handleSubmit = (e) => {
@@ -25,18 +53,16 @@ const Contact = () => {
   };
 
   return (
-    /* J'AI APPLIQUÉ LA CLASSE signup-bg ICI, SUR LE CONTENEUR PRINCIPAL DE LA PAGE */
     <div className="relative min-h-screen w-full font-['Montserrat'] signup-bg overflow-x-hidden">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
         * { font-family:'Montserrat',sans-serif; }
 
-        /* Classe calquée sur ton exemple ProductsPage pour tout le fond */
         .signup-bg {
-          background-image: url('/images/Sign Up.png'); /* Vérifie bien le nom exact du fichier */
+          background-image: url('/images/Sign Up.png');
           background-size: cover;
           background-position: center;
-          background-attachment: fixed; /* L'image reste fixe pour un rendu pro */
+          background-attachment: fixed;
         }
 
         .contact-hero { 
@@ -47,10 +73,9 @@ const Contact = () => {
           position: relative;
         }
 
-        /* Conteneur de la carte, avec une marge pour le décalage */
         .contact-card-wrapper {
           padding: 0 0 40px 0;
-          margin-top: -250px; /* Chevauchement sur le hero */
+          margin-top: -250px;
           position: relative;
           z-index: 10;
         }
@@ -67,7 +92,7 @@ const Contact = () => {
         }
 
         .contact-info-side { 
-          background: #edf0f2; /* Le gris demandé */
+          background: #edf0f2;
           padding: 60px 50px; 
         }
 
@@ -78,7 +103,6 @@ const Contact = () => {
 
         .title-large { font-size: 32px; font-weight: 800; color: #16a085; margin-bottom: 12px; }
         .text-desc { font-size: 15px; color: #6b7280; line-height: 1.6; }
-        .label-text { font-size: 14px; font-weight: 700; color: #374151; margin-bottom: 6px; display: block; }
         
         .contact-icon-box {
           width: 48px; height: 48px;
@@ -114,7 +138,42 @@ const Contact = () => {
         }
       `}</style>
 
-      <Navbar cartCount={cartItems.length} wishlistCount={wishlistItems.length} onIconClick={handleIconClick} onMenuToggle={() => setIsMobileMenuOpen(true)} />
+      {/* Sidebars Globales */}
+      <WishlistSidebar 
+        isOpen={isWishlistOpen} 
+        onClose={handleCloseSidebars} 
+        wishlistItems={wishlistItems}
+        isClearing={isClearing}
+        onAddToShop={addToCart} 
+        onRemoveItem={removeItem}
+        onClearAll={clearAll}
+      />
+      <ShopSidebar isOpen={isShopOpen} onClose={handleCloseSidebars} cartItems={cartItems} />
+      
+      {/* Overlay global */}
+      {(isWishlistOpen || isShopOpen || isMobileMenuOpen) && (
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[150] transition-opacity" onClick={handleCloseSidebars} />
+      )}
+
+      {/* Navigation avec les fonctions globales */}
+      <MobileHeader 
+        activeIcon={activeIcon}
+        setActiveIcon={setActiveIcon}
+        cartItemsCount={cartItems.length}
+        onHeartClick={openWishlist}
+        onCartClick={openShop}
+        onMenuClick={() => setIsMobileMenuOpen(true)}
+      />
+      <Navbar 
+        activeIcon={activeIcon}
+        setActiveIcon={setActiveIcon}
+        activeLink={activeLink}
+        setActiveLink={setActiveLink}
+        cartItemsCount={cartItems.length}
+        onHeartClick={openWishlist}
+        onCartClick={openShop}
+      />
+
       <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
 
       {/* HERO SECTION */}
@@ -147,7 +206,6 @@ const Contact = () => {
             <div className="mt-20">
               <p className="info-title mb-6">Follow Us on Social Media</p>
               <div className="flex gap-4">
-                {/* Liens cliquables */}
                 <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-[#1877f2] flex items-center justify-center text-white hover:scale-110 transition cursor-pointer">
                   <Facebook size={18} />
                 </a>
@@ -182,7 +240,6 @@ const Contact = () => {
         </div>
       </div>
 
-      {/* SECTION NEWSLETTER (Espacement réduit) */}
       <div className="pt-10 pb-16 text-center">
         <h2 className="text-5xl font-black text-[#16a085]">Join our Newsletter</h2>
       </div>
@@ -190,7 +247,7 @@ const Contact = () => {
       <Newsletter />
       <Footer />
 
-      {/* MODAL DE SUCCÈS (Logo Shot inclus) */}
+      {/* MODAL DE SUCCÈS */}
       {showSuccessModal && (
         <div className="fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center z-[1000] p-4">
           <div className="bg-white w-full max-w-md p-10 rounded-[40px] text-center shadow-2xl animate-in zoom-in duration-300">
@@ -202,7 +259,7 @@ const Contact = () => {
             <p className="text-gray-500 text-sm mb-8">Your request has been submitted successfully.</p>
             <button 
               onClick={() => setShowSuccessModal(false)}
-              className="w-full py-4 bg-[#16a085] text-white font-bold rounded-2xl"
+              className="w-full py-4 bg-[#16a085] text-white font-bold rounded-2xl hover:bg-[#138f76] transition-colors"
             >
               Done
             </button>

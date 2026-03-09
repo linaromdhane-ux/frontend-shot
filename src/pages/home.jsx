@@ -12,9 +12,14 @@ import WishlistSidebar from '../components/WishlistSidebar';
 import ShopSidebar from '../components/ShopSidebar';
 import Newsletter from '../components/Newsletter';
 import Footer from '../components/Footer';
+import { useWishlist } from '../context/WishlistContext';
 
 const Home = () => {
   const navigate = useNavigate();
+
+  // ── Wishlist from context (shared across all pages) ──────────────────────
+  const { wishlistItems, isClearing, toggleWishlist, removeItem, clearAll, isInWishlist } = useWishlist();
+
   const words = ["wellness"];
   const [index, setIndex] = useState(0);
   const [displayText, setDisplayText] = useState("");
@@ -23,12 +28,14 @@ const Home = () => {
   const [activeIcon, setActiveIcon] = useState(null);
   const [activeLink, setActiveLink] = useState(null);
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
-  const [isShopOpen, setIsShopOpen] = useState(false); 
-  const [isClearing, setIsClearing] = useState(false);
+  const [isShopOpen, setIsShopOpen] = useState(false);
   const [activeCard, setActiveCard] = useState(null);
   const [btnClicked, setBtnClicked] = useState(false);
   const [hoveredProduct, setHoveredProduct] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
+  const [showSubscribeModal, setShowSubscribeModal] = useState(false);
+  const [subscribeEmail, setSubscribeEmail] = useState('');
 
   const bannerData = [
     { text: "0% Preservatives", color: "bg-[#f39c12]", icon: <Zap size={32} strokeWidth={3} /> },
@@ -81,44 +88,20 @@ const Home = () => {
     },
   ];
 
-  const [wishlistItems, setWishlistItems] = useState([
-    { id: 1, name: 'Spirulina Powder', price: '59.000DT', img: '/images/Rectangle 56.png' },
-    { id: 2, name: 'Spirulina Powder', price: '59.000DT', img: '/images/Rectangle 56.png' },
-    { id: 3, name: 'Spirulina Powder', price: '59.000DT', img: '/images/Rectangle 56.png' },
-    { id: 4, name: 'Spirulina Powder', price: '59.000DT', img: '/images/Rectangle 56.png' },
-  ]);
-  const [cartItems, setCartItems] = useState([]);
-  const toggleWishlistProduct = (product) => {
-    const exists = wishlistItems.find(i => i.id === product.id);
-    if (exists) {
-      setWishlistItems(prev => prev.filter(i => i.id !== product.id));
-    } else {
-      setWishlistItems(prev => [...prev, { id: product.id, name: product.name, price: product.price, img: product.img }]);
-    }
-  };
-  const isInWishlist = (id) => wishlistItems.some(i => i.id === id);
   const openProductDetails = (product) => {
     navigate(`/product/${product.id}`);
     window.scrollTo(0, 0);
   };
-  const addProductToCart = (product) => {
-    if (!cartItems.find(i => i.id === product.id)) {
-      setCartItems(prev => [...prev, { id: product.id, name: product.name, price: product.price, img: product.img }]);
-    }
-    setIsShopOpen(true);
-    setIsWishlistOpen(false);
-  };
+
   const addToShop = (item) => {
     if (!cartItems.find(i => i.id === item.id)) setCartItems(prev => [...prev, item]);
     setIsShopOpen(true);
     setIsWishlistOpen(false);
   };
-  const clearAllWishlist = () => {
-    if (wishlistItems.length === 0) return;
-    setIsClearing(true);
-    setTimeout(() => { setWishlistItems([]); setIsClearing(false); }, 600);
+
+  const handleSubscribe = () => {
+    if (subscribeEmail.trim()) { setShowSubscribeModal(true); setSubscribeEmail(''); }
   };
-  const toggleHeart = (id) => setWishlistItems(prev => prev.filter(item => item.id !== id));
 
   const handleTyping = useCallback(() => {
     const fullText = words[index];
@@ -135,14 +118,16 @@ const Home = () => {
       setIndex((prev) => (prev + 1) % (words.length || 1));
     }
   }, [displayText, isDeleting, index, words]);
+
   useEffect(() => {
     const timer = setTimeout(handleTyping, speed);
     return () => clearTimeout(timer);
   }, [handleTyping, speed]);
-  const closeSidebars = () => { 
-    setIsWishlistOpen(false); 
-    setIsShopOpen(false); 
-    setActiveIcon(null); 
+
+  const closeSidebars = () => {
+    setIsWishlistOpen(false);
+    setIsShopOpen(false);
+    setActiveIcon(null);
     setIsMobileMenuOpen(false);
   };
 
@@ -177,12 +162,6 @@ const Home = () => {
       </svg>
     ));
 
-  const [showSubscribeModal, setShowSubscribeModal] = useState(false);
-  const [subscribeEmail, setSubscribeEmail] = useState('');
-  const handleSubscribe = () => {
-    if (subscribeEmail.trim()) { setShowSubscribeModal(true); setSubscribeEmail(''); }
-  };
-
   const influencers = [
     { name: 'Lina B',  role: 'Pro Athlete',      initials: 'LB' },
     { name: 'Adam L',  role: 'Music Teacher',     initials: 'AL' },
@@ -194,8 +173,20 @@ const Home = () => {
   return (
     <div className="relative min-h-screen w-full font-['Montserrat'] bg-[#0c1312] overflow-x-hidden">
       <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
-      <WishlistSidebar isOpen={isWishlistOpen} onClose={closeSidebars} wishlistItems={wishlistItems} />
+
+      {/* ── WISHLIST SIDEBAR (context) ── */}
+      <WishlistSidebar
+        isOpen={isWishlistOpen}
+        onClose={closeSidebars}
+        wishlistItems={wishlistItems}
+        isClearing={isClearing}
+        onAddToShop={addToShop}
+        onRemoveItem={removeItem}
+        onClearAll={clearAll}
+      />
+
       <ShopSidebar isOpen={isShopOpen} onClose={closeSidebars} cartItems={cartItems} />
+
       <MobileHeader
         activeIcon={activeIcon}
         setActiveIcon={setActiveIcon}
@@ -242,7 +233,6 @@ const Home = () => {
             </button>
           </div>
         </div>
-        {/* IMAGE HERO AVEC BON CHEMIN (doit exister dans public/images/ !) */}
         <div className="absolute right-[-5%] md:right-[-2%] bottom-0 w-[60%] md:w-[50%] h-[70%] md:h-[90%] flex justify-center items-end z-10 pointer-events-none">
           <div className="relative animate-float pointer-events-auto">
             <img src="/images/Group_76.png" alt="SHOT Product Group" className="max-h-[400px] md:max-h-[700px] w-auto object-contain drop-shadow-[0_35px_35px_rgba(0,0,0,0.5)]" />
@@ -260,14 +250,11 @@ const Home = () => {
         </div>
       </div>
 
-      {/* WHY CHOOSE, PRODUITS, TESTIMONIALS… */}
       <div className="signup-bg">
         {/* WHY CHOOSE */}
         <div className="py-24 md:py-28 px-6 md:px-12">
           <div className="max-w-5xl mx-auto text-center">
-            <h2 className="text-[32px] md:text-[46px] gradient-title mb-5 leading-tight">
-              Why choose SHOT ?
-            </h2>
+            <h2 className="text-[32px] md:text-[46px] gradient-title mb-5 leading-tight">Why choose SHOT ?</h2>
             <p className="text-gray-500 text-base md:text-[17px] max-w-2xl mx-auto mb-16 leading-relaxed font-medium">
               Our premium spirulina is carefully cultivated, processed, and tested to ensure the highest nutritional value and health benefits for you and your family.
             </p>
@@ -295,14 +282,13 @@ const Home = () => {
             </div>
           </div>
         </div>
+
         {/* PRODUCTS */}
         <div className="pt-4 pb-10 px-6 md:px-12 text-center">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-[32px] md:text-[46px] gradient-title mb-5 leading-tight">
-              Our Premium Products
-            </h2>
+            <h2 className="text-[32px] md:text-[46px] gradient-title mb-5 leading-tight">Our Premium Products</h2>
             <p className="text-gray-500 text-base md:text-[17px] mb-10 leading-relaxed font-medium">
-            Choose your format. Experience the same uncompromising quality..
+              Choose your format. Experience the same uncompromising quality..
             </p>
             <Link to="/products">
               <button
@@ -319,6 +305,7 @@ const Home = () => {
             </Link>
           </div>
         </div>
+
         {/* PRODUITS */}
         <div className="pb-28 px-6 md:px-12">
           <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
@@ -330,7 +317,7 @@ const Home = () => {
                 <div className="prod-img-wrap">
                   <img src={product.img} alt={product.name} />
                   <span className="prod-badge" style={{ backgroundColor: product.badgeColor }}>{product.badge}</span>
-                  <button className="prod-heart" onClick={(e) => { e.stopPropagation(); toggleWishlistProduct(product); }}>
+                  <button className="prod-heart" onClick={(e) => { e.stopPropagation(); toggleWishlist(product); }}>
                     <Heart size={17} strokeWidth={2}
                       fill={isInWishlist(product.id) ? '#ef4444' : 'none'}
                       stroke={isInWishlist(product.id) ? '#ef4444' : '#9ca3af'} />
@@ -362,12 +349,11 @@ const Home = () => {
             ))}
           </div>
         </div>
+
         {/* TESTIMONIALS */}
         <div className="pb-16 px-8 md:px-12">
           <div className="max-w-7xl mx-auto">
-            <h2 className="text-[30px] md:text-[46px] gradient-title text-center mb-4 leading-tight">
-              S.HOT
-            </h2>
+            <h2 className="text-[30px] md:text-[46px] gradient-title text-center mb-4 leading-tight">S.HOT</h2>
             <p className="text-gray-700 text-base md:text-[16px] text-center max-w-3xl mx-auto mb-16 leading-relaxed font-medium">
               Real energy. Real focus. Real results. From founders to fitness coaches, creators to athletes, S.HOT powers ambitious lifestyles.
             </p>
@@ -393,7 +379,8 @@ const Home = () => {
             </div>
           </div>
         </div>
-        {/* Newsletter call to action */}
+
+        {/* Newsletter CTA */}
         <div className="stay-ahead-container">
           <div className="stay-ahead-overlay"></div>
           <div className="stay-ahead-content max-w-7xl mx-auto px-6 md:px-12">
@@ -401,6 +388,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+
       <Newsletter />
       <Footer />
 

@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
+import { WishlistProvider } from './context/WishlistContext'; // 1. On ajoute l'import
 import ScrollToTop from './ScrollToTop';
 import Home from './pages/home';
 import ProductsPage from './pages/ProductsPage';
@@ -17,21 +18,24 @@ function App() {
   return (
     <Router>
       <CartProvider>
-        <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/products" element={<ProductsPage />} />
-          <Route path="/product/:productId" element={<ProductDetails />} />
-          <Route path="/about" element={<AboutUs />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/verify-otp" element={<VerifyOTP />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/password-changed" element={<PasswordChanged />} />
-        </Routes>
+        {/* 2. On enveloppe le tout avec WishlistProvider */}
+        <WishlistProvider> 
+          <ScrollToTop />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/products" element={<ProductsPage />} />
+            <Route path="/product/:productId" element={<ProductDetails />} />
+            <Route path="/about" element={<AboutUs />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/verify-otp" element={<VerifyOTP />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/password-changed" element={<PasswordChanged />} />
+          </Routes>
+        </WishlistProvider>
       </CartProvider>
     </Router>
   );

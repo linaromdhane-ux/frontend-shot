@@ -2,93 +2,40 @@ import { useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Heart, Star, Headphones } from 'lucide-react';
 
-// ── Imported components ──────────────────────────────────────────────────────
 import Navbar          from '../components/Navbar';
 import WishlistSidebar from '../components/WishlistSidebar';
 import ShopSidebar     from '../components/ShopSidebar';
 import Footer          from '../components/Footer';
 import Newsletter      from '../components/Newsletter';
-import Modal           from '../components/Modal';   // subscribe success modal
+import Modal           from '../components/Modal';
+import { useWishlist } from '../context/WishlistContext';
 
 const ProductDetails = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
+  const { wishlistItems, isClearing, toggleWishlist, removeItem, clearAll, isInWishlist } = useWishlist();
+
   const [activeIcon, setActiveIcon] = useState(null);
   const [activeLink, setActiveLink] = useState(null);
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
   const [isShopOpen, setIsShopOpen] = useState(false);
-  const [isClearing, setIsClearing] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState('description');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [wishlistItems, setWishlistItems] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [showReviewModal, setShowReviewModal] = useState(false);
   const [showSubscribeModal, setShowSubscribeModal] = useState(false);
   const [reviewForm, setReviewForm] = useState({ name: '', email: '', review: '', rating: 0 });
 
   const allProducts = [
-    {
-      id: 101,
-      name: 'Spirulina Powder',
-      description: 'Green Gold – Pure Energy in Every Scoop',
-      fullDescription: "Our premium spirulina capsules are packed with essential nutrients to support your daily health routine. Each capsule contains 500mg of pure, high-quality spirulina that's been carefully sourced and tested for purity. Spirulina is rich in protein, vitamins, minerals, and antioxidants, making it an excellent supplement for overall wellness..",
-      price: '59,000 DT', priceNum: 59000, badge: 'Best Seller', badgeColor: '#2563eb',
-      stock: 'In Stock (50 available)', rating: 4.7, reviews: 2,
-      img: '/images/p1.png', images: ['/images/p1.png', '/images/p1.png', '/images/p1.png', '/images/p1.png'],
-      category: 'Powder',
-      features: ['100% pure organic spirulina','500mg per capsule','60 capsules per bottle','No additives or fillers','Sustainably sourced'],
-      nutritionalInfo: [{ label: 'Serving Size', value: '1 shot (2oz)' },{ label: 'Spirulina', value: '1g' },{ label: 'Vitamin C', value: '60% DV' },{ label: 'Zinc', value: '20% DV' },{ label: 'Ginger Extract', value: '200mg' }],
-      customerReviews: [{ name: 'Frank', date: '2024-06-06', rating: 5, comment: 'Great for immunity, tastes good!' },{ name: 'Alex X', date: '2024-06-06', rating: 5, comment: 'Great supplement for fast post-workout recovery.' },{ name: 'Sarah', date: '2024-06-06', rating: 5, comment: 'Simple way to get my daily greens.' }],
-      overallRating: 4.7, totalReviews: 45
-    },
-    {
-      id: 102,
-      name: 'Spirulina Diamonds',
-      description: 'Emerald Boost – Tiny Gems, Giant Vitality',
-      fullDescription: 'Get the best of both worlds with our Daily Boost Bundle. This package includes our premium spirulina capsules and powder, giving you flexible options for incorporating this powerful superfood into your daily routine. Perfect for those who want to alternate between quick capsules on busy days and powder for recipes when you have more time.',
-      price: '59,000 DT', priceNum: 59000, badge: 'Best Seller', badgeColor: '#2563eb',
-      stock: 'In Stock (20 available)', rating: 4.8, reviews: 2,
-      img: '/images/p2.png', images: ['/images/p2.png', '/images/p2.png', '/images/p2.png', '/images/p2.png'],
-      category: 'Diamonds',
-      features: ['Includes 1 bottle of capsules and 1 container of powder','Save 10% compared to buying separately','Ideal for varied consumption preferences','Premium quality and purity guaranteed'],
-      nutritionalInfo: [{ label: 'Capsules', value: 'See Pure Spirulina Capsules' },{ label: 'Powder', value: 'See Spirulina Powder' }],
-      customerReviews: [{ name: 'Frank', date: '2024-06-06', rating: 5, comment: 'Great for immunity, tastes good!' },{ name: 'Alex X', date: '2024-06-06', rating: 5, comment: 'Great supplement for fast post-workout recovery.' },{ name: 'Sarah', date: '2024-06-06', rating: 5, comment: 'Simple way to get my daily greens.' }],
-      overallRating: 4.7, totalReviews: 45
-    },
-    {
-      id: 103,
-      name: 'Baby S.HOTs',
-      description: 'Little Green Boost – Tiny Shots, Grab & Go',
-      fullDescription: ' Get the best of both worlds with our Daily Boost Bundle. This package includes our premium spirulina capsules and powder, giving you flexible options for incorporating this powerful superfood into your daily routine. Perfect for those who want to alternate between quick capsules on busy days and powder for recipes when you have more time..',
-      price: '59,000 DT', priceNum: 59000, badge: 'New', badgeColor: '#22c55e',
-      stock: 'In Stock (25 available)', rating: 4.8, reviews: 2,
-      img: '/images/p3.jpg', images: ['/images/p3.jpg', '/images/p3.jpg', '/images/p3.jpg', '/images/p3.jpg'],
-      category: 'Shots',
-      features: ['100% pure spirulina powder','Easy to mix in drinks and food','30 servings per container','Rich in chlorophyll and phycocyanin','Cold-pressed to preserve nutrients'],
-      nutritionalInfo: [{ label: 'Capsules', value: 'See Pure Spirulina Capsules' },{ label: 'Powder', value: 'See Spirulina Powder' }],
-      customerReviews: [{ name: 'Frank', date: '2024-06-06', rating: 5, comment: 'Great for immunity, tastes good!' },{ name: 'Alex X', date: '2024-06-06', rating: 5, comment: 'Great supplement for fast post-workout recovery.' },{ name: 'Sarah', date: '2024-06-06', rating: 5, comment: 'Simple way to get my daily greens.' }],
-      overallRating: 4.7, totalReviews: 45
-    },
-    {
-      id: 104,
-      name: 'Spirulina Tablets',
-      description: 'Premium organic spirulina in easy-to-take tablets. 100g (+200)',
-      fullDescription: 'Get the best of both worlds with our Daily Boost Bundle. This package includes our premium spirulina capsules and powder, giving you flexible options for incorporating this powerful superfood into your daily routine. Perfect for those who want to alternate between quick capsules on busy days and powder for recipes when you have more time..',
-      price: '69,000 DT', priceNum: 69000, badge: 'Popular', badgeColor: '#f59e0b',
-      stock: 'In Stock (35 available)', rating: 4.8, reviews: 2,
-      img: '/images/p4.png', images: ['/images/p4.png', '/images/p4.png', '/images/p4.png', '/images/p4.png'],
-      category: 'Tablets',
-      features: ['100% pure spirulina powder','Easy to mix in drinks and food','30 servings per container','Rich in chlorophyll and phycocyanin','Cold-pressed to preserve nutrients'],
-      nutritionalInfo: [{ label: 'capsules', value: 'See Pure Spirulina Capsules' },{ label: 'powser', value: 'See Spirulina Powder' }],
-      customerReviews: [{ name: 'Frank', date: '2024-06-06', rating: 5, comment: 'Great for immunity, tastes good!' },{ name: 'Alex X', date: '2024-06-06', rating: 5, comment: 'Great supplement for fast post-workout recovery.' },{ name: 'Sarah', date: '2024-06-06', rating: 5, comment: 'Simple way to get my daily greens.' }],
-      overallRating: 4.7, totalReviews: 45
-    }
+    { id: 101, name: 'Spirulina Powder', description: 'Green Gold – Pure Energy in Every Scoop', fullDescription: "Our premium spirulina capsules are packed with essential nutrients to support your daily health routine. Each capsule contains 500mg of pure, high-quality spirulina that's been carefully sourced and tested for purity. Spirulina is rich in protein, vitamins, minerals, and antioxidants, making it an excellent supplement for overall wellness..", price: '59,000 DT', priceNum: 59000, badge: 'Best Seller', badgeColor: '#2563eb', stock: 'In Stock (50 available)', rating: 4.7, reviews: 2, img: '/images/p1.png', images: ['/images/p1.png', '/images/p1.png', '/images/p1.png', '/images/p1.png'], category: 'Powder', features: ['100% pure organic spirulina','500mg per capsule','60 capsules per bottle','No additives or fillers','Sustainably sourced'], nutritionalInfo: [{ label: 'Serving Size', value: '1 shot (2oz)' },{ label: 'Spirulina', value: '1g' },{ label: 'Vitamin C', value: '60% DV' },{ label: 'Zinc', value: '20% DV' },{ label: 'Ginger Extract', value: '200mg' }], customerReviews: [{ name: 'Frank', date: '2024-06-06', rating: 5, comment: 'Great for immunity, tastes good!' },{ name: 'Alex X', date: '2024-06-06', rating: 5, comment: 'Great supplement for fast post-workout recovery.' },{ name: 'Sarah', date: '2024-06-06', rating: 5, comment: 'Simple way to get my daily greens.' }], overallRating: 4.7, totalReviews: 45 },
+    { id: 102, name: 'Spirulina Diamonds', description: 'Emerald Boost – Tiny Gems, Giant Vitality', fullDescription: 'Get the best of both worlds with our Daily Boost Bundle. This package includes our premium spirulina capsules and powder, giving you flexible options for incorporating this powerful superfood into your daily routine.', price: '59,000 DT', priceNum: 59000, badge: 'Best Seller', badgeColor: '#2563eb', stock: 'In Stock (20 available)', rating: 4.8, reviews: 2, img: '/images/p2.png', images: ['/images/p2.png', '/images/p2.png', '/images/p2.png', '/images/p2.png'], category: 'Diamonds', features: ['Includes 1 bottle of capsules and 1 container of powder','Save 10% compared to buying separately','Ideal for varied consumption preferences','Premium quality and purity guaranteed'], nutritionalInfo: [{ label: 'Capsules', value: 'See Pure Spirulina Capsules' },{ label: 'Powder', value: 'See Spirulina Powder' }], customerReviews: [{ name: 'Frank', date: '2024-06-06', rating: 5, comment: 'Great for immunity, tastes good!' },{ name: 'Alex X', date: '2024-06-06', rating: 5, comment: 'Great supplement for fast post-workout recovery.' },{ name: 'Sarah', date: '2024-06-06', rating: 5, comment: 'Simple way to get my daily greens.' }], overallRating: 4.7, totalReviews: 45 },
+    { id: 103, name: 'Baby S.HOTs', description: 'Little Green Boost – Tiny Shots, Grab & Go', fullDescription: ' Get the best of both worlds with our Daily Boost Bundle. This package includes our premium spirulina capsules and powder, giving you flexible options for incorporating this powerful superfood into your daily routine..', price: '59,000 DT', priceNum: 59000, badge: 'New', badgeColor: '#22c55e', stock: 'In Stock (25 available)', rating: 4.8, reviews: 2, img: '/images/p3.jpg', images: ['/images/p3.jpg', '/images/p3.jpg', '/images/p3.jpg', '/images/p3.jpg'], category: 'Shots', features: ['100% pure spirulina powder','Easy to mix in drinks and food','30 servings per container','Rich in chlorophyll and phycocyanin','Cold-pressed to preserve nutrients'], nutritionalInfo: [{ label: 'Capsules', value: 'See Pure Spirulina Capsules' },{ label: 'Powder', value: 'See Spirulina Powder' }], customerReviews: [{ name: 'Frank', date: '2024-06-06', rating: 5, comment: 'Great for immunity, tastes good!' },{ name: 'Alex X', date: '2024-06-06', rating: 5, comment: 'Great supplement for fast post-workout recovery.' },{ name: 'Sarah', date: '2024-06-06', rating: 5, comment: 'Simple way to get my daily greens.' }], overallRating: 4.7, totalReviews: 45 },
+    { id: 104, name: 'Spirulina Tablets', description: 'Premium organic spirulina in easy-to-take tablets. 100g (+200)', fullDescription: 'Get the best of both worlds with our Daily Boost Bundle. This package includes our premium spirulina capsules and powder, giving you flexible options for incorporating this powerful superfood into your daily routine..', price: '69,000 DT', priceNum: 69000, badge: 'Popular', badgeColor: '#f59e0b', stock: 'In Stock (35 available)', rating: 4.8, reviews: 2, img: '/images/p4.png', images: ['/images/p4.png', '/images/p4.png', '/images/p4.png', '/images/p4.png'], category: 'Tablets', features: ['100% pure spirulina powder','Easy to mix in drinks and food','30 servings per container','Rich in chlorophyll and phycocyanin','Cold-pressed to preserve nutrients'], nutritionalInfo: [{ label: 'capsules', value: 'See Pure Spirulina Capsules' },{ label: 'powser', value: 'See Spirulina Powder' }], customerReviews: [{ name: 'Frank', date: '2024-06-06', rating: 5, comment: 'Great for immunity, tastes good!' },{ name: 'Alex X', date: '2024-06-06', rating: 5, comment: 'Great supplement for fast post-workout recovery.' },{ name: 'Sarah', date: '2024-06-06', rating: 5, comment: 'Simple way to get my daily greens.' }], overallRating: 4.7, totalReviews: 45 }
   ];
 
   const product = allProducts.find(p => p.id === parseInt(productId));
   const recommendedProducts = allProducts.filter(p => p.id !== parseInt(productId)).slice(0, 3);
-
   const getTotalPrice = () => (product.priceNum * quantity).toLocaleString('en-US');
   const formatPrice = (price) => price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
@@ -103,61 +50,19 @@ const ProductDetails = () => {
     );
   }
 
-  const toggleWishlist = (prod) => {
-    const item = prod || product;
-    setWishlistItems(prev =>
-      prev.find(i => i.id === item.id) ? prev.filter(i => i.id !== item.id) : [...prev, item]
-    );
-  };
-
-  const handleClearWishlist = () => {
-    setIsClearing(true);
-    setTimeout(() => { setWishlistItems([]); setIsClearing(false); }, 500);
-  };
-
-  const addToCart = () => {
-    setCartItems(prev => [...prev, { ...product, quantity }]);
-    setIsShopOpen(true);
-  };
-
-  const addToShopFromWishlist = (item) => {
-    setCartItems(prev => [...prev, { ...item, quantity: 1 }]);
-    setIsWishlistOpen(false);
-    setIsShopOpen(true);
-  };
-
-  const closeSidebars = () => {
-    setIsWishlistOpen(false);
-    setIsShopOpen(false);
-    setActiveIcon(null);
-  };
-
-  const handleSubmitReview = (e) => {
-    e.preventDefault();
-    setShowReviewModal(false);
-    setReviewForm({ name: '', email: '', review: '', rating: 0 });
-  };
+  const addToCart = () => { setCartItems(prev => [...prev, { ...product, quantity }]); setIsShopOpen(true); };
+  const addToShopFromWishlist = (item) => { setCartItems(prev => [...prev, { ...item, quantity: 1 }]); setIsWishlistOpen(false); setIsShopOpen(true); };
+  const closeSidebars = () => { setIsWishlistOpen(false); setIsShopOpen(false); setActiveIcon(null); };
+  const handleSubmitReview = (e) => { e.preventDefault(); setShowReviewModal(false); setReviewForm({ name: '', email: '', review: '', rating: 0 }); };
 
   const renderStars = (rating) => {
     const fullStars = Math.floor(rating);
     const hasHalf = rating % 1 !== 0;
     return (
       <>
-        {Array.from({ length: fullStars }, (_, i) => (
-          <svg key={i} width="18" height="18" viewBox="0 0 24 24" fill="#f39c12" stroke="#f39c12" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-          </svg>
-        ))}
-        {hasHalf && (
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f39c12" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-          </svg>
-        )}
-        {Array.from({ length: 5 - fullStars - (hasHalf ? 1 : 0) }, (_, i) => (
-          <svg key={i + fullStars} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d1d5db" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-          </svg>
-        ))}
+        {Array.from({ length: fullStars }, (_, i) => (<svg key={i} width="18" height="18" viewBox="0 0 24 24" fill="#f39c12" stroke="#f39c12" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>))}
+        {hasHalf && (<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f39c12" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>)}
+        {Array.from({ length: 5 - fullStars - (hasHalf ? 1 : 0) }, (_, i) => (<svg key={i + fullStars} width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d1d5db" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>))}
       </>
     );
   };
@@ -305,69 +210,25 @@ const ProductDetails = () => {
         }
       `}</style>
 
-      {/* ── WISHLIST SIDEBAR (component) ───────────────────────────────────── */}
-      <WishlistSidebar
-        isOpen={isWishlistOpen}
-        onClose={closeSidebars}
-        wishlistItems={wishlistItems}
-        isClearing={isClearing}
-        onAddToShop={addToShopFromWishlist}
-        onRemoveItem={(id) => setWishlistItems(prev => prev.filter(i => i.id !== id))}
-        onClearAll={handleClearWishlist}
-      />
+      <WishlistSidebar isOpen={isWishlistOpen} onClose={closeSidebars} wishlistItems={wishlistItems} isClearing={isClearing} onAddToShop={addToShopFromWishlist} onRemoveItem={removeItem} onClearAll={clearAll} />
+      <ShopSidebar isOpen={isShopOpen} onClose={closeSidebars} cartItems={cartItems} />
+      {(isWishlistOpen || isShopOpen) && (<div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[150] transition-opacity" onClick={closeSidebars} />)}
+      <Navbar activeIcon={activeIcon} setActiveIcon={setActiveIcon} activeLink={activeLink} setActiveLink={setActiveLink} cartItemsCount={cartItems.length} onHeartClick={() => { setIsWishlistOpen(true); setIsShopOpen(false); }} onCartClick={() => { setIsShopOpen(true); setIsWishlistOpen(false); }} />
 
-      {/* ── SHOP SIDEBAR (component) ───────────────────────────────────────── */}
-      <ShopSidebar
-        isOpen={isShopOpen}
-        onClose={closeSidebars}
-        cartItems={cartItems}
-      />
-
-      {(isWishlistOpen || isShopOpen) && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[150] transition-opacity" onClick={closeSidebars} />
-      )}
-
-      {/* ── NAVBAR (component) ────────────────────────────────────────────── */}
-      <Navbar
-        activeIcon={activeIcon}
-        setActiveIcon={setActiveIcon}
-        activeLink={activeLink}
-        setActiveLink={setActiveLink}
-        cartItemsCount={cartItems.length}
-        onHeartClick={() => { setIsWishlistOpen(true); setIsShopOpen(false); }}
-        onCartClick={() => { setIsShopOpen(true); setIsWishlistOpen(false); }}
-      />
-
-      {/* ── PRODUCT SECTION ───────────────────────────────────────────────── */}
       <div className="pt-24 pb-16">
         <div className="product-hero">
           <div className="product-images">
             <div className="thumbnails">
-              {product.images.map((img, idx) => (
-                <div key={idx} className={`thumbnail ${idx === currentImageIndex ? 'active' : ''}`} onClick={() => setCurrentImageIndex(idx)}>
-                  <img src={img} alt={`${product.name} ${idx + 1}`} />
-                </div>
-              ))}
+              {product.images.map((img, idx) => (<div key={idx} className={`thumbnail ${idx === currentImageIndex ? 'active' : ''}`} onClick={() => setCurrentImageIndex(idx)}><img src={img} alt={`${product.name} ${idx + 1}`} /></div>))}
             </div>
-            <div className="main-image-wrapper">
-              <div className="main-image">
-                <img src={product.images[currentImageIndex]} alt={product.name} />
-              </div>
-            </div>
+            <div className="main-image-wrapper"><div className="main-image"><img src={product.images[currentImageIndex]} alt={product.name} /></div></div>
           </div>
-
           <div className="product-info">
             <h1>{product.name}</h1>
-            <div className="rating-section">
-              <div className="rating-stars">{renderStars(product.rating)}</div>
-              <span className="rating-text">{product.rating} ({product.reviews} reviews)</span>
-            </div>
+            <div className="rating-section"><div className="rating-stars">{renderStars(product.rating)}</div><span className="rating-text">{product.rating} ({product.reviews} reviews)</span></div>
             <div className="price-section">{product.price}</div>
             <p className="description-text">{product.description}</p>
-            <div className="key-features">
-              <h3>Key Features</h3>
-              <ul>{product.features.map((f, i) => <li key={i}>{f}</li>)}</ul>
-            </div>
+            <div className="key-features"><h3>Key Features</h3><ul>{product.features.map((f, i) => <li key={i}>{f}</li>)}</ul></div>
             <div className="cart-box">
               <div className="cart-box-header">
                 <span className="cart-box-title">{product.name}</span>
@@ -377,17 +238,13 @@ const ProductDetails = () => {
                   <button className="quantity-btn" onClick={() => setQuantity(quantity + 1)}>+</button>
                 </div>
               </div>
-              <div className="price-display">
-                <span className="price-label">TotalPrice</span>
-                <span className="price-value">{formatPrice(getTotalPrice())} DT</span>
-              </div>
+              <div className="price-display"><span className="price-label">TotalPrice</span><span className="price-value">{formatPrice(getTotalPrice())} DT</span></div>
               <button className="add-to-cart-btn" onClick={addToCart}>Add to Cart</button>
             </div>
           </div>
         </div>
       </div>
 
-      {/* ── TABS SECTION ──────────────────────────────────────────────────── */}
       <div className="px-4 md:px-12">
         <div className="tabs-section">
           <div className="tabs">
@@ -395,41 +252,20 @@ const ProductDetails = () => {
               <button key={key} className={`tab ${activeTab === key ? 'active' : ''}`} onClick={() => setActiveTab(key)}>{label}</button>
             ))}
           </div>
-
-          {activeTab === 'description' && (
-            <div className="tab-content"><h2>Product Description</h2><p>{product.fullDescription}</p></div>
-          )}
-
-          {activeTab === 'nutritional' && (
-            <div className="tab-content">
-              <h2>Nutritional Information</h2>
-              <table className="nutritional-table">
-                <tbody>{product.nutritionalInfo.map((info, idx) => <tr key={idx}><td>{info.label}</td><td>{info.value}</td></tr>)}</tbody>
-              </table>
-            </div>
-          )}
-
+          {activeTab === 'description' && (<div className="tab-content"><h2>Product Description</h2><p>{product.fullDescription}</p></div>)}
+          {activeTab === 'nutritional' && (<div className="tab-content"><h2>Nutritional Information</h2><table className="nutritional-table"><tbody>{product.nutritionalInfo.map((info, idx) => <tr key={idx}><td>{info.label}</td><td>{info.value}</td></tr>)}</tbody></table></div>)}
           {activeTab === 'reviews' && (
             <div className="tab-content">
               <div className="reviews-section">
                 <div className="overall-rating">
-                  <div className="rating-box">
-                    <div className="rating-number">{product.overallRating}</div>
-                    <div className="rating-info">
-                      <div className="rating-stars">{renderStars(product.overallRating)}</div>
-                      <div className="rating-info-text">{product.totalReviews} Reviews</div>
-                    </div>
-                  </div>
+                  <div className="rating-box"><div className="rating-number">{product.overallRating}</div><div className="rating-info"><div className="rating-stars">{renderStars(product.overallRating)}</div><div className="rating-info-text">{product.totalReviews} Reviews</div></div></div>
                   <button className="add-review-btn" onClick={() => setShowReviewModal(true)}>Add a Review</button>
                 </div>
                 <h3 className="reviews-title">Customer Reviews</h3>
                 <div className="customer-reviews">
                   {product.customerReviews.map((review, idx) => (
                     <div key={idx} className="review-card">
-                      <div className="review-header">
-                        <div className="review-avatar">{review.name.charAt(0)}</div>
-                        <div><div className="review-name">{review.name}</div><div className="review-date">{review.date}</div></div>
-                      </div>
+                      <div className="review-header"><div className="review-avatar">{review.name.charAt(0)}</div><div><div className="review-name">{review.name}</div><div className="review-date">{review.date}</div></div></div>
                       <div className="review-stars">{renderStars(review.rating)}</div>
                       <p className="review-text">{review.comment}</p>
                     </div>
@@ -441,7 +277,6 @@ const ProductDetails = () => {
         </div>
       </div>
 
-      {/* ── RECOMMENDED SECTION ───────────────────────────────────────────── */}
       {recommendedProducts.length > 0 && (
         <div className="px-4 md:px-12">
           <div className="recommended-section">
@@ -449,10 +284,9 @@ const ProductDetails = () => {
             <p className="recommended-subtitle">Based on your preferences and browsing history</p>
             <div className="recommended-grid">
               {recommendedProducts.map((prod) => (
-                <div key={prod.id} className="recommended-card"
-                  onClick={() => { setQuantity(1); setActiveTab('description'); navigate(`/product/${prod.id}`); window.scrollTo(0, 0); }}>
+                <div key={prod.id} className="recommended-card" onClick={() => { setQuantity(1); setActiveTab('description'); navigate(`/product/${prod.id}`); window.scrollTo(0, 0); }}>
                   <button className="recommended-card-heart" onClick={(e) => { e.stopPropagation(); toggleWishlist(prod); }}>
-                    <Heart size={18} fill={wishlistItems.some(i => i.id === prod.id) ? 'currentColor' : 'none'} color={wishlistItems.some(i => i.id === prod.id) ? '#ef4444' : '#238d7b'} />
+                    <Heart size={18} fill={isInWishlist(prod.id) ? 'currentColor' : 'none'} color={isInWishlist(prod.id) ? '#ef4444' : '#238d7b'} />
                   </button>
                   <div className="recommended-card-img"><img src={prod.img} alt={prod.name} /></div>
                   <div className="recommended-card-body">
@@ -471,53 +305,23 @@ const ProductDetails = () => {
         </div>
       )}
 
-      {/* ── JOIN OUR NEWSLETTER heading ───────────────────────────────────── */}
-      <div className="stay-ahead-container">
-        <div className="stay-ahead-overlay"></div>
-        <div className="stay-ahead-content max-w-7xl mx-auto px-6 md:px-12">
-          <h2 className="stay-ahead-title">Join our Newsletter</h2>
-        </div>
-      </div>
-
-      {/* ── NEWSLETTER (component) ────────────────────────────────────────── */}
+      <div className="stay-ahead-container"><div className="stay-ahead-overlay"></div><div className="stay-ahead-content max-w-7xl mx-auto px-6 md:px-12"><h2 className="stay-ahead-title">Join our Newsletter</h2></div></div>
       <Newsletter onSubscribe={() => setShowSubscribeModal(true)} />
-
-      {/* ── FOOTER (component) ────────────────────────────────────────────── */}
       <Footer />
-
-      {/* ── SUBSCRIBE SUCCESS MODAL (component) ───────────────────────────── */}
       <Modal isOpen={showSubscribeModal} onClose={() => setShowSubscribeModal(false)} />
 
-      {/* ── ADD REVIEW MODAL ──────────────────────────────────────────────── */}
       {showReviewModal && (
         <div className="review-modal" onClick={() => setShowReviewModal(false)}>
           <div className="review-modal-content" onClick={(e) => e.stopPropagation()}>
             <button className="close-modal-btn" onClick={() => setShowReviewModal(false)}>×</button>
-            <div className="review-modal-header">
-              <div className="review-modal-icon"><Headphones size={30} /></div>
-              <h2 className="review-modal-title">Add a Review</h2>
-              <p className="review-modal-subtitle">Add Your Rating</p>
-            </div>
+            <div className="review-modal-header"><div className="review-modal-icon"><Headphones size={30} /></div><h2 className="review-modal-title">Add a Review</h2><p className="review-modal-subtitle">Add Your Rating</p></div>
             <form onSubmit={handleSubmitReview}>
               <div className="review-stars-input">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <button key={star} type="button" className="star-btn" onClick={() => setReviewForm({ ...reviewForm, rating: star })}>
-                    <Star size={32} fill={star <= reviewForm.rating ? '#f39c12' : 'none'} stroke={star <= reviewForm.rating ? '#f39c12' : '#ddd'} />
-                  </button>
-                ))}
+                {[1, 2, 3, 4, 5].map((star) => (<button key={star} type="button" className="star-btn" onClick={() => setReviewForm({ ...reviewForm, rating: star })}><Star size={32} fill={star <= reviewForm.rating ? '#f39c12' : 'none'} stroke={star <= reviewForm.rating ? '#f39c12' : '#ddd'} /></button>))}
               </div>
-              <div className="form-group">
-                <label htmlFor="name">Name</label>
-                <input type="text" id="name" placeholder="Mark" value={reviewForm.name} onChange={(e) => setReviewForm({ ...reviewForm, name: e.target.value })} required />
-              </div>
-              <div className="form-group">
-                <label htmlFor="email">Email</label>
-                <input type="email" id="email" placeholder="mark1890@gmail.com" value={reviewForm.email} onChange={(e) => setReviewForm({ ...reviewForm, email: e.target.value })} required />
-              </div>
-              <div className="form-group">
-                <label htmlFor="review">Review</label>
-                <textarea id="review" placeholder="Write here..." value={reviewForm.review} onChange={(e) => setReviewForm({ ...reviewForm, review: e.target.value })} required />
-              </div>
+              <div className="form-group"><label htmlFor="name">Name</label><input type="text" id="name" placeholder="Mark" value={reviewForm.name} onChange={(e) => setReviewForm({ ...reviewForm, name: e.target.value })} required /></div>
+              <div className="form-group"><label htmlFor="email">Email</label><input type="email" id="email" placeholder="mark1890@gmail.com" value={reviewForm.email} onChange={(e) => setReviewForm({ ...reviewForm, email: e.target.value })} required /></div>
+              <div className="form-group"><label htmlFor="review">Review</label><textarea id="review" placeholder="Write here..." value={reviewForm.review} onChange={(e) => setReviewForm({ ...reviewForm, review: e.target.value })} required /></div>
               <button type="submit" className="submit-review-btn">Submit Review</button>
             </form>
           </div>
