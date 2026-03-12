@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Heart, ShoppingCart, User, Moon, Globe } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext'; // Ajout de l'import
 
 const Navbar = ({ 
   activeIcon, 
@@ -10,8 +11,10 @@ const Navbar = ({
   onHeartClick,
   onCartClick 
 }) => {
+  const { darkMode, toggleDarkMode } = useTheme(); // Ajout de la logique
+
   const icons = [
-    { id: 'moon', icon: Moon },
+    { id: 'moon', icon: Moon, action: toggleDarkMode }, // Action liée ici
     { id: 'globe', icon: Globe },
     { id: 'heart', icon: Heart, action: onHeartClick },
     { id: 'cart', icon: ShoppingCart, action: onCartClick },
@@ -61,7 +64,8 @@ const Navbar = ({
                   setActiveIcon && setActiveIcon(item.id); 
                   if(item.action) item.action(); 
                 }} 
-                className={`icon-box-vid ${activeIcon === item.id ? 'icon-box-active' : 'opacity-80'}`}
+                // Changement ici : l'icône reste active si le mode sombre est allumé
+                className={`icon-box-vid ${ (item.id === 'moon' && darkMode) || activeIcon === item.id ? 'icon-box-active' : 'opacity-80'}`}
               >
                 <item.icon size={18} strokeWidth={2.5} />
                 {item.id === 'cart' && cartItemsCount > 0 && (

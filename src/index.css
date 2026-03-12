@@ -780,3 +780,63 @@ button, a {
     padding: 0 30px; 
   }
 }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* FONTS */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Dancing+Script:wght@700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+body {
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* ... (Garder toutes vos animations et styles existants ici) ... */
+
+/* --- DARK MODE CONFIG --- */
+
+.dark body {
+  background-color: #0b1a17 !important;
+  color: #f8fafc !important;
+}
+
+.dark .nav-fixed-video {
+  background: rgba(13, 74, 62, 0.9) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark .nav-link-item {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.dark .nav-link-item:hover {
+  color: #ffffff !important;
+}
+
+.dark .icon-box-vid {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.dark .icon-box-active {
+  background: #ffffff !important;
+  color: #0d4a3e !important;
+}
+
+.dark h1, .dark h2, .dark h3, .dark h4 {
+  color: #ffffff !important;
+}
+
+/* Pour les sections avec fond clair, on les rend sombres */
+.dark .signup-bg, .dark .bg-white {
+  background-color: #0d1e1b !important;
+}
