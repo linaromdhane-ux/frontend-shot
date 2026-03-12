@@ -1,80 +1,107 @@
-import { Heart, ShoppingCart } from 'lucide-react';
+import React from 'react';
+import { Heart } from 'lucide-react';
 
 const ProductCard = ({ 
   product, 
   isHovered, 
-  isInWishlist,
-  onMouseEnter,
-  onMouseLeave,
-  onToggleWishlist,
-  onOpenDetails 
+  isInWishlist, 
+  onMouseEnter, 
+  onMouseLeave, 
+  onToggleWishlist, 
+  onOpenDetails, 
+  onAddToCart 
 }) => {
-  const renderStars = (rating) =>
-    Array.from({ length: 5 }, (_, i) => (
-      <svg 
-        key={i} 
-        width="17" 
-        height="17" 
-        viewBox="0 0 24 24"
-        fill={i < rating ? "#f39c12" : "none"}
-        stroke={i < rating ? "#f39c12" : "#d1d5db"}
-        strokeWidth="2" 
-        strokeLinecap="round" 
-        strokeLinejoin="round"
-      >
-        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-      </svg>
-    ));
-
   return (
     <div 
-      className="prod-card"
+      className="group bg-white rounded-2xl p-4 transition-all duration-300 hover:shadow-xl border border-gray-100 relative flex flex-col h-full w-full max-w-[350px]"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <div className="prod-img-wrap">
-        <img src={product.img} alt={product.name} />
-        <span className="prod-badge" style={{ backgroundColor: product.badgeColor }}>
-          {product.badge}
-        </span>
+      {/* --- SECTION IMAGE --- */}
+      <div className="relative aspect-square mb-4 overflow-hidden rounded-xl bg-gray-50 cursor-pointer">
+        {/* Badge */}
+        {product.badge && (
+          <span 
+            className="absolute top-3 left-3 z-10 px-3 py-1 rounded-full text-[10px] font-bold text-white uppercase tracking-wider"
+            style={{ backgroundColor: product.badgeColor }}
+          >
+            {product.badge}
+          </span>
+        )}
+
+        {/* Wishlist Heart */}
         <button 
-          className="prod-heart" 
-          onClick={(e) => { e.stopPropagation(); onToggleWishlist && onToggleWishlist(product); }}
+          onClick={(e) => {
+            e.stopPropagation();
+            onToggleWishlist(product);
+          }}
+          className="absolute top-3 right-3 z-10 p-2 rounded-full bg-white/80 backdrop-blur-sm shadow-sm hover:scale-110 transition-transform"
         >
-          <Heart 
-            size={17} 
-            strokeWidth={2}
-            fill={isInWishlist ? '#ef4444' : 'none'}
-            stroke={isInWishlist ? '#ef4444' : '#9ca3af'} 
-          />
+          <Heart size={18} fill={isInWishlist ? "#ef4444" : "none"} className={isInWishlist ? "text-red-500" : "text-gray-400"} />
         </button>
+
+        {/* L'IMAGE */}
+        <img 
+          src={product.img} 
+          alt={product.name}
+          onClick={onOpenDetails}
+          className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
+        />
+
+        {/* PANIER AU SURVOL */}
         {isHovered && (
-          <div className="prod-cart-overlay">
+          <div 
+            className="absolute inset-0 flex items-center justify-center bg-black/10 transition-opacity duration-300"
+            onClick={onOpenDetails}
+          >
             <button 
-              className="prod-cart-btn" 
-              onClick={(e) => { e.stopPropagation(); onOpenDetails && onOpenDetails(product); }}
+              onClick={(e) => {
+                e.stopPropagation(); 
+                onAddToCart(product); 
+              }}
+              className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-2xl transform scale-100 hover:scale-110 transition-transform duration-200"
             >
-              <ShoppingCart size={22} color="#238d7b" strokeWidth={2} />
+              <svg width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="#238d7b" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+              </svg>
             </button>
           </div>
         )}
       </div>
-      <div className="prod-body">
-        <div className="prod-stars">{renderStars(product.rating)}</div>
-        <div className="prod-name">{product.name}</div>
-        <div className="prod-desc">{product.description}</div>
-        <div className="prod-price">{product.price}</div>
-        <div className="flex items-center justify-between mt-auto pt-3">
-          <span className="prod-stock">{product.stock}</span>
+
+      {/* --- INFOS PRODUIT --- */}
+      <div className="flex flex-col flex-grow space-y-2">
+        {/* TITRE : Cliquable et change de couleur au survol */}
+        <h3 
+          onClick={onOpenDetails}
+          className="font-bold text-gray-900 text-lg cursor-pointer hover:text-[#238d7b] transition-colors"
+        >
+          {product.name}
+        </h3>
+        
+        <p className="text-sm text-gray-500 line-clamp-2 h-10">{product.description}</p>
+        
+        <div className="pt-2 flex items-center justify-between mt-auto">
+          <span className="text-[#238d7b] font-black text-xl">{product.price}</span>
+          
           <button 
-            className="btn-shop-orange" 
-            onClick={(e) => { e.stopPropagation(); onOpenDetails && onOpenDetails(product); }}
+            onClick={(e) => {
+              e.stopPropagation();
+              onOpenDetails(); 
+            }}
+            className="bg-[#f39c12] text-white px-6 py-2 rounded-full font-bold text-sm hover:bg-[#e67e22] transition-colors shadow-sm"
           >
             Shop
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-            </svg>
           </button>
+        </div>
+
+        {/* Ratings : EXACTEMENT COMME AVANT */}
+        <div className="flex text-yellow-400 text-xs mt-2">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <span key={i} className={i < product.rating ? "opacity-100" : "opacity-30"}>⭐</span>
+          ))}
         </div>
       </div>
     </div>

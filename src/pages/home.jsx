@@ -10,6 +10,7 @@ import MobileHeader from '../components/MobileHeader';
 import MobileMenu from '../components/MobileMenu';
 import WishlistSidebar from '../components/WishlistSidebar';
 import ShopSidebar from '../components/ShopSidebar';
+import ProductGrid from '../components/ProductGrid'; // Import du composant corrigé
 import Newsletter from '../components/Newsletter';
 import Footer from '../components/Footer';
 import { useWishlist } from '../context/WishlistContext';
@@ -27,7 +28,6 @@ const Home = () => {
     isWishlistOpen,
     isShopOpen,
     addToCart,
-    addToShop,
     openWishlist,
     openShop,
     closeSidebars,
@@ -42,7 +42,6 @@ const Home = () => {
   const [activeLink, setActiveLink] = useState(null);
   const [activeCard, setActiveCard] = useState(null);
   const [btnClicked, setBtnClicked] = useState(false);
-  const [hoveredProduct, setHoveredProduct] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showSubscribeModal, setShowSubscribeModal] = useState(false);
   const [subscribeEmail, setSubscribeEmail] = useState('');
@@ -103,8 +102,9 @@ const Home = () => {
     window.scrollTo(0, 0);
   };
 
-  const handleSubscribe = () => {
-    if (subscribeEmail.trim()) { setShowSubscribeModal(true); setSubscribeEmail(''); }
+  const handleAddToCartAndOpenShop = (product) => {
+    addToCart(product);
+    openShop();
   };
 
   const handleTyping = useCallback(() => {
@@ -155,16 +155,6 @@ const Home = () => {
     },
   ];
 
-  const renderStars = (rating) =>
-    Array.from({ length: 5 }, (_, i) => (
-      <svg key={i} width="17" height="17" viewBox="0 0 24 24"
-        fill={i < rating ? "#f39c12" : "none"}
-        stroke={i < rating ? "#f39c12" : "#d1d5db"}
-        strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-      </svg>
-    ));
-
   const influencers = [
     { name: 'Lina B',  role: 'Pro Athlete',      initials: 'LB' },
     { name: 'Adam L',  role: 'Music Teacher',     initials: 'AL' },
@@ -177,13 +167,12 @@ const Home = () => {
     <div className="relative min-h-screen w-full font-['Montserrat'] bg-[#0c1312] overflow-x-hidden">
       <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
 
-      {/* ── WISHLIST SIDEBAR (context) ── */}
       <WishlistSidebar
         isOpen={isWishlistOpen}
         onClose={handleCloseSidebars}
         wishlistItems={wishlistItems}
         isClearing={isClearing}
-        onAddToShop={addToShop}
+        onAddToShop={handleAddToCartAndOpenShop}
         onRemoveItem={removeItem}
         onClearAll={clearAll}
       />
@@ -292,7 +281,7 @@ const Home = () => {
           </div>
         </div>
 
-        {/* PRODUCTS */}
+        {/* PRODUCTS SECTION HEADER */}
         <div className="pt-4 pb-10 px-6 md:px-12 text-center">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-[32px] md:text-[46px] gradient-title mb-5 leading-tight">Our Premium Products</h2>
@@ -315,47 +304,16 @@ const Home = () => {
           </div>
         </div>
 
-        {/* PRODUITS */}
-        <div className="pb-28 px-6 md:px-12">
-          <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-            {products.map((product) => (
-              <div key={product.id} className="prod-card"
-                onMouseEnter={() => setHoveredProduct(product.id)}
-                onMouseLeave={() => setHoveredProduct(null)}
-              >
-                <div className="prod-img-wrap">
-                  <img src={product.img} alt={product.name} />
-                  <span className="prod-badge" style={{ backgroundColor: product.badgeColor }}>{product.badge}</span>
-                  <button className="prod-heart" onClick={(e) => { e.stopPropagation(); toggleWishlist(product); }}>
-                    <Heart size={17} strokeWidth={2}
-                      fill={isInWishlist(product.id) ? '#ef4444' : 'none'}
-                      stroke={isInWishlist(product.id) ? '#ef4444' : '#9ca3af'} />
-                  </button>
-                  {hoveredProduct === product.id && (
-                    <div className="prod-cart-overlay">
-                      <button className="prod-cart-btn" onClick={(e) => { e.stopPropagation(); openProductDetails(product); }}>
-                        <ShoppingCart size={22} color="#238d7b" strokeWidth={2} />
-                      </button>
-                    </div>
-                  )}
-                </div>
-                <div className="prod-body">
-                  <div className="prod-stars">{renderStars(product.rating)}</div>
-                  <div className="prod-name">{product.name}</div>
-                  <div className="prod-desc">{product.description}</div>
-                  <div className="prod-price">{product.price}</div>
-                  <div className="flex items-center justify-between mt-auto pt-3">
-                    <span className="prod-stock">{product.stock}</span>
-                    <button className="btn-shop-orange" onClick={(e) => { e.stopPropagation(); openProductDetails(product); }}>
-                      Shop
-                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                        <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
+        {/* --- APPEL DU COMPOSANT PRODUCT GRID (CENTRE) --- */}
+        <div className="pb-28 px-6 md:px-12 flex justify-center">
+          <div className="max-w-7xl w-full flex justify-center">
+            <ProductGrid 
+              products={products}
+              isInWishlist={isInWishlist}
+              toggleWishlist={toggleWishlist}
+              openProductDetails={openProductDetails}
+              addToShop={handleAddToCartAndOpenShop}
+            />
           </div>
         </div>
 
