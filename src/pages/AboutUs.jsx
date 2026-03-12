@@ -4,6 +4,7 @@ import { Play, Leaf, Recycle, HeartHandshake } from 'lucide-react';
 
 // Import des components - CHEMINS CORRIGÉS
 import Navbar from '../components/Navbar';
+import MobileHeader from '../components/MobileHeader';
 import MobileMenu from '../components/MobileMenu';
 import WishlistSidebar from '../components/WishlistSidebar';
 import ShopSidebar from '../components/ShopSidebar';
@@ -11,35 +12,43 @@ import Newsletter from '../components/Newsletter';
 import Footer from '../components/Footer';
 import SubscribeModal from '../components/SubscribeModal';
 
+// Hooks des Contexts
+import { useCart } from '../context/CartContext';
+import { useWishlist } from '../context/WishlistContext';
+
 const AboutUs = () => {
   const [activeIcon, setActiveIcon] = useState(null);
-  const [isWishlistOpen, setIsWishlistOpen] = useState(false);
-  const [isShopOpen, setIsShopOpen] = useState(false);
+  const [activeLink, setActiveLink] = useState(null);
   const [subscribeEmail, setSubscribeEmail] = useState('');
   const [showSubscribeModal, setShowSubscribeModal] = useState(false);
   const [activeValueCard, setActiveValueCard] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isClearing, setIsClearing] = useState(false);
-  
-  const [wishlistItems, setWishlistItems] = useState([]);
-  const [cartItems, setCartItems] = useState([]);
 
-  const closeSidebars = () => { 
-    setIsWishlistOpen(false); 
-    setIsShopOpen(false); 
-    setActiveIcon(null); 
+  // 1. Récupération de la Wishlist via le Context global
+  const { 
+    wishlistItems, 
+    isClearing, 
+    toggleWishlist, 
+    removeItem, 
+    clearAll, 
+    isInWishlist 
+  } = useWishlist();
+
+  // 2. Récupération du Panier et des contrôles de sidebars
+  const {
+    cartItems,
+    isWishlistOpen,
+    isShopOpen,
+    addToCart,
+    openWishlist,
+    openShop,
+    closeSidebars,
+  } = useCart();
+
+  const handleCloseSidebars = () => {
+    closeSidebars();
+    setActiveIcon(null);
     setIsMobileMenuOpen(false);
-  };
-
-  const handleIconClick = (type) => {
-    setActiveIcon(type);
-    if (type === 'wishlist') {
-      setIsWishlistOpen(true);
-      setIsShopOpen(false);
-    } else if (type === 'cart') {
-      setIsShopOpen(true);
-      setIsWishlistOpen(false);
-    }
   };
 
   const handleSubscribe = () => { 
@@ -49,18 +58,9 @@ const AboutUs = () => {
     } 
   };
 
-  const toggleHeart = (id) => setWishlistItems(prev => prev.filter(item => item.id !== id));
-  
   const addToShop = (item) => {
-    if (!cartItems.find(i => i.id === item.id)) setCartItems(prev => [...prev, item]);
-    setIsShopOpen(true);
-    setIsWishlistOpen(false);
-  };
-
-  const clearAllWishlist = () => {
-    if (wishlistItems.length === 0) return;
-    setIsClearing(true);
-    setTimeout(() => { setWishlistItems([]); setIsClearing(false); }, 600);
+    addToCart(item);
+    openShop();
   };
 
   const values = [
@@ -124,6 +124,23 @@ const AboutUs = () => {
       
       {/* OVERLAY LÉGER */}
       <div className="fixed inset-0 z-0 bg-white/40" />
+
+      {/* Sidebars Globales */}
+      <WishlistSidebar 
+        isOpen={isWishlistOpen} 
+        onClose={handleCloseSidebars} 
+        wishlistItems={wishlistItems}
+        isClearing={isClearing}
+        onAddToShop={addToShop} 
+        onRemoveItem={removeItem}
+        onClearAll={clearAll}
+      />
+      <ShopSidebar isOpen={isShopOpen} onClose={handleCloseSidebars} cartItems={cartItems} />
+
+      {/* Overlay global */}
+      {(isWishlistOpen || isShopOpen || isMobileMenuOpen) && (
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[150] transition-opacity" onClick={handleCloseSidebars} />
+      )}
 
       {/* CONTENU */}
       <div className="relative z-10">
@@ -345,37 +362,31 @@ const AboutUs = () => {
           }
         `}</style>
 
+        {/* MOBILE HEADER */}
+        <MobileHeader 
+          activeIcon={activeIcon}
+          setActiveIcon={setActiveIcon}
+          cartItemsCount={cartItems.length}
+          onHeartClick={openWishlist}
+          onCartClick={openShop}
+          onMenuClick={() => setIsMobileMenuOpen(true)}
+        />
+
         {/* NAVBAR */}
         <Navbar 
-          cartCount={cartItems.length}
-          wishlistCount={wishlistItems.length}
-          onIconClick={handleIconClick}
-          onMenuToggle={() => setIsMobileMenuOpen(true)}
           activeIcon={activeIcon}
+          setActiveIcon={setActiveIcon}
+          activeLink={activeLink}
+          setActiveLink={setActiveLink}
+          cartItemsCount={cartItems.length}
+          onHeartClick={openWishlist}
+          onCartClick={openShop}
         />
 
         {/* MOBILE MENU */}
         <MobileMenu 
           isOpen={isMobileMenuOpen}
           onClose={() => setIsMobileMenuOpen(false)}
-        />
-
-        {/* WISHLIST SIDEBAR */}
-        <WishlistSidebar 
-          isOpen={isWishlistOpen}
-          items={wishlistItems}
-          onClose={closeSidebars}
-          onToggleHeart={toggleHeart}
-          onAddToShop={addToShop}
-          isClearing={isClearing}
-          onClearAll={clearAllWishlist}
-        />
-
-        {/* SHOP SIDEBAR */}
-        <ShopSidebar 
-          isOpen={isShopOpen}
-          items={cartItems}
-          onClose={closeSidebars}
         />
 
         {/* MAIN CONTENT */}

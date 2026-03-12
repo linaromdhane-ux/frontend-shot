@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { useWishlist } from '../context/WishlistContext';
 
 // Components
 import Navbar from '../components/Navbar';
@@ -17,18 +18,22 @@ import SubscribeModal from '../components/SubscribeModal';
 const ProductsPage = () => {
   const navigate = useNavigate();
   
-  // Context partagé
+  // Wishlist via context global
   const {
     wishlistItems,
+    isClearing,
+    toggleWishlist,
+    isInWishlist,
+    removeItem,
+    clearAll,
+  } = useWishlist();
+
+  // Panier et sidebars via context global
+  const {
     cartItems,
     isWishlistOpen,
     isShopOpen,
-    isClearing,
-    toggleWishlistProduct,
-    isInWishlist,
-    removeFromWishlist,
-    clearAllWishlist,
-    addToShop,
+    addToCart,
     openWishlist,
     openShop,
     closeSidebars,
@@ -79,6 +84,11 @@ const ProductsPage = () => {
     setIsMobileMenuOpen(false);
   };
 
+  const addToShop = (item) => {
+    addToCart(item);
+    openShop();
+  };
+
   const toggleCategory = (cat) => setSelectedCategories(prev => prev.includes(cat) ? prev.filter(c => c !== cat) : [...prev, cat]);
   const toggleRating = (rating) => setSelectedRatings(prev => prev.includes(rating) ? prev.filter(r => r !== rating) : [...prev, rating]);
 
@@ -93,8 +103,8 @@ const ProductsPage = () => {
         wishlistItems={wishlistItems}
         isClearing={isClearing}
         onAddToShop={addToShop}
-        onRemoveItem={removeFromWishlist}
-        onClearAll={clearAllWishlist}
+        onRemoveItem={removeItem}
+        onClearAll={clearAll}
       />
       <ShopSidebar isOpen={isShopOpen} onClose={handleCloseSidebars} cartItems={cartItems} />
 
@@ -192,7 +202,7 @@ const ProductsPage = () => {
       <div className="pb-28 px-6 md:px-12 signup-bg">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {filteredProducts.map((product) => (
-            <ProductCard key={product.id} product={product} isHovered={hoveredProduct === product.id} isInWishlist={isInWishlist(product.id)} onMouseEnter={() => setHoveredProduct(product.id)} onMouseLeave={() => setHoveredProduct(null)} onToggleWishlist={toggleWishlistProduct} onOpenDetails={openProductDetails} />
+            <ProductCard key={product.id} product={product} isHovered={hoveredProduct === product.id} isInWishlist={isInWishlist(product.id)} onMouseEnter={() => setHoveredProduct(product.id)} onMouseLeave={() => setHoveredProduct(null)} onToggleWishlist={toggleWishlist} onOpenDetails={openProductDetails} />
           ))}
         </div>
         {filteredProducts.length === 0 && (

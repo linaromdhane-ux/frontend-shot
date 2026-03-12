@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
-import { WishlistProvider } from './context/WishlistContext'; // 1. On ajoute l'import
+import { WishlistProvider } from './context/WishlistContext';
 import ScrollToTop from './ScrollToTop';
 import Home from './pages/home';
 import ProductsPage from './pages/ProductsPage';
@@ -13,12 +13,13 @@ import VerifyOTP from './pages/VerifyOTP';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 import PasswordChanged from './pages/PasswordChanged';
+import AuthGateway from './pages/AuthGateway'; 
+import Checkout from './pages/Checkout'; // <--- VERIFIE BIEN CETTE LIGNE
 
 function App() {
   return (
     <Router>
       <CartProvider>
-        {/* 2. On enveloppe le tout avec WishlistProvider */}
         <WishlistProvider> 
           <ScrollToTop />
           <Routes>
@@ -34,6 +35,10 @@ function App() {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/password-changed" element={<PasswordChanged />} />
+            
+            {/* Les deux routes pour le tunnel d'achat */}
+            <Route path="/auth-gateway" element={<AuthGateway />} />
+            <Route path="/checkout" element={<Checkout />} />
           </Routes>
         </WishlistProvider>
       </CartProvider>

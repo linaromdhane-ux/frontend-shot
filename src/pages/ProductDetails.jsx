@@ -3,26 +3,41 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Heart, Star, Headphones } from 'lucide-react';
 
 import Navbar          from '../components/Navbar';
+import MobileHeader    from '../components/MobileHeader';
+import MobileMenu      from '../components/MobileMenu';
 import WishlistSidebar from '../components/WishlistSidebar';
 import ShopSidebar     from '../components/ShopSidebar';
 import Footer          from '../components/Footer';
 import Newsletter      from '../components/Newsletter';
 import Modal           from '../components/Modal';
 import { useWishlist } from '../context/WishlistContext';
+import { useCart }     from '../context/CartContext';
 
 const ProductDetails = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
+
+  // Wishlist via context global
   const { wishlistItems, isClearing, toggleWishlist, removeItem, clearAll, isInWishlist } = useWishlist();
+
+  // Cart et sidebars via context global
+  const {
+    cartItems,
+    isWishlistOpen,
+    isShopOpen,
+    addToCart,
+    addToShop,
+    openWishlist,
+    openShop,
+    closeSidebars,
+  } = useCart();
 
   const [activeIcon, setActiveIcon] = useState(null);
   const [activeLink, setActiveLink] = useState(null);
-  const [isWishlistOpen, setIsWishlistOpen] = useState(false);
-  const [isShopOpen, setIsShopOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState('description');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [cartItems, setCartItems] = useState([]);
   const [showReviewModal, setShowReviewModal] = useState(false);
   const [showSubscribeModal, setShowSubscribeModal] = useState(false);
   const [reviewForm, setReviewForm] = useState({ name: '', email: '', review: '', rating: 0 });
@@ -50,9 +65,17 @@ const ProductDetails = () => {
     );
   }
 
-  const addToCart = () => { setCartItems(prev => [...prev, { ...product, quantity }]); setIsShopOpen(true); };
-  const addToShopFromWishlist = (item) => { setCartItems(prev => [...prev, { ...item, quantity: 1 }]); setIsWishlistOpen(false); setIsShopOpen(true); };
-  const closeSidebars = () => { setIsWishlistOpen(false); setIsShopOpen(false); setActiveIcon(null); };
+  const handleAddToCart = () => {
+    addToCart({ ...product, quantity });
+    openShop();
+  };
+
+  const handleCloseSidebars = () => {
+    closeSidebars();
+    setActiveIcon(null);
+    setIsMobileMenuOpen(false);
+  };
+
   const handleSubmitReview = (e) => { e.preventDefault(); setShowReviewModal(false); setReviewForm({ name: '', email: '', review: '', rating: 0 }); };
 
   const renderStars = (rating) => {
@@ -210,10 +233,24 @@ const ProductDetails = () => {
         }
       `}</style>
 
-      <WishlistSidebar isOpen={isWishlistOpen} onClose={closeSidebars} wishlistItems={wishlistItems} isClearing={isClearing} onAddToShop={addToShopFromWishlist} onRemoveItem={removeItem} onClearAll={clearAll} />
-      <ShopSidebar isOpen={isShopOpen} onClose={closeSidebars} cartItems={cartItems} />
-      {(isWishlistOpen || isShopOpen) && (<div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[150] transition-opacity" onClick={closeSidebars} />)}
-      <Navbar activeIcon={activeIcon} setActiveIcon={setActiveIcon} activeLink={activeLink} setActiveLink={setActiveLink} cartItemsCount={cartItems.length} onHeartClick={() => { setIsWishlistOpen(true); setIsShopOpen(false); }} onCartClick={() => { setIsShopOpen(true); setIsWishlistOpen(false); }} />
+      <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
+
+      <WishlistSidebar isOpen={isWishlistOpen} onClose={handleCloseSidebars} wishlistItems={wishlistItems} isClearing={isClearing} onAddToShop={addToShop} onRemoveItem={removeItem} onClearAll={clearAll} />
+      <ShopSidebar isOpen={isShopOpen} onClose={handleCloseSidebars} cartItems={cartItems} />
+
+      {(isWishlistOpen || isShopOpen || isMobileMenuOpen) && (
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[150] transition-opacity" onClick={handleCloseSidebars} />
+      )}
+
+      <MobileHeader
+        activeIcon={activeIcon}
+        setActiveIcon={setActiveIcon}
+        cartItemsCount={cartItems.length}
+        onHeartClick={openWishlist}
+        onCartClick={openShop}
+        onMenuClick={() => setIsMobileMenuOpen(true)}
+      />
+      <Navbar activeIcon={activeIcon} setActiveIcon={setActiveIcon} activeLink={activeLink} setActiveLink={setActiveLink} cartItemsCount={cartItems.length} onHeartClick={openWishlist} onCartClick={openShop} />
 
       <div className="pt-24 pb-16">
         <div className="product-hero">
@@ -239,7 +276,7 @@ const ProductDetails = () => {
                 </div>
               </div>
               <div className="price-display"><span className="price-label">TotalPrice</span><span className="price-value">{formatPrice(getTotalPrice())} DT</span></div>
-              <button className="add-to-cart-btn" onClick={addToCart}>Add to Cart</button>
+              <button className="add-to-cart-btn" onClick={handleAddToCart}>Add to Cart</button>
             </div>
           </div>
         </div>

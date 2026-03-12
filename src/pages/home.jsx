@@ -13,12 +13,25 @@ import ShopSidebar from '../components/ShopSidebar';
 import Newsletter from '../components/Newsletter';
 import Footer from '../components/Footer';
 import { useWishlist } from '../context/WishlistContext';
+import { useCart } from '../context/CartContext';
 
 const Home = () => {
   const navigate = useNavigate();
 
   // ── Wishlist from context (shared across all pages) ──────────────────────
   const { wishlistItems, isClearing, toggleWishlist, removeItem, clearAll, isInWishlist } = useWishlist();
+
+  // ── Cart from context (shared across all pages) ───────────────────────────
+  const {
+    cartItems,
+    isWishlistOpen,
+    isShopOpen,
+    addToCart,
+    addToShop,
+    openWishlist,
+    openShop,
+    closeSidebars,
+  } = useCart();
 
   const words = ["wellness"];
   const [index, setIndex] = useState(0);
@@ -27,13 +40,10 @@ const Home = () => {
   const [speed, setSpeed] = useState(150);
   const [activeIcon, setActiveIcon] = useState(null);
   const [activeLink, setActiveLink] = useState(null);
-  const [isWishlistOpen, setIsWishlistOpen] = useState(false);
-  const [isShopOpen, setIsShopOpen] = useState(false);
   const [activeCard, setActiveCard] = useState(null);
   const [btnClicked, setBtnClicked] = useState(false);
   const [hoveredProduct, setHoveredProduct] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [cartItems, setCartItems] = useState([]);
   const [showSubscribeModal, setShowSubscribeModal] = useState(false);
   const [subscribeEmail, setSubscribeEmail] = useState('');
 
@@ -93,12 +103,6 @@ const Home = () => {
     window.scrollTo(0, 0);
   };
 
-  const addToShop = (item) => {
-    if (!cartItems.find(i => i.id === item.id)) setCartItems(prev => [...prev, item]);
-    setIsShopOpen(true);
-    setIsWishlistOpen(false);
-  };
-
   const handleSubscribe = () => {
     if (subscribeEmail.trim()) { setShowSubscribeModal(true); setSubscribeEmail(''); }
   };
@@ -124,9 +128,8 @@ const Home = () => {
     return () => clearTimeout(timer);
   }, [handleTyping, speed]);
 
-  const closeSidebars = () => {
-    setIsWishlistOpen(false);
-    setIsShopOpen(false);
+  const handleCloseSidebars = () => {
+    closeSidebars();
     setActiveIcon(null);
     setIsMobileMenuOpen(false);
   };
@@ -177,7 +180,7 @@ const Home = () => {
       {/* ── WISHLIST SIDEBAR (context) ── */}
       <WishlistSidebar
         isOpen={isWishlistOpen}
-        onClose={closeSidebars}
+        onClose={handleCloseSidebars}
         wishlistItems={wishlistItems}
         isClearing={isClearing}
         onAddToShop={addToShop}
@@ -185,22 +188,28 @@ const Home = () => {
         onClearAll={clearAll}
       />
 
-      <ShopSidebar isOpen={isShopOpen} onClose={closeSidebars} cartItems={cartItems} />
+      <ShopSidebar isOpen={isShopOpen} onClose={handleCloseSidebars} cartItems={cartItems} />
+
+      {(isWishlistOpen || isShopOpen || isMobileMenuOpen) && (
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[150] transition-opacity" onClick={handleCloseSidebars} />
+      )}
 
       <MobileHeader
         activeIcon={activeIcon}
         setActiveIcon={setActiveIcon}
         cartItemsCount={cartItems.length}
-        onHeartClick={() => { setIsWishlistOpen(true); setIsShopOpen(false); }}
-        onCartClick={() => { setIsShopOpen(true); setIsWishlistOpen(false); }}
+        onHeartClick={openWishlist}
+        onCartClick={openShop}
         onMenuClick={() => setIsMobileMenuOpen(true)}
       />
       <Navbar
         activeIcon={activeIcon}
         setActiveIcon={setActiveIcon}
+        activeLink={activeLink}
+        setActiveLink={setActiveLink}
         cartItemsCount={cartItems.length}
-        onHeartClick={() => { setIsWishlistOpen(true); setIsShopOpen(false); }}
-        onCartClick={() => { setIsShopOpen(true); setIsWishlistOpen(false); }}
+        onHeartClick={openWishlist}
+        onCartClick={openShop}
       />
 
       {/* HERO */}
