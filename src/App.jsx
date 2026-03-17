@@ -1,8 +1,11 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import { WishlistProvider } from './context/WishlistContext';
-import { ThemeProvider } from './context/ThemeContext';
+// CORRECTION : On importe ThemeProvider depuis ThemeContext.jsx (vu dans tes fichiers)
+import { ThemeProvider } from './context/ThemeContext'; 
 import ScrollToTop from './ScrollToTop';
+
+// PAGES EXISTANTES
 import Home from './pages/home';
 import ProductsPage from './pages/ProductsPage';
 import ProductDetails from './pages/ProductDetails';
@@ -17,6 +20,10 @@ import PasswordChanged from './pages/PasswordChanged';
 import AuthGateway from './pages/AuthGateway'; 
 import Checkout from './pages/Checkout';
 
+// NOUVELLES PAGES (Profil)
+import Profile from './pages/Profile'; 
+import EditProfile from './pages/editProfile'; 
+
 function App() {
   return (
     <Router>
@@ -25,12 +32,20 @@ function App() {
           <WishlistProvider> 
             <ScrollToTop />
             <Routes>
+              {/* ACCUEIL */}
               <Route path="/" element={<Home />} />
               <Route path="/home" element={<Home />} />
+
+              {/* BOUTIQUE */}
               <Route path="/products" element={<ProductsPage />} />
               <Route path="/product/:productId" element={<ProductDetails />} />
+              <Route path="/checkout" element={<Checkout />} />
+
+              {/* INFORMATION */}
               <Route path="/about" element={<AboutUs />} />
               <Route path="/contact" element={<Contact />} />
+
+              {/* AUTHENTIFICATION */}
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
               <Route path="/verify-otp" element={<VerifyOTP />} />
@@ -38,7 +53,11 @@ function App() {
               <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/password-changed" element={<PasswordChanged />} />
               <Route path="/auth-gateway" element={<AuthGateway />} />
-              <Route path="/checkout" element={<Checkout />} />
+
+              {/* --- NOUVELLES ROUTES --- */}
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/edit-profile" element={<EditProfile />} />
+
             </Routes>
           </WishlistProvider>
         </CartProvider>
