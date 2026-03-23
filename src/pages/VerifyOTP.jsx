@@ -1,26 +1,25 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next'; // Import i18n
 
 const VerifyOTP = () => {
+  const { t } = useTranslation(); // Initialisation
   const [otp, setOtp] = useState(['', '', '', '']);
   const [isHoveredContinue, setIsHoveredContinue] = useState(false);
   const [isHoveredResend, setIsHoveredResend] = useState(false);
   const [isBackHomeHovered, setIsBackHomeHovered] = useState(false);
 
   // --- Logique du Compteur ---
-  const [timeLeft, setTimeLeft] = useState(300); // 300 secondes = 5 minutes
+  const [timeLeft, setTimeLeft] = useState(300); 
 
   useEffect(() => {
     if (timeLeft <= 0) return;
-
     const timer = setInterval(() => {
       setTimeLeft((prev) => prev - 1);
     }, 1000);
-
     return () => clearInterval(timer);
   }, [timeLeft]);
 
-  // Formattage du temps (mm:ss)
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
@@ -29,8 +28,7 @@ const VerifyOTP = () => {
 
   const handleResend = () => {
     if (timeLeft === 0) {
-      // Logique pour renvoyer le code ici
-      setTimeLeft(300); // Relancer le compteur après clic
+      setTimeLeft(300);
     }
   };
 
@@ -72,7 +70,7 @@ const VerifyOTP = () => {
             </div>
           </div>
           <div className={`transition-all duration-500 overflow-hidden ${isBackHomeHovered ? 'max-w-[140px] ml-4 opacity-100' : 'max-w-0 opacity-0 ml-0'}`}>
-            <span className="font-bold whitespace-nowrap text-base">Back to Home</span>
+            <span className="font-bold whitespace-nowrap text-base">{t('back_home_btn')}</span>
           </div>
         </Link>
       </div>
@@ -82,8 +80,8 @@ const VerifyOTP = () => {
           <img src="/images/logo_SHOT.png" alt="S.HOT Logo" className="h-full w-auto" />
         </div>
 
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">Verify Your Email</h1>
-        <p className="text-gray-600 text-sm mb-10 px-4">Enter the verification code sent to your inbox</p>
+        <h1 className="text-2xl font-bold text-gray-900 mb-2">{t('verify_email_title')}</h1>
+        <p className="text-gray-600 text-sm mb-10 px-4">{t('verify_email_subtitle')}</p>
 
         <div className="flex justify-center gap-4 mb-10">
           {otp.map((data, index) => (
@@ -105,7 +103,7 @@ const VerifyOTP = () => {
             className="w-full bg-[#238d7b] hover:bg-[#1db096] text-white font-bold py-4 rounded-3xl shadow-lg transition-all flex items-center justify-center gap-1 relative overflow-hidden"
           >
             <span className={`transition-all duration-300 ${isHoveredContinue ? '-translate-x-1' : 'translate-x-0'}`}>
-              Continue
+              {t('btn_continue')}
             </span>
             <div className={`flex items-center transition-all duration-300 ${isHoveredContinue ? 'opacity-100 translate-x-0.5' : 'opacity-0 -translate-x-1'}`}>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
@@ -120,9 +118,9 @@ const VerifyOTP = () => {
         <div className="w-full space-y-4">
           <p className="text-gray-500 text-sm">
             {timeLeft > 0 ? (
-              <>Resend code available in <span className="font-bold text-[#238d7b]">{formatTime(timeLeft)}</span></>
+              <>{t('resend_timer_msg')} <span className="font-bold text-[#238d7b]">{formatTime(timeLeft)}</span></>
             ) : (
-              "Didn't receive the code?"
+              t('no_code_received')
             )}
           </p>
           <button 
@@ -139,7 +137,7 @@ const VerifyOTP = () => {
             `}
           >
             <span className={`transition-all duration-300 ${isHoveredResend ? '-translate-x-1' : 'translate-x-0'}`}>
-              Resend Code
+              {t('btn_resend')}
             </span>
 
             <div className={`flex items-center transition-all duration-300 ${isHoveredResend ? 'opacity-100 translate-x-0.5' : 'opacity-0 -translate-x-1'}`}>

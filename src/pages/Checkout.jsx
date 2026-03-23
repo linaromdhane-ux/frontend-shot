@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 import {
@@ -15,8 +16,9 @@ import ShopSidebar from '../components/ShopSidebar';
 
 /* ─── Fallback card illustration ─── */
 const CardIllustration = ({ holder, number, expiry, cvc }) => {
+  const { t } = useTranslation();
   const displayNum  = number ? number.replace(/\s/g,'').replace(/(\d{4})/g,'$1 ').trim() : '0000 0000 0000 0000';
-  const displayName = holder || 'YOUR NAME';
+  const displayName = holder || t('YOUR NAME');
   const displayExp  = expiry || '07 / 27';
   const displayCvc  = cvc    ? '•'.repeat(cvc.length) : '000';
   return (
@@ -31,7 +33,7 @@ const CardIllustration = ({ holder, number, expiry, cvc }) => {
         </div>
         <p className="text-xl font-bold tracking-[0.22em] mb-6 font-mono">{displayNum}</p>
         <div>
-          <p className="text-white/60 text-[10px] uppercase tracking-widest mb-0.5">Card Holder</p>
+          <p className="text-white/60 text-[10px] uppercase tracking-widest mb-0.5">{t('Card Holder')}</p>
           <p className="font-bold text-sm uppercase">{displayName}</p>
         </div>
       </div>
@@ -63,6 +65,7 @@ const inp =
 ══════════════════════════════════════════════════════════════════════════ */
 const Checkout = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const {
     cartItems, removeFromCart, clearCart,
@@ -71,7 +74,7 @@ const Checkout = () => {
     addToShop, openWishlist, openShop, closeSidebars,
   } = useCart();
 
-  const { wishlistItems, isClearing, toggleWishlist, removeItem, clearAll, isInWishlist } = useWishlist();
+  const { wishlistItems, isClearing, removeItem, clearAll } = useWishlist();
 
   const [step, setStep]                   = useState(1);
   const [paymentMethod, setPaymentMethod] = useState(null);
@@ -171,13 +174,13 @@ const Checkout = () => {
                 <path d="M42 28L50 24L58 28" stroke="#149484" strokeWidth="2.5" strokeLinejoin="round" fill="none"/>
               </svg>
             </div>
-            <h2 className="text-[19px] font-extrabold text-gray-900 mb-3">Your S.HOT is on its way !</h2>
+            <h2 className="text-[19px] font-extrabold text-gray-900 mb-3">{t('Your S.HOT is on its way !')}</h2>
             <p className="text-gray-500 text-sm font-medium mb-9 leading-relaxed">
-              You will receive a confirmation email<br/>with your tracking number shortly
+              {t('You will receive a confirmation email')}<br/>{t('with your tracking number shortly')}
             </p>
             <button onClick={() => { clearCart(); navigate('/home'); }}
               className="bg-[#149484] text-white font-bold py-4 rounded-[50px] text-base hover:bg-[#0e7568] transition-all shadow-lg w-full">
-              Check Mail
+              {t('Check Mail')}
             </button>
           </div>
         </div>
@@ -193,24 +196,24 @@ const Checkout = () => {
             {/* ─── STEP 1: Shipping ─── */}
             {step === 1 && (
               <div className="space-y-5">
-                <h2 className="text-[22px] font-black text-gray-900 mb-6">Shipping Informations</h2>
+                <h2 className="text-[22px] font-black text-gray-900 mb-6">{t('Shipping Informations')}</h2>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-gray-700 font-semibold text-sm mb-2">Name</label>
+                    <label className="block text-gray-700 font-semibold text-sm mb-2">{t('Name')}</label>
                     <input
                       className={inp}
-                      placeholder="Mark"
+                      placeholder={t('Mark')}
                       autoComplete="given-name"
                       value={form.name}
                       onChange={e => setForm({ ...form, name: e.target.value })}
                     />
                   </div>
                   <div>
-                    <label className="block text-gray-700 font-semibold text-sm mb-2">Surname</label>
+                    <label className="block text-gray-700 font-semibold text-sm mb-2">{t('Surname')}</label>
                     <input
                       className={inp}
-                      placeholder="Nova"
+                      placeholder={t('Nova')}
                       autoComplete="family-name"
                       value={form.surname}
                       onChange={e => setForm({ ...form, surname: e.target.value })}
@@ -219,10 +222,10 @@ const Checkout = () => {
                 </div>
 
                 <div>
-                  <label className="block text-gray-700 font-semibold text-sm mb-2">Shipping Adress</label>
+                  <label className="block text-gray-700 font-semibold text-sm mb-2">{t('Shipping Adress')}</label>
                   <input
                     className={inp}
-                    placeholder="Tunisia"
+                    placeholder={t('Tunisia')}
                     autoComplete="street-address"
                     value={form.address}
                     onChange={e => setForm({ ...form, address: e.target.value })}
@@ -231,17 +234,17 @@ const Checkout = () => {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-gray-700 font-semibold text-sm mb-2">City</label>
+                    <label className="block text-gray-700 font-semibold text-sm mb-2">{t('City')}</label>
                     <input
                       className={inp}
-                      placeholder="Tunisia"
+                      placeholder={t('Tunisia')}
                       autoComplete="address-level2"
                       value={form.city}
                       onChange={e => setForm({ ...form, city: e.target.value })}
                     />
                   </div>
                   <div>
-                    <label className="block text-gray-700 font-semibold text-sm mb-2">Zip Code</label>
+                    <label className="block text-gray-700 font-semibold text-sm mb-2">{t('Zip Code')}</label>
                     <input
                       className={inp}
                       placeholder="1000"
@@ -253,7 +256,7 @@ const Checkout = () => {
                 </div>
 
                 <div>
-                  <label className="block text-gray-700 font-semibold text-sm mb-2">Phone Number</label>
+                  <label className="block text-gray-700 font-semibold text-sm mb-2">{t('Phone Number')}</label>
                   <input
                     className={inp}
                     placeholder="+1 (555) 012-3456"
@@ -268,10 +271,10 @@ const Checkout = () => {
                   onClick={handleNext}
                   className="w-full bg-[#149484] text-white font-extrabold py-5 rounded-[50px] text-base mt-2 shadow-md hover:bg-[#0e7568] active:scale-[0.98] transition-all"
                 >
-                  Next
+                  {t('Next')}
                 </button>
                 <button onClick={() => navigate(-1)} className="block text-gray-600 font-semibold text-sm hover:text-gray-800 pt-1">
-                  Back
+                  {t('Back')}
                 </button>
               </div>
             )}
@@ -294,12 +297,12 @@ const Checkout = () => {
                       ${paymentMethod==='cash' ? 'bg-[#149484]' : 'bg-gray-100'}`}>
                       <Truck size={26} className={paymentMethod==='cash' ? 'text-white' : 'text-gray-500'}/>
                     </div>
-                    <h3 className="text-xl font-extrabold text-gray-900 mb-3">Cash on Delivery</h3>
+                    <h3 className="text-xl font-extrabold text-gray-900 mb-3">{t('Cash on Delivery')}</h3>
                     <p className="text-gray-500 text-sm leading-relaxed mb-6">
-                      Pay at your door. Just give the cash to the driver when your S.HOT arrives. No upfront payment needed.
+                      {t('Pay at your door. Just give the cash to the driver when your S.HOT arrives. No upfront payment needed.')}
                     </p>
                     <div className="border-t border-gray-100 pt-5 text-[#149484] font-bold text-sm">
-                      Additional Fees: 0.00 DT
+                      {t('Additional Fees')}: 0.00 DT
                     </div>
                   </div>
 
@@ -316,12 +319,12 @@ const Checkout = () => {
                       ${paymentMethod==='card' ? 'bg-[#149484]' : 'bg-gray-100'}`}>
                       <CreditCard size={26} className={paymentMethod==='card' ? 'text-white' : 'text-gray-500'}/>
                     </div>
-                    <h3 className="text-xl font-extrabold text-gray-900 mb-3">Card Payment</h3>
+                    <h3 className="text-xl font-extrabold text-gray-900 mb-3">{t('Card Payment')}</h3>
                     <p className="text-gray-500 text-sm leading-relaxed mb-6">
-                      Secure payment via Visa, Mastercard, or American Express. Use your saved cards or enter a new one.
+                      {t('Secure payment via Visa, Mastercard, or American Express. Use your saved cards or enter a new one.')}
                     </p>
                     <div className="border-t border-gray-100 pt-5 text-[#149484] font-bold text-sm">
-                      Additional Fees: 0.00 DT
+                      {t('Additional Fees')}: 0.00 DT
                     </div>
                   </div>
                 </div>
@@ -331,17 +334,17 @@ const Checkout = () => {
                     <div className="bg-[#149484] text-white rounded-full p-1 flex items-center justify-center">
                       <AlertCircle size={16} strokeWidth={3}/>
                     </div>
-                    <span className="font-bold text-gray-800 text-sm">Please Choose a Payment Method</span>
+                    <span className="font-bold text-gray-800 text-sm">{t('Please Choose a Payment Method')}</span>
                   </div>
                 )}
 
                 <div className="flex justify-between items-center pt-2">
                   <button onClick={() => setStep(1)} className="text-gray-600 font-bold text-sm hover:text-gray-800">
-                    Previous Step
+                    {t('Previous Step')}
                   </button>
                   <button onClick={handleNext}
                     className="bg-[#149484] text-white px-10 py-4 rounded-[50px] font-bold text-sm flex items-center gap-2 shadow-lg hover:bg-[#0e7568] active:scale-[0.98]">
-                    Next <ChevronRight size={18} strokeWidth={2.5}/>
+                    {t('Next')} <ChevronRight size={18} strokeWidth={2.5}/>
                   </button>
                 </div>
               </div>
@@ -351,15 +354,15 @@ const Checkout = () => {
             {step === 3 && (
               <div className="space-y-6">
                 <div>
-                  <h2 className="text-[22px] font-extrabold text-gray-900 mb-1">Add New Card</h2>
-                  <p className="text-gray-400 font-medium text-sm">Enter your card details for payments.</p>
+                  <h2 className="text-[22px] font-extrabold text-gray-900 mb-1">{t('Add New Card')}</h2>
+                  <p className="text-gray-400 font-medium text-sm">{t('Enter your card details for payments.')}</p>
                 </div>
 
                 <div className="flex flex-col xl:flex-row gap-12 items-start">
                   <div className="flex-1 w-full space-y-5">
 
                     <div>
-                      <label className="block text-gray-700 font-semibold text-sm mb-2">Cardholder Name</label>
+                      <label className="block text-gray-700 font-semibold text-sm mb-2">{t('Cardholder Name')}</label>
                       <input
                         className={inp + ' uppercase tracking-wide'}
                         placeholder="MARK NOVA"
@@ -367,11 +370,11 @@ const Checkout = () => {
                         value={card.holder}
                         onChange={e => setCard({ ...card, holder: e.target.value })}
                       />
-                      <p className="text-xs text-gray-400 mt-1">Exactly as it appears on the front of your card.</p>
+                      <p className="text-xs text-gray-400 mt-1">{t('Exactly as it appears on the front of your card.')}</p>
                     </div>
 
                     <div>
-                      <label className="block text-gray-700 font-semibold text-sm mb-2">Card Number</label>
+                      <label className="block text-gray-700 font-semibold text-sm mb-2">{t('Card Number')}</label>
                       <div className="relative">
                         <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
                           <CreditCard size={15} strokeWidth={2}/>
@@ -389,7 +392,7 @@ const Checkout = () => {
 
                     <div className="grid grid-cols-2 gap-5">
                       <div>
-                        <label className="block text-gray-700 font-semibold text-sm mb-2">Expiry Date</label>
+                        <label className="block text-gray-700 font-semibold text-sm mb-2">{t('Expiry Date')}</label>
                         <input
                           className={inp + ' text-center'}
                           placeholder="MM / YY"
@@ -420,7 +423,7 @@ const Checkout = () => {
                         className="w-5 h-5 rounded border-gray-300 text-[#149484] focus:ring-[#149484] cursor-pointer"
                       />
                       <label htmlFor="saveCard" className="font-medium text-gray-600 text-sm cursor-pointer">
-                        Save this card for future payments
+                        {t('Save this card for future payments')}
                       </label>
                     </div>
 
@@ -428,10 +431,10 @@ const Checkout = () => {
                       onClick={() => { setStep(4); window.scrollTo(0,0); }}
                       className="w-full bg-[#149484] text-white font-extrabold py-5 rounded-[50px] text-base shadow-md hover:bg-[#0e7568] active:scale-[0.98] transition-all"
                     >
-                      Order
+                      {t('Order')}
                     </button>
                     <button onClick={() => setStep(2)} className="block text-gray-600 font-bold text-sm hover:text-gray-800">
-                      Previous Step
+                      {t('Previous Step')}
                     </button>
                   </div>
 
@@ -452,7 +455,7 @@ const Checkout = () => {
             )}
           </div>
 
-          {/* ══ RIGHT: Summary — Steps 1 & 2 seulement ══ */}
+          {/* ══ RIGHT: Summary ══ */}
           {step < 3 && (
             <div className="w-full lg:w-[400px] shrink-0">
               <div className="bg-white/90 backdrop-blur-sm rounded-[32px] p-8 shadow-sm">
@@ -460,7 +463,7 @@ const Checkout = () => {
                 {cartItems.length === 0 ? (
                   <div className="flex flex-col items-center justify-center py-12 text-center text-gray-300">
                     <ShoppingBag size={52} className="mb-4 opacity-30"/>
-                    <p className="font-medium text-sm">Your cart is empty</p>
+                    <p className="font-medium text-sm">{t('Your cart is empty')}</p>
                   </div>
                 ) : (
                   <div className="mb-6">
@@ -489,15 +492,15 @@ const Checkout = () => {
                 )}
 
                 <div className="bg-[#149484] rounded-[24px] p-7 text-white relative overflow-hidden">
-                  <h3 className="text-base font-extrabold mb-5 relative z-10">Summary</h3>
+                  <h3 className="text-base font-extrabold mb-5 relative z-10">{t('Summary')}</h3>
                   <div className="space-y-2.5 text-sm opacity-90 mb-6 relative z-10 font-medium">
-                    <div className="flex justify-between"><span>Subtotal</span><span className="font-bold">{fmt(subtotal)}</span></div>
-                    <div className="flex justify-between"><span>Total Products</span><span className="font-bold">{totalProducts}</span></div>
-                    <div className="flex justify-between"><span>Shipping Cost</span><span className="font-bold">Free</span></div>
-                    <div className="flex justify-between"><span>Tax Cost</span><span className="font-bold">{fmt(taxCost)}</span></div>
+                    <div className="flex justify-between"><span>{t('Subtotal')}</span><span className="font-bold">{fmt(subtotal)}</span></div>
+                    <div className="flex justify-between"><span>{t('Total Products')}</span><span className="font-bold">{totalProducts}</span></div>
+                    <div className="flex justify-between"><span>{t('Shipping Cost')}</span><span className="font-bold">{t('Free')}</span></div>
+                    <div className="flex justify-between"><span>{t('Tax Cost')}</span><span className="font-bold">{fmt(taxCost)}</span></div>
                   </div>
                   <div className="border-t border-white/20 pt-5 flex justify-between items-end relative z-10">
-                    <span className="text-lg font-extrabold">Total</span>
+                    <span className="text-lg font-extrabold">{t('Total')}</span>
                     <span className="text-4xl font-black tracking-tight">{fmt(finalTotal)}</span>
                   </div>
                   <div className="absolute bottom-[-30px] left-[-20px] w-36 h-36 bg-white/5 rounded-full blur-3xl pointer-events-none"/>

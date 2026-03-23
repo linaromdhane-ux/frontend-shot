@@ -1,17 +1,23 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { CircleUser } from 'lucide-react';
+import { useTranslation } from 'react-i18next'; // Import pour la traduction
 
 const AuthGateway = () => {
+  const { t } = useTranslation();
   const [isBackHovered, setIsBackHovered] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // On récupère la page d'origine pour y retourner après connexion
+  const from = location.state?.from?.pathname || "/home";
 
   return (
     <div 
       className="min-h-screen w-full flex items-center justify-center p-6 font-montserrat bg-cover bg-center bg-no-repeat relative"
       style={{ backgroundImage: "url('/images/Sign Up.png')" }}
     >
-      {/* --- Bouton Back to Home (Exactement comme ton code) --- */}
+      {/* --- Bouton Back to Home --- */}
       <div className="absolute top-8 left-8">
         <Link 
           to="/home"
@@ -41,7 +47,9 @@ const AuthGateway = () => {
             </div>
           </div>
           <div className={`transition-all duration-500 overflow-hidden ${isBackHovered ? 'max-w-[140px] ml-4 opacity-100' : 'max-w-0 opacity-0 ml-0'}`}>
-            <span className="font-bold whitespace-nowrap text-base font-montserrat">Back to Home</span>
+            <span className="font-bold whitespace-nowrap text-base font-montserrat">
+              {t('back_home', 'Back to Home')}
+            </span>
           </div>
         </Link>
       </div>
@@ -50,7 +58,7 @@ const AuthGateway = () => {
       <div className="bg-white rounded-[40px] shadow-2xl p-12 max-w-lg w-full text-center flex flex-col items-center">
         
         {/* Logo Image */}
-        <div className="mb-8 w-36">
+        <div className="mb-8 w-36 cursor-pointer" onClick={() => navigate('/home')}>
           <img 
             src="/images/logo_SHOT.png" 
             alt="S.HOT Logo" 
@@ -58,32 +66,32 @@ const AuthGateway = () => {
           />
         </div>
 
-        {/* Icône CircleUser demandée */}
+        {/* Icône CircleUser */}
         <div className="mb-8 text-[#238d7b]">
           <CircleUser size={100} strokeWidth={1.2} />
         </div>
 
         <h2 className="text-xl font-bold text-gray-900 mb-4 px-4 leading-tight">
-          One step closer to your glow !
+          {t('auth_gateway_title', 'One step closer to your glow !')}
         </h2>
         
         <p className="text-gray-500 text-sm mb-10 leading-relaxed px-6 font-medium">
-          Create your S.HOT account in seconds to secure your order and track your vitality journey.
+          {t('auth_gateway_subtitle', 'Create your S.HOT account in seconds to secure your order and track your vitality journey.')}
         </p>
 
         {/* Boutons d'action */}
         <div className="flex flex-col sm:flex-row gap-4 w-full px-2">
           <button 
-            onClick={() => navigate('/login')}
+            onClick={() => navigate('/login', { state: { from } })}
             className="flex-1 bg-[#238d7b] text-white font-bold py-4 rounded-full hover:bg-[#1a6e60] transition-all shadow-lg shadow-[#238d7b]/20 active:scale-95"
           >
-            Login
+            {t('login', 'Login')}
           </button>
           <button 
-            onClick={() => navigate('/register')}
+            onClick={() => navigate('/register', { state: { from } })}
             className="flex-1 border-2 border-[#238d7b] text-[#238d7b] font-bold py-4 rounded-full hover:bg-[#238d7b]/5 transition-all active:scale-95"
           >
-            Sign Up
+            {t('signup', 'Sign Up')}
           </button>
         </div>
 
@@ -92,7 +100,7 @@ const AuthGateway = () => {
           onClick={() => navigate(-1)}
           className="mt-8 text-gray-400 font-bold hover:text-gray-700 transition-colors text-sm uppercase tracking-wider"
         >
-          Cancel
+          {t('cancel', 'Cancel')}
         </button>
       </div>
     </div>

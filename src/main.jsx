@@ -4,6 +4,7 @@ import App from './App.jsx'
 import './index.css'
 import './i18n'; // <--- AJOUTE CETTE LIGNE ICI !
 import { WishlistProvider } from './context/WishlistContext'
+import './i18n';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

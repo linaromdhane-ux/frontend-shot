@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Play, Leaf, Recycle, HeartHandshake } from 'lucide-react';
+import { useTranslation } from 'react-i18next'; // Ajouté
 
 // Import des components - CHEMINS CORRIGÉS
 import Navbar from '../components/Navbar';
@@ -17,6 +18,7 @@ import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 
 const AboutUs = () => {
+  const { t } = useTranslation(); // Ajouté
   const [activeIcon, setActiveIcon] = useState(null);
   const [activeLink, setActiveLink] = useState(null);
   const [subscribeEmail, setSubscribeEmail] = useState('');
@@ -67,22 +69,22 @@ const AboutUs = () => {
     {
       id: 1,
       icon: <Leaf size={32} strokeWidth={2} />,
-      title: "Uncompromising Purity",
-      text: "100% natural, organic, and pesticide-free spirulina.",
+      title: t('about_val1_t'),
+      text: t('about_val1_d'),
       color: "#0f766e"
     },
     {
       id: 2,
       icon: <Recycle size={32} strokeWidth={2} />,
-      title: "Planet-First Vision",
-      text: "Sustainably sourced to protect your health and the planet.",
+      title: t('about_val2_t'),
+      text: t('about_val2_d'),
       color: "#8b5cf6"
     },
     {
       id: 3,
       icon: <HeartHandshake size={32} strokeWidth={2} />,
-      title: "Nutritional Excellence",
-      text: "Packed with natural protein and nutrients for your daily boost.",
+      title: t('about_val3_t'),
+      text: t('about_val3_d'),
       color: "#f59e0b"
     }
   ];
@@ -90,21 +92,21 @@ const AboutUs = () => {
   const testimonials = [
     {
       name: "Michael T",
-      role: "Health Coach",
+      role: t('role_coach'),
       stars: 5,
-      text: "The Daily Boost Bundle is perfect for my lifestyle. I take the capsules during the week and use the powder in my smoothies on weekends. Great value and results!"
+      text: t('testi_1')
     },
     {
       name: "Sarah J",
-      role: "Fitness Enthusiast",
+      role: t('role_fitness'),
       stars: 5,
-      text: "I've tried many spirulina products before, but SHOT is by far the best quality. I've noticed a significant boost in my energy levels since I started taking it."
+      text: t('testi_2')
     },
     {
       name: "Alex R",
-      role: "Professional Athlete",
+      role: t('role_athlete'),
       stars: 5,
-      text: "As an athlete, I'm very careful about what supplements I use. SHOT's transparency about their sourcing and testing gave me confidence, and the results speak for themselves."
+      text: t('testi_3')
     }
   ];
 
@@ -325,25 +327,6 @@ const AboutUs = () => {
           .stay-ahead-content { position: relative; z-index: 10; text-align: center; }
           .stay-ahead-title { font-size: clamp(24px, 5vw, 48px); font-weight: 800; letter-spacing: -0.5px; line-height: 1.2; color: #0d4a3e; }
 
-          .footer-container { background: radial-gradient(circle at top right, #1f7a6a 0%, #0d4a3e 100%); color: white; padding: 65px 0 35px; }
-          .footer-top { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 35px; max-width: 1200px; margin: 0 auto; padding: 0 35px; margin-bottom: 45px; }
-          .footer-col h3 { font-size: 15px; font-weight: 700; color: white; margin-bottom: 18px; }
-          .footer-col ul { list-style: none; padding: 0; margin: 0; }
-          .footer-col ul li { margin-bottom: 9px; }
-          .footer-col ul li a { color: rgba(255,255,255,0.72); text-decoration: none; font-size: 13px; transition: color .3s ease; cursor:pointer; font-weight:500; }
-          .footer-col ul li a:hover { color: white; }
-          .footer-logo { margin-bottom: 20px; }
-          .footer-logo img { height: 45px; width: auto; }
-          .footer-description { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.6; margin-bottom: 24px; }
-          .footer-contact { display: flex; align-items: center; gap: 12px; font-size: 13px; color: rgba(255,255,255,0.75); margin-bottom: 12px; }
-          .footer-contact svg { width: 18px; height: 18px; flex-shrink: 0; }
-          .footer-divider { border-top: 1px solid rgba(255,255,255,0.1); max-width: 1200px; margin: 0 auto; padding: 0 35px; margin-bottom: 30px; }
-          .footer-bottom { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 35px; flex-wrap: wrap; gap: 20px; }
-          .footer-copyright { color: rgba(255,255,255,0.60); font-size: 13px; }
-          .footer-socials { display: flex; gap: 25px; }
-          .footer-socials a { color: rgba(255,255,255,0.80); cursor: pointer; transition: color .3s ease; }
-          .footer-socials a:hover { color: white; }
-
           @media (max-width: 1024px) {
             .hero-content { gap: 35px; width: 90%; }
             .hero-text-p { font-size: 17px; }
@@ -394,9 +377,9 @@ const AboutUs = () => {
           
           {/* SECTION 1: WHO WE ARE */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-extrabold text-[#0f766e] mb-4">Who We Are ?</h1>
+            <h1 className="text-4xl md:text-5xl font-extrabold text-[#0f766e] mb-4">{t('about_title')}</h1>
             <p className="text-gray-600 text-base md:text-lg max-w-2xl mx-auto font-medium">
-              Discover the power of premium, sustainably sourced spirulina dedicated to your energy and well-being.
+              {t('about_subtitle')}
             </p>
           </div>
 
@@ -410,7 +393,7 @@ const AboutUs = () => {
               <div className="hero-divider"></div>
               <div className="hero-text-wrapper">
                 <p className="hero-text-p">
-                  Born from the vision of Spiraw, S.HOT was created to bridge the gap between ancient superfoods and modern lifestyle. We specialize in cultivating and delivering premium, organic spirulina of the highest purity.
+                  {t('about_hero_text')}
                 </p>
               </div>
             </div>
@@ -418,8 +401,8 @@ const AboutUs = () => {
 
           {/* SECTION 3: OUR VALUES */}
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#0f766e] mb-4">Our Values</h2>
-            <p className="text-gray-600 mb-12 font-medium">Experience the excellence of biotech innovation merged with nature's most powerful superfood.</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#0f766e] mb-4">{t('about_values_title')}</h2>
+            <p className="text-gray-600 mb-12 font-medium">{t('about_values_desc')}</p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
               {values.map((val) => {
@@ -445,8 +428,8 @@ const AboutUs = () => {
 
           {/* SECTION 4: WHAT'S SPIRULINA */}
           <div className="text-center mb-24 max-w-7xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#0f766e] mb-4">What's Spirulina ?</h2>
-            <p className="text-gray-600 mb-10 font-medium">Deep dive into the nutrient-dense algae that fuels your vitality.</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#0f766e] mb-4">{t('about_spiru_title')}</h2>
+            <p className="text-gray-600 mb-10 font-medium">{t('about_spiru_desc')}</p>
             
             <div className="video-section">
               <img src="/images/Rectangle 39.png" alt="Spirulina Algae" className="video-bg" />
@@ -467,25 +450,25 @@ const AboutUs = () => {
 
           {/* SECTION 5: WHAT PEOPLE SAY */}
           <div className="text-center mb-4 max-w-7xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#0f766e] mb-4">What People Say</h2>
-            <p className="text-gray-600 mb-12 font-medium">Discover the life-changing vitality and health benefits shared by our loyal customers.</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#0f766e] mb-4">{t('about_testi_title')}</h2>
+            <p className="text-gray-600 mb-12 font-medium">{t('about_testi_desc')}</p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {testimonials.map((t, idx) => (
+              {testimonials.map((t_item, idx) => (
                 <div key={idx} className="testimonial-card">
                   <div className="testimonial-header">
                     <div className="testimonial-avatar">
-                      {t.name.charAt(0)}
+                      {t_item.name.charAt(0)}
                     </div>
                     <div>
-                      <h4 className="font-bold text-lg leading-tight">{t.name}</h4>
-                      <p className="text-xs opacity-80">{t.role}</p>
+                      <h4 className="font-bold text-lg leading-tight">{t_item.name}</h4>
+                      <p className="text-xs opacity-80">{t_item.role}</p>
                     </div>
                   </div>
                   <div className="flex gap-1 mb-4 text-[#f59e0b]">
-                    {[...Array(t.stars)].map((_, i) => <span key={i}>★</span>)}
+                    {[...Array(t_item.stars)].map((_, i) => <span key={i}>★</span>)}
                   </div>
-                  <p className="text-sm italic font-medium leading-relaxed opacity-95">"{t.text}"</p>
+                  <p className="text-sm italic font-medium leading-relaxed opacity-95">"{t_item.text}"</p>
                 </div>
               ))}
             </div>
@@ -497,7 +480,7 @@ const AboutUs = () => {
         <div className="stay-ahead-container">
           <div className="stay-ahead-overlay"></div>
           <div className="stay-ahead-content max-w-7xl mx-auto px-6 md:px-12">
-            <h2 className="stay-ahead-title">Join our Newsletter</h2>
+            <h2 className="stay-ahead-title">{t('join_news')}</h2>
           </div>
         </div>
 

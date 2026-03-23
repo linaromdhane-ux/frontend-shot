@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const PasswordChanged = () => {
+  const { t } = useTranslation();
   const [isHovered, setIsHovered] = useState(false);
   const [isBackHomeHovered, setIsBackHomeHovered] = useState(false); // État pour le bouton Back
 
@@ -40,7 +42,9 @@ const PasswordChanged = () => {
             </div>
           </div>
           <div className={`transition-all duration-500 overflow-hidden ${isBackHomeHovered ? 'max-w-[140px] ml-4 opacity-100' : 'max-w-0 opacity-0 ml-0'}`}>
-            <span className="font-bold whitespace-nowrap text-base">Back to Home</span>
+            <span className="font-bold whitespace-nowrap text-base">
+              {t('back_home', 'Back to Home')}
+            </span>
           </div>
         </Link>
       </div>
@@ -58,8 +62,12 @@ const PasswordChanged = () => {
           </svg>
         </div>
 
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">Password Changed !</h1>
-        <p className="text-gray-500 text-sm mb-12">Your password has been changed successfully</p>
+        <h1 className="text-2xl font-bold text-gray-900 mb-2">
+          {t('password_changed_title', 'Password Changed !')}
+        </h1>
+        <p className="text-gray-500 text-sm mb-12">
+          {t('password_changed_subtitle', 'Your password has been changed successfully')}
+        </p>
 
         {/* Bouton Back to Login */}
         <Link to="/login" className="w-full">
@@ -69,7 +77,7 @@ const PasswordChanged = () => {
             className="w-full bg-[#238d7b] hover:bg-[#1db096] text-white font-bold py-4 rounded-3xl shadow-lg transition-all flex items-center justify-center gap-1 relative overflow-hidden"
           >
             <span className={`transition-all duration-300 ${isHovered ? '-translate-x-1' : 'translate-x-0'}`}>
-              Back to Login
+              {t('back_login', 'Back to Login')}
             </span>
             
             <div className={`flex items-center transition-all duration-300 ${isHovered ? 'opacity-100 translate-x-0.5' : 'opacity-0 -translate-x-1'}`}>

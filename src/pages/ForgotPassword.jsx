@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const ForgotPassword = () => {
+  const { t } = useTranslation();
   const [isHovered, setIsHovered] = useState(false);
   const [isHoveredBack, setIsHoveredBack] = useState(false);
   const [isBackHomeHovered, setIsBackHomeHovered] = useState(false);
@@ -38,7 +40,7 @@ const ForgotPassword = () => {
             </div>
           </div>
           <div className={`transition-all duration-500 overflow-hidden ${isBackHomeHovered ? 'max-w-[140px] ml-4 opacity-100' : 'max-w-0 opacity-0 ml-0'}`}>
-            <span className="font-bold whitespace-nowrap text-base">Back to Home</span>
+            <span className="font-bold whitespace-nowrap text-base">{t('back_home')}</span>
           </div>
         </Link>
       </div>
@@ -49,7 +51,7 @@ const ForgotPassword = () => {
           <img src="/images/logo_SHOT.png" alt="S.HOT Logo" className="h-full w-auto" />
         </div>
         
-        {/* --- REMPLACEMENT ICI : Image Group.png à la place de la clé --- */}
+        {/* Illustration Group.png */}
         <div className="mb-8">
           <div className="w-28 h-28 flex items-center justify-center">
             <img 
@@ -60,15 +62,15 @@ const ForgotPassword = () => {
           </div>
         </div>
 
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">Forgot Your Password?</h1>
-        <p className="text-gray-500 text-sm mb-10 px-4">Enter your Email so that we can send you password reset link</p>
+        <h1 className="text-2xl font-bold text-gray-900 mb-2">{t('forgot_title')}</h1>
+        <p className="text-gray-500 text-sm mb-10 px-4">{t('forgot_subtitle')}</p>
 
         <div className="w-full space-y-6 text-left">
           <div className="space-y-1.5">
-            <label className="text-sm font-medium text-gray-700 ml-1">Email</label>
+            <label className="text-sm font-medium text-gray-700 ml-1">{t('email_label')}</label>
             <input 
               type="email" 
-              placeholder="Enter your Email..."
+              placeholder={t('email_placeholder')}
               className="w-full p-4 rounded-2xl border border-gray-200 outline-none focus:border-[#0a9382] transition-all" 
             />
           </div>
@@ -80,7 +82,7 @@ const ForgotPassword = () => {
               className="w-full bg-[#238d7b] hover:bg-[#1db096] text-white font-bold py-4 rounded-3xl shadow-lg transition-all flex items-center justify-center gap-1 relative overflow-hidden"
             >
               <span className={`transition-all duration-300 ${isHovered ? '-translate-x-1' : 'translate-x-0'}`}>
-                Send Mail
+                {t('btn_send_mail')}
               </span>
               <div className={`flex items-center transition-all duration-300 ${isHovered ? 'opacity-100 translate-x-0.5' : 'opacity-0 -translate-x-1'}`}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
@@ -105,7 +107,7 @@ const ForgotPassword = () => {
                 </svg>
               </div>
               <span className={`transition-all duration-300 ${isHoveredBack ? 'translate-x-0.5' : 'translate-x-0'}`}>
-                Back to Login
+                {t('back_login')}
               </span>
             </Link>
           </div>

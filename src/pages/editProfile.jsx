@@ -66,27 +66,26 @@ const EditProfile = () => {
 
   return (
     <div 
-  className="min-h-screen font-sans text-[#1A1A1A] bg-cover bg-center bg-no-repeat bg-fixed"
-  style={{ backgroundImage: "url('/images/Sign Up.png')" }}
->
+      className="min-h-screen font-sans text-[#1A1A1A] bg-cover bg-center bg-no-repeat bg-fixed"
+      style={{ backgroundImage: "url('/images/Sign Up.png')" }}
+    >
       <style>{shakeAnimation}</style>
       <Navbar onHeartClick={openWishlist} onCartClick={openShop} />
       
       <main className="container mx-auto px-4 md:px-10 pt-32 pb-20">
         <div className="flex flex-col lg:flex-row gap-16 items-stretch">
           
-          {/* --- SIDEBAR (Identique à AddCard) --- */}
+          {/* --- SIDEBAR --- */}
           <div className="w-full lg:w-1/4 self-start">
             <div className="bg-white rounded-[2rem] px-8 py-10 shadow-sm border border-gray-100">
               <div className="text-center mb-10">
                 {userAvatar ? (
-  <img src={userAvatar} alt="User" className="w-28 h-28 rounded-full object-cover mx-auto mb-5" />
-) : (
-  <div className="w-28 h-28 rounded-full bg-[#C4C4C4] mx-auto mb-5 flex items-center justify-center text-2xl text-white font-bold">
-    {/* Correction ici : si le nom est vide, on affiche l'icône User au lieu de faire planter l'app */}
-    {formData.name ? formData.name.charAt(0).toUpperCase() : <User size={40} />}
-  </div>
-)}
+                  <img src={userAvatar} alt="User" className="w-28 h-28 rounded-full object-cover mx-auto mb-5" />
+                ) : (
+                  <div className="w-28 h-28 rounded-full bg-[#C4C4C4] mx-auto mb-5 flex items-center justify-center text-2xl text-white font-bold">
+                    {formData.name ? formData.name.charAt(0).toUpperCase() : <User size={40} />}
+                  </div>
+                )}
                 <h2 className="text-[22px] font-bold text-[#1A1A1A] mb-1">{userName}</h2>
                 <p className="text-[#757575] text-[14px]">{formData.email}</p>
               </div>
@@ -122,7 +121,6 @@ const EditProfile = () => {
 
             <form onSubmit={handleUpdate} className="space-y-6 max-w-3xl">
               
-              {/* Ligne 1: Name & Surname */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-[12px] text-[#1A1A1A] font-bold uppercase tracking-widest">{t('name')}</label>
@@ -148,7 +146,6 @@ const EditProfile = () => {
                 </div>
               </div>
 
-              {/* Ligne 2: Shipping Address & City */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-[12px] text-[#1A1A1A] font-bold uppercase tracking-widest">{t('shipping_address')}</label>
@@ -174,7 +171,6 @@ const EditProfile = () => {
                 </div>
               </div>
 
-              {/* Ligne 3: Country & Zip Code */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-[12px] text-[#1A1A1A] font-bold uppercase tracking-widest">{t('country')}</label>
@@ -200,7 +196,6 @@ const EditProfile = () => {
                 </div>
               </div>
 
-              {/* Ligne 4: Phone & Email */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-[12px] text-[#1A1A1A] font-bold uppercase tracking-widest">{t('phone_number')}</label>
@@ -226,7 +221,6 @@ const EditProfile = () => {
                 </div>
               </div>
 
-              {/* BOUTONS (Identiques à AddCard) */}
               <div className="flex gap-4 pt-8 max-w-xl">
                 <button
                   type="button"

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { Heart, Star, Headphones } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 import Navbar          from '../components/Navbar';
 import MobileHeader    from '../components/MobileHeader';
@@ -16,6 +17,7 @@ import { useCart }     from '../context/CartContext';
 const ProductDetails = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   // Wishlist via context global
   const { wishlistItems, isClearing, toggleWishlist, removeItem, clearAll, isInWishlist } = useWishlist();
@@ -43,10 +45,121 @@ const ProductDetails = () => {
   const [reviewForm, setReviewForm] = useState({ name: '', email: '', review: '', rating: 0 });
 
   const allProducts = [
-    { id: 101, name: 'Spirulina Powder', description: 'Green Gold – Pure Energy in Every Scoop', fullDescription: "Our premium spirulina capsules are packed with essential nutrients to support your daily health routine. Each capsule contains 500mg of pure, high-quality spirulina that's been carefully sourced and tested for purity. Spirulina is rich in protein, vitamins, minerals, and antioxidants, making it an excellent supplement for overall wellness..", price: '59,000 DT', priceNum: 59000, badge: 'Best Seller', badgeColor: '#2563eb', stock: 'In Stock (50 available)', rating: 4.7, reviews: 2, img: '/images/p1.png', images: ['/images/p1.png', '/images/p1.png', '/images/p1.png', '/images/p1.png'], category: 'Powder', features: ['100% pure organic spirulina','500mg per capsule','60 capsules per bottle','No additives or fillers','Sustainably sourced'], nutritionalInfo: [{ label: 'Serving Size', value: '1 shot (2oz)' },{ label: 'Spirulina', value: '1g' },{ label: 'Vitamin C', value: '60% DV' },{ label: 'Zinc', value: '20% DV' },{ label: 'Ginger Extract', value: '200mg' }], customerReviews: [{ name: 'Frank', date: '2024-06-06', rating: 5, comment: 'Great for immunity, tastes good!' },{ name: 'Alex X', date: '2024-06-06', rating: 5, comment: 'Great supplement for fast post-workout recovery.' },{ name: 'Sarah', date: '2024-06-06', rating: 5, comment: 'Simple way to get my daily greens.' }], overallRating: 4.7, totalReviews: 45 },
-    { id: 102, name: 'Spirulina Diamonds', description: 'Emerald Boost – Tiny Gems, Giant Vitality', fullDescription: 'Get the best of both worlds with our Daily Boost Bundle. This package includes our premium spirulina capsules and powder, giving you flexible options for incorporating this powerful superfood into your daily routine.', price: '59,000 DT', priceNum: 59000, badge: 'Best Seller', badgeColor: '#2563eb', stock: 'In Stock (20 available)', rating: 4.8, reviews: 2, img: '/images/p2.png', images: ['/images/p2.png', '/images/p2.png', '/images/p2.png', '/images/p2.png'], category: 'Diamonds', features: ['Includes 1 bottle of capsules and 1 container of powder','Save 10% compared to buying separately','Ideal for varied consumption preferences','Premium quality and purity guaranteed'], nutritionalInfo: [{ label: 'Capsules', value: 'See Pure Spirulina Capsules' },{ label: 'Powder', value: 'See Spirulina Powder' }], customerReviews: [{ name: 'Frank', date: '2024-06-06', rating: 5, comment: 'Great for immunity, tastes good!' },{ name: 'Alex X', date: '2024-06-06', rating: 5, comment: 'Great supplement for fast post-workout recovery.' },{ name: 'Sarah', date: '2024-06-06', rating: 5, comment: 'Simple way to get my daily greens.' }], overallRating: 4.7, totalReviews: 45 },
-    { id: 103, name: 'Baby S.HOTs', description: 'Little Green Boost – Tiny Shots, Grab & Go', fullDescription: ' Get the best of both worlds with our Daily Boost Bundle. This package includes our premium spirulina capsules and powder, giving you flexible options for incorporating this powerful superfood into your daily routine..', price: '59,000 DT', priceNum: 59000, badge: 'New', badgeColor: '#22c55e', stock: 'In Stock (25 available)', rating: 4.8, reviews: 2, img: '/images/p3.jpg', images: ['/images/p3.jpg', '/images/p3.jpg', '/images/p3.jpg', '/images/p3.jpg'], category: 'Shots', features: ['100% pure spirulina powder','Easy to mix in drinks and food','30 servings per container','Rich in chlorophyll and phycocyanin','Cold-pressed to preserve nutrients'], nutritionalInfo: [{ label: 'Capsules', value: 'See Pure Spirulina Capsules' },{ label: 'Powder', value: 'See Spirulina Powder' }], customerReviews: [{ name: 'Frank', date: '2024-06-06', rating: 5, comment: 'Great for immunity, tastes good!' },{ name: 'Alex X', date: '2024-06-06', rating: 5, comment: 'Great supplement for fast post-workout recovery.' },{ name: 'Sarah', date: '2024-06-06', rating: 5, comment: 'Simple way to get my daily greens.' }], overallRating: 4.7, totalReviews: 45 },
-    { id: 104, name: 'Spirulina Tablets', description: 'Premium organic spirulina in easy-to-take tablets. 100g (+200)', fullDescription: 'Get the best of both worlds with our Daily Boost Bundle. This package includes our premium spirulina capsules and powder, giving you flexible options for incorporating this powerful superfood into your daily routine..', price: '69,000 DT', priceNum: 69000, badge: 'Popular', badgeColor: '#f59e0b', stock: 'In Stock (35 available)', rating: 4.8, reviews: 2, img: '/images/p4.png', images: ['/images/p4.png', '/images/p4.png', '/images/p4.png', '/images/p4.png'], category: 'Tablets', features: ['100% pure spirulina powder','Easy to mix in drinks and food','30 servings per container','Rich in chlorophyll and phycocyanin','Cold-pressed to preserve nutrients'], nutritionalInfo: [{ label: 'capsules', value: 'See Pure Spirulina Capsules' },{ label: 'powser', value: 'See Spirulina Powder' }], customerReviews: [{ name: 'Frank', date: '2024-06-06', rating: 5, comment: 'Great for immunity, tastes good!' },{ name: 'Alex X', date: '2024-06-06', rating: 5, comment: 'Great supplement for fast post-workout recovery.' },{ name: 'Sarah', date: '2024-06-06', rating: 5, comment: 'Simple way to get my daily greens.' }], overallRating: 4.7, totalReviews: 45 }
+    {
+      id: 101,
+      name: t('p101_name'),
+      description: t('p101_desc'),
+      fullDescription: t('p101_full'),
+      price: '59,000 DT',
+      priceNum: 59000,
+      badge: t('p101_badge'),
+      badgeColor: '#2563eb',
+      stock: t('p101_stock'),
+      rating: 4.7,
+      reviews: 2,
+      img: '/images/p1.png',
+      images: ['/images/p1.png', '/images/p1.png', '/images/p1.png', '/images/p1.png'],
+      category: 'Powder',
+      features: [t('p101_f1'), t('p101_f2'), t('p101_f3'), t('p101_f4'), t('p101_f5')],
+      nutritionalInfo: [
+        { label: t('p101_n1_label'), value: t('p101_n1_value') },
+        { label: t('p101_n2_label'), value: t('p101_n2_value') },
+        { label: t('p101_n3_label'), value: t('p101_n3_value') },
+        { label: t('p101_n4_label'), value: t('p101_n4_value') },
+        { label: t('p101_n5_label'), value: t('p101_n5_value') },
+      ],
+      customerReviews: [
+        { name: t('p101_r1_name'), date: '2024-06-06', rating: 5, comment: t('p101_r1_comment') },
+        { name: t('p101_r2_name'), date: '2024-06-06', rating: 5, comment: t('p101_r2_comment') },
+        { name: t('p101_r3_name'), date: '2024-06-06', rating: 5, comment: t('p101_r3_comment') },
+      ],
+      overallRating: 4.7,
+      totalReviews: 45,
+    },
+    {
+      id: 102,
+      name: t('p102_name'),
+      description: t('p102_desc'),
+      fullDescription: t('p102_full'),
+      price: '59,000 DT',
+      priceNum: 59000,
+      badge: t('p102_badge'),
+      badgeColor: '#2563eb',
+      stock: t('p102_stock'),
+      rating: 4.8,
+      reviews: 2,
+      img: '/images/p2.png',
+      images: ['/images/p2.png', '/images/p2.png', '/images/p2.png', '/images/p2.png'],
+      category: 'Diamonds',
+      features: [t('p102_f1'), t('p102_f2'), t('p102_f3'), t('p102_f4')],
+      nutritionalInfo: [
+        { label: t('p102_n1_label'), value: t('p102_n1_value') },
+        { label: t('p102_n2_label'), value: t('p102_n2_value') },
+      ],
+      customerReviews: [
+        { name: t('p102_r1_name'), date: '2024-06-06', rating: 5, comment: t('p102_r1_comment') },
+        { name: t('p102_r2_name'), date: '2024-06-06', rating: 5, comment: t('p102_r2_comment') },
+        { name: t('p102_r3_name'), date: '2024-06-06', rating: 5, comment: t('p102_r3_comment') },
+      ],
+      overallRating: 4.7,
+      totalReviews: 45,
+    },
+    {
+      id: 103,
+      name: t('p103_name'),
+      description: t('p103_desc'),
+      fullDescription: t('p103_full'),
+      price: '59,000 DT',
+      priceNum: 59000,
+      badge: t('p103_badge'),
+      badgeColor: '#22c55e',
+      stock: t('p103_stock'),
+      rating: 4.8,
+      reviews: 2,
+      img: '/images/p3.jpg',
+      images: ['/images/p3.jpg', '/images/p3.jpg', '/images/p3.jpg', '/images/p3.jpg'],
+      category: 'Shots',
+      features: [t('p103_f1'), t('p103_f2'), t('p103_f3'), t('p103_f4'), t('p103_f5')],
+      nutritionalInfo: [
+        { label: t('p103_n1_label'), value: t('p103_n1_value') },
+        { label: t('p103_n2_label'), value: t('p103_n2_value') },
+      ],
+      customerReviews: [
+        { name: t('p103_r1_name'), date: '2024-06-06', rating: 5, comment: t('p103_r1_comment') },
+        { name: t('p103_r2_name'), date: '2024-06-06', rating: 5, comment: t('p103_r2_comment') },
+        { name: t('p103_r3_name'), date: '2024-06-06', rating: 5, comment: t('p103_r3_comment') },
+      ],
+      overallRating: 4.7,
+      totalReviews: 45,
+    },
+    {
+      id: 104,
+      name: t('p104_name'),
+      description: t('p104_desc'),
+      fullDescription: t('p104_full'),
+      price: '69,000 DT',
+      priceNum: 69000,
+      badge: t('p104_badge'),
+      badgeColor: '#f59e0b',
+      stock: t('p104_stock'),
+      rating: 4.8,
+      reviews: 2,
+      img: '/images/p4.png',
+      images: ['/images/p4.png', '/images/p4.png', '/images/p4.png', '/images/p4.png'],
+      category: 'Tablets',
+      features: [t('p104_f1'), t('p104_f2'), t('p104_f3'), t('p104_f4'), t('p104_f5')],
+      nutritionalInfo: [
+        { label: t('p104_n1_label'), value: t('p104_n1_value') },
+        { label: t('p104_n2_label'), value: t('p104_n2_value') },
+      ],
+      customerReviews: [
+        { name: t('p104_r1_name'), date: '2024-06-06', rating: 5, comment: t('p104_r1_comment') },
+        { name: t('p104_r2_name'), date: '2024-06-06', rating: 5, comment: t('p104_r2_comment') },
+        { name: t('p104_r3_name'), date: '2024-06-06', rating: 5, comment: t('p104_r3_comment') },
+      ],
+      overallRating: 4.7,
+      totalReviews: 45,
+    },
   ];
 
   const product = allProducts.find(p => p.id === parseInt(productId));
@@ -58,8 +171,8 @@ const ProductDetails = () => {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4">Product not found</h2>
-          <Link to="/products" className="text-[#238d7b] hover:underline">Back to Products</Link>
+          <h2 className="text-2xl font-bold mb-4">{t('product_not_found')}</h2>
+          <Link to="/products" className="text-[#238d7b] hover:underline">{t('back_products')}</Link>
         </div>
       </div>
     );
@@ -262,10 +375,10 @@ const ProductDetails = () => {
           </div>
           <div className="product-info">
             <h1>{product.name}</h1>
-            <div className="rating-section"><div className="rating-stars">{renderStars(product.rating)}</div><span className="rating-text">{product.rating} ({product.reviews} reviews)</span></div>
+            <div className="rating-section"><div className="rating-stars">{renderStars(product.rating)}</div><span className="rating-text">{product.rating} ({product.reviews} {t('reviews_count')})</span></div>
             <div className="price-section">{product.price}</div>
             <p className="description-text">{product.description}</p>
-            <div className="key-features"><h3>Key Features</h3><ul>{product.features.map((f, i) => <li key={i}>{f}</li>)}</ul></div>
+            <div className="key-features"><h3>{t('key_features')}</h3><ul>{product.features.map((f, i) => <li key={i}>{f}</li>)}</ul></div>
             <div className="cart-box">
               <div className="cart-box-header">
                 <span className="cart-box-title">{product.name}</span>
@@ -275,8 +388,8 @@ const ProductDetails = () => {
                   <button className="quantity-btn" onClick={() => setQuantity(quantity + 1)}>+</button>
                 </div>
               </div>
-              <div className="price-display"><span className="price-label">TotalPrice</span><span className="price-value">{formatPrice(getTotalPrice())} DT</span></div>
-              <button className="add-to-cart-btn" onClick={handleAddToCart}>Add to Cart</button>
+              <div className="price-display"><span className="price-label">{t('total_price')}</span><span className="price-value">{formatPrice(getTotalPrice())} DT</span></div>
+              <button className="add-to-cart-btn" onClick={handleAddToCart}>{t('add_to_cart')}</button>
             </div>
           </div>
         </div>
@@ -285,20 +398,20 @@ const ProductDetails = () => {
       <div className="px-4 md:px-12">
         <div className="tabs-section">
           <div className="tabs">
-            {[{ key: 'description', label: 'Description' },{ key: 'nutritional', label: 'Nutritional Info' },{ key: 'reviews', label: 'Customer Reviews' }].map(({ key, label }) => (
+            {[{ key: 'description', label: t('tab_desc') },{ key: 'nutritional', label: t('tab_nutri') },{ key: 'reviews', label: t('tab_reviews') }].map(({ key, label }) => (
               <button key={key} className={`tab ${activeTab === key ? 'active' : ''}`} onClick={() => setActiveTab(key)}>{label}</button>
             ))}
           </div>
-          {activeTab === 'description' && (<div className="tab-content"><h2>Product Description</h2><p>{product.fullDescription}</p></div>)}
-          {activeTab === 'nutritional' && (<div className="tab-content"><h2>Nutritional Information</h2><table className="nutritional-table"><tbody>{product.nutritionalInfo.map((info, idx) => <tr key={idx}><td>{info.label}</td><td>{info.value}</td></tr>)}</tbody></table></div>)}
+          {activeTab === 'description' && (<div className="tab-content"><h2>{t('prod_desc_title')}</h2><p>{product.fullDescription}</p></div>)}
+          {activeTab === 'nutritional' && (<div className="tab-content"><h2>{t('nutri_info_title')}</h2><table className="nutritional-table"><tbody>{product.nutritionalInfo.map((info, idx) => <tr key={idx}><td>{info.label}</td><td>{info.value}</td></tr>)}</tbody></table></div>)}
           {activeTab === 'reviews' && (
             <div className="tab-content">
               <div className="reviews-section">
                 <div className="overall-rating">
-                  <div className="rating-box"><div className="rating-number">{product.overallRating}</div><div className="rating-info"><div className="rating-stars">{renderStars(product.overallRating)}</div><div className="rating-info-text">{product.totalReviews} Reviews</div></div></div>
-                  <button className="add-review-btn" onClick={() => setShowReviewModal(true)}>Add a Review</button>
+                  <div className="rating-box"><div className="rating-number">{product.overallRating}</div><div className="rating-info"><div className="rating-stars">{renderStars(product.overallRating)}</div><div className="rating-info-text">{product.totalReviews} {t('reviews_count')}</div></div></div>
+                  <button className="add-review-btn" onClick={() => setShowReviewModal(true)}>{t('write_review_btn')}</button>
                 </div>
-                <h3 className="reviews-title">Customer Reviews</h3>
+                <h3 className="reviews-title">{t('customer_reviews_title')}</h3>
                 <div className="customer-reviews">
                   {product.customerReviews.map((review, idx) => (
                     <div key={idx} className="review-card">
@@ -317,8 +430,8 @@ const ProductDetails = () => {
       {recommendedProducts.length > 0 && (
         <div className="px-4 md:px-12">
           <div className="recommended-section">
-            <h2 className="recommended-title">Recommended for You</h2>
-            <p className="recommended-subtitle">Based on your preferences and browsing history</p>
+            <h2 className="recommended-title">{t('reco_title')}</h2>
+            <p className="recommended-subtitle">{t('reco_subtitle')}</p>
             <div className="recommended-grid">
               {recommendedProducts.map((prod) => (
                 <div key={prod.id} className="recommended-card" onClick={() => { setQuantity(1); setActiveTab('description'); navigate(`/product/${prod.id}`); window.scrollTo(0, 0); }}>
@@ -333,7 +446,7 @@ const ProductDetails = () => {
                     <div className="recommended-card-rating">{renderStars(prod.rating)}</div>
                     <p className="recommended-card-stock">{prod.stock}</p>
                     <p className="recommended-card-price">{prod.price}</p>
-                    <button className="recommended-card-btn">Shop</button>
+                    <button className="recommended-card-btn">{t('btn_shop')}</button>
                   </div>
                 </div>
               ))}
@@ -342,7 +455,7 @@ const ProductDetails = () => {
         </div>
       )}
 
-      <div className="stay-ahead-container"><div className="stay-ahead-overlay"></div><div className="stay-ahead-content max-w-7xl mx-auto px-6 md:px-12"><h2 className="stay-ahead-title">Join our Newsletter</h2></div></div>
+      <div className="stay-ahead-container"><div className="stay-ahead-overlay"></div><div className="stay-ahead-content max-w-7xl mx-auto px-6 md:px-12"><h2 className="stay-ahead-title">{t('join_news')}</h2></div></div>
       <Newsletter onSubscribe={() => setShowSubscribeModal(true)} />
       <Footer />
       <Modal isOpen={showSubscribeModal} onClose={() => setShowSubscribeModal(false)} />
@@ -351,15 +464,15 @@ const ProductDetails = () => {
         <div className="review-modal" onClick={() => setShowReviewModal(false)}>
           <div className="review-modal-content" onClick={(e) => e.stopPropagation()}>
             <button className="close-modal-btn" onClick={() => setShowReviewModal(false)}>×</button>
-            <div className="review-modal-header"><div className="review-modal-icon"><Headphones size={30} /></div><h2 className="review-modal-title">Add a Review</h2><p className="review-modal-subtitle">Add Your Rating</p></div>
+            <div className="review-modal-header"><div className="review-modal-icon"><Headphones size={30} /></div><h2 className="review-modal-title">{t('add_review_title')}</h2><p className="review-modal-subtitle">{t('add_rating_sub')}</p></div>
             <form onSubmit={handleSubmitReview}>
               <div className="review-stars-input">
                 {[1, 2, 3, 4, 5].map((star) => (<button key={star} type="button" className="star-btn" onClick={() => setReviewForm({ ...reviewForm, rating: star })}><Star size={32} fill={star <= reviewForm.rating ? '#f39c12' : 'none'} stroke={star <= reviewForm.rating ? '#f39c12' : '#ddd'} /></button>))}
               </div>
-              <div className="form-group"><label htmlFor="name">Name</label><input type="text" id="name" placeholder="Mark" value={reviewForm.name} onChange={(e) => setReviewForm({ ...reviewForm, name: e.target.value })} required /></div>
-              <div className="form-group"><label htmlFor="email">Email</label><input type="email" id="email" placeholder="mark1890@gmail.com" value={reviewForm.email} onChange={(e) => setReviewForm({ ...reviewForm, email: e.target.value })} required /></div>
-              <div className="form-group"><label htmlFor="review">Review</label><textarea id="review" placeholder="Write here..." value={reviewForm.review} onChange={(e) => setReviewForm({ ...reviewForm, review: e.target.value })} required /></div>
-              <button type="submit" className="submit-review-btn">Submit Review</button>
+              <div className="form-group"><label htmlFor="name">{t('form_name')}</label><input type="text" id="name" placeholder="Mark" value={reviewForm.name} onChange={(e) => setReviewForm({ ...reviewForm, name: e.target.value })} required /></div>
+              <div className="form-group"><label htmlFor="email">{t('form_email')}</label><input type="email" id="email" placeholder="mark1890@gmail.com" value={reviewForm.email} onChange={(e) => setReviewForm({ ...reviewForm, email: e.target.value })} required /></div>
+              <div className="form-group"><label htmlFor="review">{t('form_review')}</label><textarea id="review" placeholder="Write here..." value={reviewForm.review} onChange={(e) => setReviewForm({ ...reviewForm, review: e.target.value })} required /></div>
+              <button type="submit" className="submit-review-btn">{t('form_submit')}</button>
             </form>
           </div>
         </div>

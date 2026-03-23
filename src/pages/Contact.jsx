@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { MapPin, Phone, Mail, Facebook, Instagram, Youtube, Check } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 // Hooks des Contexts
 import { useCart } from '../context/CartContext';
@@ -19,6 +20,7 @@ const Contact = () => {
   const [activeLink, setActiveLink] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const { t } = useTranslation();
 
   // 1. Récupération de la Wishlist via le Context global
   const { 
@@ -185,26 +187,26 @@ const Contact = () => {
           
           {/* GAUCHE: INFO (GRIS) */}
           <div className="contact-info-side">
-            <h2 className="title-large">Get in Touch</h2>
-            <p className="text-desc mb-12">Contact us for any questions about our products or your order.</p>
+            <h2 className="title-large">{t('contact_get_touch')}</h2>
+            <p className="text-desc mb-12">{t('contact_desc')}</p>
             
             <div className="space-y-10">
               <div className="flex items-center">
                 <div className="contact-icon-box"><MapPin size={22} /></div>
-                <div><p className="info-title">Office</p><p className="info-sub">Tunis, Tunisia</p></div>
+                <div><p className="info-title">{t('contact_office')}</p><p className="info-sub">Tunis, Tunisia</p></div>
               </div>
               <div className="flex items-center">
                 <div className="contact-icon-box"><Phone size={22} /></div>
-                <div><p className="info-title">Phone</p><p className="info-sub">+216 46 307 550</p></div>
+                <div><p className="info-title">{t('contact_phone')}</p><p className="info-sub">+216 46 307 550</p></div>
               </div>
               <div className="flex items-center">
                 <div className="contact-icon-box"><Mail size={22} /></div>
-                <div><p className="info-title">Email</p><p className="info-sub">shotpremiumspirulina@gmail.com</p></div>
+                <div><p className="info-title">{t('contact_email')}</p><p className="info-sub">shotpremiumspirulina@gmail.com</p></div>
               </div>
             </div>
 
             <div className="mt-20">
-              <p className="info-title mb-6">Follow Us on Social Media</p>
+              <p className="info-title mb-6">{t('contact_follow')}</p>
               <div className="flex gap-4">
                 <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-[#1877f2] flex items-center justify-center text-white hover:scale-110 transition cursor-pointer">
                   <Facebook size={18} />
@@ -224,16 +226,16 @@ const Contact = () => {
 
           {/* DROITE: FORMULAIRE (BLANC) */}
           <div className="contact-form-side">
-            <h2 className="title-large mb-10">Send Us a Message</h2>
+            <h2 className="title-large mb-10">{t('contact_send_msg')}</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-2 gap-5">
-                <input type="text" placeholder="Name" className="form-input" required />
-                <input type="text" placeholder="Surname" className="form-input" required />
+                <input type="text" placeholder={t('contact_name')} className="form-input" required />
+                <input type="text" placeholder={t('contact_surname')} className="form-input" required />
               </div>
-              <input type="email" placeholder="Email" className="form-input" required />
-              <textarea placeholder="Write here..." className="form-textarea h-44 resize-none" required></textarea>
+              <input type="email" placeholder={t('contact_email')} className="form-input" required />
+              <textarea placeholder={t('contact_write')} className="form-textarea h-44 resize-none" required></textarea>
               <button type="submit" className="btn-send flex items-center justify-center gap-3">
-                Send Message <span>→</span>
+                {t('contact_btn')} <span>→</span>
               </button>
             </form>
           </div>
@@ -241,7 +243,7 @@ const Contact = () => {
       </div>
 
       <div className="pt-10 pb-16 text-center">
-        <h2 className="text-5xl font-black text-[#16a085]">Join our Newsletter</h2>
+        <h2 className="text-5xl font-black text-[#16a085]">{t('join_news')}</h2>
       </div>
 
       <Newsletter />
@@ -255,13 +257,13 @@ const Contact = () => {
             <div className="w-20 h-20 border-4 border-[#16a085] rounded-full flex items-center justify-center mx-auto mb-6 text-[#16a085]">
               <Check size={40} strokeWidth={3} />
             </div>
-            <h3 className="text-2xl font-extrabold text-[#2d4b44] mb-2">Message Sent !</h3>
-            <p className="text-gray-500 text-sm mb-8">Your request has been submitted successfully.</p>
+            <h3 className="text-2xl font-extrabold text-[#2d4b44] mb-2">{t('contact_sent_t')}</h3>
+            <p className="text-gray-500 text-sm mb-8">{t('contact_sent_d')}</p>
             <button 
               onClick={() => setShowSuccessModal(false)}
               className="w-full py-4 bg-[#16a085] text-white font-bold rounded-2xl hover:bg-[#138f76] transition-colors"
             >
-              Done
+              {t('done')}
             </button>
           </div>
         </div>
