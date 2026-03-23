@@ -4,6 +4,7 @@ import {
   Heart, ShoppingCart, User, Moon, Globe, X, Trash2,
   ShieldCheck, Zap, Headset, Leaf, Facebook, Instagram, Youtube, Twitter, Menu
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 import Navbar from '../components/Navbar';
 import MobileHeader from '../components/MobileHeader';
@@ -16,6 +17,7 @@ import { useWishlist } from '../context/WishlistContext';
 import { useCart } from '../context/CartContext';
 
 const Home = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   // ── Wishlist from context (shared across all pages) ──────────────────────
@@ -33,7 +35,7 @@ const Home = () => {
     closeSidebars,
   } = useCart();
 
-  const words = ["wellness"];
+  const words = [t('home.words')];
   const [index, setIndex] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
@@ -48,10 +50,10 @@ const Home = () => {
   const [subscribeEmail, setSubscribeEmail] = useState('');
 
   const bannerData = [
-    { text: "0% Preservatives", color: "bg-[#f39c12]", icon: <Zap size={32} strokeWidth={3} /> },
-    { text: "60% Natural Protein", color: "bg-[#a855f7]", icon: <ShieldCheck size={32} strokeWidth={3} /> },
-    { text: "24/7 Customer Support", color: "bg-[#2980b9]", icon: <Headset size={32} strokeWidth={3} /> },
-    { text: "100% Certified Organic", color: "bg-[#16a085]", icon: <Leaf size={32} strokeWidth={3} /> }
+    { text: t('home.banner0'), color: "bg-[#f39c12]", icon: <Zap size={32} strokeWidth={3} /> },
+    { text: t('home.banner1'), color: "bg-[#a855f7]", icon: <ShieldCheck size={32} strokeWidth={3} /> },
+    { text: t('home.banner2'), color: "bg-[#2980b9]", icon: <Headset size={32} strokeWidth={3} /> },
+    { text: t('home.banner3'), color: "bg-[#16a085]", icon: <Leaf size={32} strokeWidth={3} /> }
   ];
   const [currentBanner, setCurrentBanner] = useState(0);
 
@@ -136,20 +138,20 @@ const Home = () => {
 
   const whyCards = [
     {
-      id: 0, title: "Sustainably Crafted ",
-      description: "Eco-responsible production with zero compromise on purity or potency..",
+      id: 0, title: t('home.card0Title'),
+      description: t('home.card0Desc'),
       activeColor: "#16a085", iconBg: "#16a085",
       icon: (<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>),
     },
     {
-      id: 1, title: "Clean Energy & Immunity Boost",
-      description: "Rich in protein, iron, antioxidants, and essential nutrients to support endurance and immune strength.s.",
+      id: 1, title: t('home.card1Title'),
+      description: t('home.card1Desc'),
       activeColor: "#a855f7", iconBg: "#a855f7",
       icon: (<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>),
     },
     {
-      id: 2, title: "Pure. Potent. Transparent.",
-      description: "No additives. No fillers. Just premium spirulina in its most powerful form.",
+      id: 2, title: t('home.card2Title'),
+      description: t('home.card2Desc'),
       activeColor: "#f39c12", iconBg: "#f39c12",
       icon: (<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" y1="20" x2="20" y2="4"/><path d="M8.5 8.5L4 4"/><path d="M15.5 15.5L20 20"/><path d="M4 20l4-4"/><circle cx="18" cy="6" r="2"/><circle cx="6" cy="18" r="2"/></svg>),
     },
@@ -217,25 +219,25 @@ const Home = () => {
         <div className="relative z-20 container mx-auto md:px-15 pt-48 md:pt-56 text-white">
           <div className="flex items-center gap-3 mb-6 bg-gray-950/70 w-fit px-4 py-2.5 md:py-3 rounded-full backdrop-blur-md border border-white/20">
             <div className="w-2 h-2 bg-[#238d7b] rounded-full relative flex items-center justify-center"><div className="absolute w-full h-full bg-[#238d7b] rounded-full animate-ping opacity-75"></div></div>
-            <span className="text-[10px] md:text-[12px] font-bold uppercase tracking-[0.2em] opacity-90">Experience the Power of Spirulina</span>
+            <span className="text-[10px] md:text-[12px] font-bold uppercase tracking-[0.2em] opacity-90">{t('home.badge')}</span>
           </div>
           <h1 className="text-4xl md:text-7xl font-black leading-[1.1]">
-            Spirulina Excellence <br /> 
-            For Elevated <span className="text-[#238d7b] font-kemangi text-6xl md:text-9xl ml-2 md:ml-4 inline-block">
+            {t('home.heroTitle1')} <br /> 
+            {t('home.heroTitle2')} <span className="text-[#238d7b] font-kemangi text-6xl md:text-9xl ml-2 md:ml-4 inline-block">
               {displayText}<span className="animate-pulse text-white/50 font-sans text-3xl md:text-5xl ml-1">|</span>
             </span>
           </h1>
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 md:gap-5 mt-12 md:mt-16">
             <Link to="/products">
               <button className="bg-[#238d7b] text-white px-9 py-4 rounded-full font-extrabold flex items-center gap-4 transition-all shadow-[0_0_25px_rgba(35,141,123,0.5)] pointer-events-auto group hover:bg-[#1f7a6a] active:!bg-[#47cab4] active:scale-95">
-                Shop now
+                {t('home.shopNow')}
                 <span className="bg-white text-[#238d7b] rounded-full w-7 h-7 flex items-center justify-center group-hover:translate-x-1 transition-transform">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                 </span>
               </button>
             </Link>
             <button className="group bg-white text-black border border-black/10 px-9 py-4 rounded-full font-bold flex items-center gap-3 transition-all pointer-events-auto hover:bg-gray-100 active:!bg-[#238d7b] active:!text-white active:scale-95">
-              Join our community
+              {t('home.joinCommunity')}
               <svg className="text-[#0e8471] group-active:!text-white transition-colors" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12.032 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217s.231.001.332.005c.109.004.258-.041.404.314l.542 1.312c.058.14.096.303.003.488l-.204.412c-.09.13-.184.216-.08.396.104.18.459.758.986 1.225.679.602 1.252.788 1.432.874.18.086.285.071.39-.051.105-.122.446-.519.563-.695.117-.175.234-.145.391-.087l1.314.618c.157.073.262.111.3.173.038.063.038.36-.106.765zM12 2C6.477 2 2 6.477 2 12c0 1.891.524 3.662 1.435 5.178L2 22l4.957-1.302C8.36 21.528 10.103 22 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18c-1.634 0-3.166-.431-4.492-1.182l-.322-.182-2.413.634.646-2.355-.2-.318A7.953 7.953 0 014 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8z"/>
               </svg>
@@ -263,9 +265,9 @@ const Home = () => {
         {/* WHY CHOOSE */}
         <div className="py-24 md:py-28 px-6 md:px-12">
           <div className="max-w-5xl mx-auto text-center">
-            <h2 className="text-[32px] md:text-[46px] gradient-title mb-5 leading-tight">Why choose SHOT ?</h2>
+            <h2 className="text-[32px] md:text-[46px] gradient-title mb-5 leading-tight">{t('home.whyTitle')}</h2>
             <p className="text-gray-500 text-base md:text-[17px] max-w-2xl mx-auto mb-16 leading-relaxed font-medium">
-              Our premium spirulina is carefully cultivated, processed, and tested to ensure the highest nutritional value and health benefits for you and your family.
+              {t('home.whySubtitle')}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
               {whyCards.map((card) => {
@@ -295,16 +297,16 @@ const Home = () => {
         {/* PRODUCTS */}
         <div className="pt-4 pb-10 px-6 md:px-12 text-center">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-[32px] md:text-[46px] gradient-title mb-5 leading-tight">Our Premium Products</h2>
+            <h2 className="text-[32px] md:text-[46px] gradient-title mb-5 leading-tight">{t('home.productsTitle')}</h2>
             <p className="text-gray-500 text-base md:text-[17px] mb-10 leading-relaxed font-medium">
-              Choose your format. Experience the same uncompromising quality..
+              {t('home.productsSubtitle')}
             </p>
             <Link to="/products">
               <button
                 className={`btn-all-products${btnClicked ? ' clicked' : ''}`}
                 onClick={() => { setBtnClicked(true); setTimeout(() => setBtnClicked(false), 600); }}
               >
-                All Products
+                {t('home.allProducts')}
                 <span className="arrow-icon">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
@@ -347,7 +349,7 @@ const Home = () => {
                   <div className="flex items-center justify-between mt-auto pt-3">
                     <span className="prod-stock">{product.stock}</span>
                     <button className="btn-shop-orange" onClick={(e) => { e.stopPropagation(); openProductDetails(product); }}>
-                      Shop
+                      {t('home.shop')}
                       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                         <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
                       </svg>
@@ -362,9 +364,9 @@ const Home = () => {
         {/* TESTIMONIALS */}
         <div className="pb-16 px-8 md:px-12">
           <div className="max-w-7xl mx-auto">
-            <h2 className="text-[30px] md:text-[46px] gradient-title text-center mb-4 leading-tight">S.HOT</h2>
+            <h2 className="text-[30px] md:text-[46px] gradient-title text-center mb-4 leading-tight">{t('home.testimonialTitle')}</h2>
             <p className="text-gray-700 text-base md:text-[16px] text-center max-w-3xl mx-auto mb-16 leading-relaxed font-medium">
-              Real energy. Real focus. Real results. From founders to fitness coaches, creators to athletes, S.HOT powers ambitious lifestyles.
+              {t('home.testimonialSubtitle')}
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-6 md:gap-5">
               {influencers.map((person, i) => (
@@ -393,7 +395,7 @@ const Home = () => {
         <div className="stay-ahead-container">
           <div className="stay-ahead-overlay"></div>
           <div className="stay-ahead-content max-w-7xl mx-auto px-6 md:px-12">
-            <h2 className="stay-ahead-title">Join the S.HOT Community</h2>
+            <h2 className="stay-ahead-title">{t('home.communityTitle')}</h2>
           </div>
         </div>
       </div>
@@ -413,12 +415,12 @@ const Home = () => {
                 <polyline points="20 6 9 17 4 12"/>
               </svg>
             </div>
-            <h3 style={{ fontWeight: 800, fontSize: 22, color: '#111827', marginBottom: 12 }}>Thank you !</h3>
-            <p style={{ color: '#6b7280', fontSize: 15, lineHeight: 1.6, marginBottom: 36 }}>Please check your inbox to confirm your subscription.</p>
+            <h3 style={{ fontWeight: 800, fontSize: 22, color: '#111827', marginBottom: 12 }}>{t('home.thankYou')}</h3>
+            <p style={{ color: '#6b7280', fontSize: 15, lineHeight: 1.6, marginBottom: 36 }}>{t('home.checkInbox')}</p>
             <button onClick={() => setShowSubscribeModal(false)} style={{ width: '100%', padding: '16px', borderRadius: 50, background: '#238d7b', color: 'white', fontWeight: 700, fontSize: 16, border: 'none', cursor: 'pointer', transition: 'background .2s ease' }}
               onMouseEnter={e => e.currentTarget.style.background = '#1a6e60'}
               onMouseLeave={e => e.currentTarget.style.background = '#238d7b'}>
-              Done
+              {t('home.done')}
             </button>
           </div>
         </div>

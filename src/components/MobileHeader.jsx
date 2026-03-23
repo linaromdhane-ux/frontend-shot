@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { Heart, ShoppingCart, User, Moon, Globe, Menu } from 'lucide-react';
+import { Heart, ShoppingCart, User, Moon, Menu } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const MobileHeader = ({ 
   activeIcon, 
@@ -9,9 +10,17 @@ const MobileHeader = ({
   onCartClick,
   onMenuClick 
 }) => {
+  const { i18n } = useTranslation();
+
+  const toggleLanguage = () => {
+    const next = i18n.language === 'fr' ? 'en' : 'fr';
+    i18n.changeLanguage(next);
+    localStorage.setItem('lang', next);
+  };
+
   const icons = [
     { id: 'moon', icon: Moon },
-    { id: 'globe', icon: Globe },
+    { id: 'globe', icon: null, action: toggleLanguage },
     { id: 'heart', icon: Heart, action: onHeartClick },
     { id: 'cart', icon: ShoppingCart, action: onCartClick },
     { id: 'user', icon: User }
@@ -33,7 +42,11 @@ const MobileHeader = ({
               }} 
               className={`icon-box-vid ${activeIcon === item.id ? 'icon-box-active' : 'opacity-80'}`}
             >
-              <item.icon size={18} strokeWidth={2.5} />
+              {item.id === 'globe' ? (
+                <span className="text-[11px] font-bold uppercase">{i18n.language === 'fr' ? 'FR' : 'EN'}</span>
+              ) : (
+                <item.icon size={18} strokeWidth={2.5} />
+              )}
               {item.id === 'cart' && cartItemsCount > 0 && (
                 <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
                   {cartItemsCount}

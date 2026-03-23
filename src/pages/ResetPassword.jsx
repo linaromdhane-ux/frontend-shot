@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const ResetPassword = () => {
+  const { t } = useTranslation();
   const [isHovered, setIsHovered] = useState(false);
   const [isBackHomeHovered, setIsBackHomeHovered] = useState(false); // État pour le bouton Back
 
@@ -40,7 +42,7 @@ const ResetPassword = () => {
             </div>
           </div>
           <div className={`transition-all duration-500 overflow-hidden ${isBackHomeHovered ? 'max-w-[140px] ml-4 opacity-100' : 'max-w-0 opacity-0 ml-0'}`}>
-            <span className="font-bold whitespace-nowrap text-base">Back to Home</span>
+            <span className="font-bold whitespace-nowrap text-base">{t('resetPassword.backToHome')}</span>
           </div>
         </Link>
       </div>
@@ -51,12 +53,12 @@ const ResetPassword = () => {
           <img src="/images/logo_SHOT.png" alt="S.HOT Logo" className="h-full w-auto" />
         </div>
 
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">Reset Password</h1>
-        <p className="text-gray-500 text-sm mb-10">Set your new password</p>
+        <h1 className="text-2xl font-bold text-gray-900 mb-2">{t('resetPassword.title')}</h1>
+        <p className="text-gray-500 text-sm mb-10">{t('resetPassword.subtitle')}</p>
 
         <div className="w-full space-y-6 text-left">
           <div className="space-y-1.5">
-            <label className="text-sm font-medium text-gray-700 ml-1">New Password</label>
+            <label className="text-sm font-medium text-gray-700 ml-1">{t('resetPassword.newPassword')}</label>
             <input 
               type="password" 
               placeholder="**************" 
@@ -64,10 +66,10 @@ const ResetPassword = () => {
             />
           </div>
 
-          <p className="text-sm font-medium text-gray-700 ml-1">Password Strength :</p>
+          <p className="text-sm font-medium text-gray-700 ml-1">{t('resetPassword.passwordStrength')}</p>
 
           <div className="space-y-1.5">
-            <label className="text-sm font-medium text-gray-700 ml-1">Re-Enter Password</label>
+            <label className="text-sm font-medium text-gray-700 ml-1">{t('resetPassword.reEnterPassword')}</label>
             <input 
               type="password" 
               placeholder="**************" 
@@ -83,7 +85,7 @@ const ResetPassword = () => {
               className="w-full bg-[#238d7b] hover:bg-[#1db096] text-white font-bold py-4 rounded-3xl shadow-lg transition-all flex items-center justify-center gap-1 relative overflow-hidden"
             >
               <span className={`transition-all duration-300 ${isHovered ? '-translate-x-1' : 'translate-x-0'}`}>
-                Save
+                {t('resetPassword.resetBtn')}
               </span>
               
               <div className={`flex items-center transition-all duration-300 ${isHovered ? 'opacity-100 translate-x-0.5' : 'opacity-0 -translate-x-1'}`}>

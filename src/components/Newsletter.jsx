@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const Newsletter = () => {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
@@ -67,15 +69,15 @@ const Newsletter = () => {
       justifyContent: 'center'
     }}>
       <div style={{ maxWidth: '800px', width: '100%', textAlign: 'center' }}>
-        <h3 style={{ color: colors.inputBorder, fontWeight: '700', fontSize: '32px', marginBottom: '10px' }}>Newsletter</h3>
+        <h3 style={{ color: colors.inputBorder, fontWeight: '700', fontSize: '32px', marginBottom: '10px' }}>{t('newsletter.title')}</h3>
         <p style={{ color: 'white', fontSize: '16px', marginBottom: '35px', opacity: 0.9 }}>
-          Get wellness insights, exclusive offers, and science-backed nutrition tips delivered to your inbox.
+          {t('newsletter.subtitle')}
         </p>
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <input
             type="text"
-            placeholder="Your Name"
+            placeholder={t('newsletter.namePlaceholder')}
             value={name}
             onChange={e => setName(e.target.value)}
             style={inputStyle}
@@ -83,7 +85,7 @@ const Newsletter = () => {
           />
           <input
             type="email"
-            placeholder="Enter your email to subscribe"
+            placeholder={t('newsletter.emailPlaceholder')}
             value={email}
             onChange={e => setEmail(e.target.value)}
             style={inputStyle}
@@ -96,7 +98,7 @@ const Newsletter = () => {
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
-            Subscribe 
+            {t('newsletter.subscribe')}
             {/* Flèche →| s'affiche dynamiquement au survol/clic */}
             {isHovered && (
               <span style={{ display: 'flex', alignItems: 'center' }}>
@@ -139,9 +141,9 @@ const Newsletter = () => {
               </svg>
             </div>
 
-            <h3 style={{ fontSize: '24px', fontWeight: '700', marginBottom: '10px', color: '#000' }}>Thank you !</h3>
+            <h3 style={{ fontSize: '24px', fontWeight: '700', marginBottom: '10px', color: '#000' }}>{t('newsletter.thankYou')}</h3>
             <p style={{ color: '#666', marginBottom: '30px', fontSize: '15px' }}>
-              Please check your inbox to confirm your subscription.
+              {t('newsletter.checkInbox')}
             </p>
 
             <button
@@ -152,7 +154,7 @@ const Newsletter = () => {
                 background: colors.primaryGreen
               }}
             >
-              Done
+              {t('newsletter.done')}
             </button>
           </div>
         </div>

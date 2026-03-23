@@ -1,18 +1,16 @@
 import { Link } from 'react-router-dom';
 import { X } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const MobileMenu = ({ isOpen, onClose }) => {
-  const navLinks = ['Home', 'Products', 'About us', 'Contact'];
+  const { t } = useTranslation();
 
-  const getLinkPath = (item) => {
-    switch(item) {
-      case 'Products': return '/products';
-      case 'Home': return '/';
-      case 'About us': return '/about';
-      case 'Contact': return '/contact';
-      default: return '#';
-    }
-  };
+  const navLinks = [
+    { label: t('nav.home'), path: '/' },
+    { label: t('nav.products'), path: '/products' },
+    { label: t('nav.about'), path: '/about' },
+    { label: t('nav.contact'), path: '/contact' },
+  ];
 
   if (!isOpen) return null;
 
@@ -45,12 +43,12 @@ const MobileMenu = ({ isOpen, onClose }) => {
         <div className="flex flex-col gap-2 flex-1">
           {navLinks.map((item) => (
             <Link 
-              key={item} 
-              to={getLinkPath(item)} 
+              key={item.path} 
+              to={item.path} 
               onClick={onClose}
               className="text-white text-[17px] font-semibold py-3.5 px-4 rounded-xl bg-white/10 hover:bg-white hover:text-[#238d7b] transition-all"
             >
-              {item}
+              {item.label}
             </Link>
           ))}
         </div>
@@ -58,7 +56,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
         <div className="mt-5 pt-5 border-t border-white/20">
           <Link to="/register" onClick={onClose}>
             <button className="w-full bg-white text-[#238d7b] py-3.5 rounded-xl font-bold text-base hover:shadow-lg transition-all">
-              Sign Up
+              {t('nav.signUp')}
             </button>
           </Link>
         </div>

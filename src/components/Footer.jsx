@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
 import { Facebook, Instagram, Youtube } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
+  const { t } = useTranslation();
+
   return (
     <footer className="footer-container">
       <div className="footer-top">
@@ -10,7 +13,7 @@ const Footer = () => {
             <img src="/images/shot2.png" alt="S.HOT" />
           </div>
           <p className="footer-description">
-            Premium spirulina products for your health and wellbeing. We're committed to providing the highest quality, sustainably sourced spirulina to support your wellness journey.
+            {t('footer.description')}
           </p>
           <div className="footer-contact">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -32,39 +35,39 @@ const Footer = () => {
           </div>
         </div>
         <div className="footer-col">
-          <h3>Shop</h3>
+          <h3>{t('footer.shop')}</h3>
           <ul>
-            <li><Link to="/products"><span>All Products</span></Link></li>
-            <li><a href="#">Spirulina Powder</a></li>
-            <li><a href="#">Spirulina Tablets</a></li>
-            <li><a href="#">Spirulina Diamonds</a></li>
-            <li><a href="#">Baby S.HOTs</a></li>
-            <li><a href="#">Bundles</a></li>
+            <li><Link to="/products"><span>{t('footer.allProducts')}</span></Link></li>
+            <li><a href="#">{t('footer.spirulinaPowd')}</a></li>
+            <li><a href="#">{t('footer.spirulinaTabs')}</a></li>
+            <li><a href="#">{t('footer.spirulinaDiam')}</a></li>
+            <li><a href="#">{t('footer.babyShots')}</a></li>
+            <li><a href="#">{t('footer.bundles')}</a></li>
           </ul>
         </div>
         <div className="footer-col">
-          <h3>Support</h3>
+          <h3>{t('footer.support')}</h3>
           <ul>
-            <li><a href="#">FAQ</a></li>
-            <li><a href="#">Shipping Info</a></li>
-            <li><a href="#">Returns & Exchanges</a></li>
-            <li><a href="#">Size Guide</a></li>
-            <li><Link to="/contact"><span>Contact Us</span></Link></li>
+            <li><a href="#">{t('footer.faq')}</a></li>
+            <li><a href="#">{t('footer.shippingInfo')}</a></li>
+            <li><a href="#">{t('footer.returns')}</a></li>
+            <li><a href="#">{t('footer.sizeGuide')}</a></li>
+            <li><Link to="/contact"><span>{t('footer.contactUs')}</span></Link></li>
           </ul>
         </div>
         <div className="footer-col">
-          <h3>Legal</h3>
+          <h3>{t('footer.legal')}</h3>
           <ul>
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Terms of Service</a></li>
-            <li><a href="#">Cookie Policy</a></li>
-            <li><a href="#">Accessibility</a></li>
+            <li><a href="#">{t('footer.privacy')}</a></li>
+            <li><a href="#">{t('footer.terms')}</a></li>
+            <li><a href="#">{t('footer.cookies')}</a></li>
+            <li><a href="#">{t('footer.accessibility')}</a></li>
           </ul>
         </div>
       </div>
       <div className="footer-divider"></div>
       <div className="footer-bottom">
-        <p className="footer-copyright">© 2026 SHOT. All rights reserved.</p>
+        <p className="footer-copyright">{t('footer.copyright')}</p>
         <div className="footer-socials">
           <a href="#" title="Facebook"><Facebook size={22} /></a>
           <a href="#" title="Instagram"><Instagram size={22} /></a>

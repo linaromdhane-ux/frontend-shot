@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const Register = () => {
+  const { t } = useTranslation();
   const [isHovered, setIsHovered] = useState(false);
   const [isBackHovered, setIsBackHovered] = useState(false);
 
@@ -45,7 +47,7 @@ const Register = () => {
           
           {/* Texte "Back to Home" */}
           <div className={`transition-all duration-500 overflow-hidden ${isBackHovered ? 'max-w-[140px] ml-4 opacity-100' : 'max-w-0 opacity-0 ml-0'}`}>
-            <span className="font-bold whitespace-nowrap text-base">Back to Home</span>
+            <span className="font-bold whitespace-nowrap text-base">{t('register.backToHome')}</span>
           </div>
         </Link>
       </div>
@@ -57,25 +59,25 @@ const Register = () => {
         </div>
 
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4 tracking-tight">Create Account</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-4 tracking-tight">{t('register.title')}</h1>
           <p className="text-[#333333] text-sm font-medium leading-relaxed max-w-[500px] mx-auto opacity-90">
-            Join SHOT today and start your personalized wellness journey.
+            {t('register.subtitle')}
           </p>
         </div>
         
         <div className="w-full space-y-5">
           <div className="space-y-1.5 text-left">
-            <label className="text-sm font-medium text-gray-700 ml-1">Full Name</label>
-            <input type="text" placeholder="Enter your full name..." className="w-full p-4 rounded-2xl border border-gray-100 bg-white/70 outline-none focus:ring-2 focus:ring-[#108a78]/20 focus:border-[#108a78] transition-all shadow-sm" />
+            <label className="text-sm font-medium text-gray-700 ml-1">{t('register.fullName')}</label>
+            <input type="text" placeholder={t('register.fullNamePlaceholder')} className="w-full p-4 rounded-2xl border border-gray-100 bg-white/70 outline-none focus:ring-2 focus:ring-[#108a78]/20 focus:border-[#108a78] transition-all shadow-sm" />
           </div>
 
           <div className="space-y-1.5 text-left">
-            <label className="text-sm font-medium text-gray-700 ml-1">Email</label>
-            <input type="email" placeholder="Enter your email..." className="w-full p-4 rounded-2xl border border-gray-100 bg-white/70 outline-none focus:ring-2 focus:ring-[#108a78]/20 focus:border-[#108a78] transition-all shadow-sm" />
+            <label className="text-sm font-medium text-gray-700 ml-1">{t('register.email')}</label>
+            <input type="email" placeholder={t('register.emailPlaceholder')} className="w-full p-4 rounded-2xl border border-gray-100 bg-white/70 outline-none focus:ring-2 focus:ring-[#108a78]/20 focus:border-[#108a78] transition-all shadow-sm" />
           </div>
 
           <div className="space-y-1.5 text-left">
-            <label className="text-sm font-medium text-gray-700 ml-1">Password</label>
+            <label className="text-sm font-medium text-gray-700 ml-1">{t('register.password')}</label>
             <input type="password" placeholder="*******************" className="w-full p-4 rounded-2xl border border-gray-100 bg-white/70 outline-none focus:ring-2 focus:ring-[#108a78]/20 focus:border-[#108a78] transition-all shadow-sm" />
           </div>
 
@@ -85,7 +87,7 @@ const Register = () => {
             className="w-full bg-[#238d7b] hover:bg-[#1db096] text-white font-bold py-4 rounded-2xl transition-all flex items-center justify-center gap-1 mt-4 relative group overflow-hidden"
           >
             <span className={`transition-all duration-300 ${isHovered ? '-translate-x-1' : 'translate-x-0'}`}>
-              Create Account
+              {t('register.createAccount')}
             </span>
             <div className={`flex items-center transition-all duration-300 ${isHovered ? 'opacity-100 translate-x-0.5' : 'opacity-0 -translate-x-1'}`}>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-6 h-6">
@@ -96,8 +98,8 @@ const Register = () => {
           </button>
 
           <div className="mt-8 text-center text-sm font-medium">
-            <span className="text-black-500">Already have an account? </span>
-            <Link to="/login" className="text-[#108a78] font-bold hover:underline ml-1">Login</Link>
+            <span className="text-black-500">{t('register.alreadyHaveAccount')} </span>
+            <Link to="/login" className="text-[#108a78] font-bold hover:underline ml-1">{t('register.login')}</Link>
           </div>
         </div>
       </div>

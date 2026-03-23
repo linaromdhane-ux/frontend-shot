@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { Heart, ShoppingCart, User, Moon, Globe } from 'lucide-react';
+import { Heart, ShoppingCart, User, Moon } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const Navbar = ({ 
   activeIcon, 
@@ -10,25 +11,28 @@ const Navbar = ({
   onHeartClick,
   onCartClick 
 }) => {
+  const { t, i18n } = useTranslation();
+
+  const toggleLanguage = () => {
+    const next = i18n.language === 'fr' ? 'en' : 'fr';
+    i18n.changeLanguage(next);
+    localStorage.setItem('lang', next);
+  };
+
   const icons = [
     { id: 'moon', icon: Moon },
-    { id: 'globe', icon: Globe },
+    { id: 'globe', icon: null, action: toggleLanguage },
     { id: 'heart', icon: Heart, action: onHeartClick },
     { id: 'cart', icon: ShoppingCart, action: onCartClick },
     { id: 'user', icon: User }
   ];
   
-  const navLinks = ['Home', 'Products', 'About us', 'Contact'];
-
-  const getLinkPath = (item) => {
-    switch(item) {
-      case 'Products': return '/products';
-      case 'Home': return '/';
-      case 'About us': return '/about';
-      case 'Contact': return '/contact';
-      default: return '#';
-    }
-  };
+  const navLinks = [
+    { label: t('nav.home'), path: '/' },
+    { label: t('nav.products'), path: '/products' },
+    { label: t('nav.about'), path: '/about' },
+    { label: t('nav.contact'), path: '/contact' },
+  ];
 
   return (
     <div className="desktop-nav fixed top-0 left-0 z-[100] w-full pt-6 px-4 md:px-10 pointer-events-auto">
@@ -41,12 +45,12 @@ const Navbar = ({
         
         <div className="flex items-center gap-10" onMouseLeave={() => setActiveLink && setActiveLink(null)}>
           {navLinks.map((item) => (
-            <Link key={item} to={getLinkPath(item)}>
+            <Link key={item.path} to={item.path}>
               <button 
-                onMouseEnter={() => setActiveLink && setActiveLink(item)} 
-                className={`nav-link-item ${activeLink === item ? 'nav-link-active' : ''}`}
+                onMouseEnter={() => setActiveLink && setActiveLink(item.label)} 
+                className={`nav-link-item ${activeLink === item.label ? 'nav-link-active' : ''}`}
               >
-                {item}
+                {item.label}
               </button>
             </Link>
           ))}
@@ -62,8 +66,13 @@ const Navbar = ({
                   if(item.action) item.action(); 
                 }} 
                 className={`icon-box-vid ${activeIcon === item.id ? 'icon-box-active' : 'opacity-80'}`}
+                title={item.id === 'globe' ? (i18n.language === 'fr' ? 'Switch to English' : 'Passer en Français') : undefined}
               >
-                <item.icon size={18} strokeWidth={2.5} />
+                {item.id === 'globe' ? (
+                  <span className="text-[11px] font-bold uppercase">{i18n.language === 'fr' ? 'FR' : 'EN'}</span>
+                ) : (
+                  <item.icon size={18} strokeWidth={2.5} />
+                )}
                 {item.id === 'cart' && cartItemsCount > 0 && (
                   <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
                     {cartItemsCount}
@@ -73,7 +82,7 @@ const Navbar = ({
             ))}
           </div>
           <Link to="/register">
-            <button className="btn-signup-vid ml-1 md:ml-2 text-xs md:text-sm">Sign Up</button>
+            <button className="btn-signup-vid ml-1 md:ml-2 text-xs md:text-sm">{t('nav.signUp')}</button>
           </Link>
         </div>
       </nav>

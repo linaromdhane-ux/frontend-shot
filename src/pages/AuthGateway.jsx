@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { CircleUser } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const AuthGateway = () => {
+  const { t } = useTranslation();
   const [isBackHovered, setIsBackHovered] = useState(false);
   const navigate = useNavigate();
 
@@ -41,7 +43,7 @@ const AuthGateway = () => {
             </div>
           </div>
           <div className={`transition-all duration-500 overflow-hidden ${isBackHovered ? 'max-w-[140px] ml-4 opacity-100' : 'max-w-0 opacity-0 ml-0'}`}>
-            <span className="font-bold whitespace-nowrap text-base font-montserrat">Back to Home</span>
+            <span className="font-bold whitespace-nowrap text-base font-montserrat">{t('authGateway.backToHome')}</span>
           </div>
         </Link>
       </div>
@@ -64,11 +66,11 @@ const AuthGateway = () => {
         </div>
 
         <h2 className="text-xl font-bold text-gray-900 mb-4 px-4 leading-tight">
-          One step closer to your glow !
+          {t('authGateway.title')}
         </h2>
         
         <p className="text-gray-500 text-sm mb-10 leading-relaxed px-6 font-medium">
-          Create your S.HOT account in seconds to secure your order and track your vitality journey.
+          {t('authGateway.subtitle')}
         </p>
 
         {/* Boutons d'action */}
@@ -77,13 +79,13 @@ const AuthGateway = () => {
             onClick={() => navigate('/login')}
             className="flex-1 bg-[#238d7b] text-white font-bold py-4 rounded-full hover:bg-[#1a6e60] transition-all shadow-lg shadow-[#238d7b]/20 active:scale-95"
           >
-            Login
+            {t('authGateway.login')}
           </button>
           <button 
             onClick={() => navigate('/register')}
             className="flex-1 border-2 border-[#238d7b] text-[#238d7b] font-bold py-4 rounded-full hover:bg-[#238d7b]/5 transition-all active:scale-95"
           >
-            Sign Up
+            {t('authGateway.signUp')}
           </button>
         </div>
 
@@ -92,7 +94,7 @@ const AuthGateway = () => {
           onClick={() => navigate(-1)}
           className="mt-8 text-gray-400 font-bold hover:text-gray-700 transition-colors text-sm uppercase tracking-wider"
         >
-          Cancel
+          {t('authGateway.cancel')}
         </button>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Play, Leaf, Recycle, HeartHandshake } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 // Import des components - CHEMINS CORRIGÉS
 import Navbar from '../components/Navbar';
@@ -17,6 +18,7 @@ import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 
 const AboutUs = () => {
+  const { t } = useTranslation();
   const [activeIcon, setActiveIcon] = useState(null);
   const [activeLink, setActiveLink] = useState(null);
   const [subscribeEmail, setSubscribeEmail] = useState('');
@@ -67,44 +69,44 @@ const AboutUs = () => {
     {
       id: 1,
       icon: <Leaf size={32} strokeWidth={2} />,
-      title: "Uncompromising Purity",
-      text: "100% natural, organic, and pesticide-free spirulina.",
+      title: t('about.value0Title'),
+      text: t('about.value0Text'),
       color: "#0f766e"
     },
     {
       id: 2,
       icon: <Recycle size={32} strokeWidth={2} />,
-      title: "Planet-First Vision",
-      text: "Sustainably sourced to protect your health and the planet.",
+      title: t('about.value1Title'),
+      text: t('about.value1Text'),
       color: "#8b5cf6"
     },
     {
       id: 3,
       icon: <HeartHandshake size={32} strokeWidth={2} />,
-      title: "Nutritional Excellence",
-      text: "Packed with natural protein and nutrients for your daily boost.",
+      title: t('about.value2Title'),
+      text: t('about.value2Text'),
       color: "#f59e0b"
     }
   ];
 
   const testimonials = [
     {
-      name: "Michael T",
-      role: "Health Coach",
+      name: t('about.test0Name'),
+      role: t('about.test0Role'),
       stars: 5,
-      text: "The Daily Boost Bundle is perfect for my lifestyle. I take the capsules during the week and use the powder in my smoothies on weekends. Great value and results!"
+      text: t('about.test0Text')
     },
     {
-      name: "Sarah J",
-      role: "Fitness Enthusiast",
+      name: t('about.test1Name'),
+      role: t('about.test1Role'),
       stars: 5,
-      text: "I've tried many spirulina products before, but SHOT is by far the best quality. I've noticed a significant boost in my energy levels since I started taking it."
+      text: t('about.test1Text')
     },
     {
-      name: "Alex R",
-      role: "Professional Athlete",
+      name: t('about.test2Name'),
+      role: t('about.test2Role'),
       stars: 5,
-      text: "As an athlete, I'm very careful about what supplements I use. SHOT's transparency about their sourcing and testing gave me confidence, and the results speak for themselves."
+      text: t('about.test2Text')
     }
   ];
 
@@ -394,9 +396,9 @@ const AboutUs = () => {
           
           {/* SECTION 1: WHO WE ARE */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-extrabold text-[#0f766e] mb-4">Who We Are ?</h1>
+            <h1 className="text-4xl md:text-5xl font-extrabold text-[#0f766e] mb-4">{t('about.heroTitle')}</h1>
             <p className="text-gray-600 text-base md:text-lg max-w-2xl mx-auto font-medium">
-              Discover the power of premium, sustainably sourced spirulina dedicated to your energy and well-being.
+              {t('about.heroSubtitle')}
             </p>
           </div>
 
@@ -410,7 +412,7 @@ const AboutUs = () => {
               <div className="hero-divider"></div>
               <div className="hero-text-wrapper">
                 <p className="hero-text-p">
-                  Born from the vision of Spiraw, S.HOT was created to bridge the gap between ancient superfoods and modern lifestyle. We specialize in cultivating and delivering premium, organic spirulina of the highest purity.
+                  {t('about.heroText')}
                 </p>
               </div>
             </div>
@@ -418,8 +420,8 @@ const AboutUs = () => {
 
           {/* SECTION 3: OUR VALUES */}
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#0f766e] mb-4">Our Values</h2>
-            <p className="text-gray-600 mb-12 font-medium">Experience the excellence of biotech innovation merged with nature's most powerful superfood.</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#0f766e] mb-4">{t('about.valuesTitle')}</h2>
+            <p className="text-gray-600 mb-12 font-medium">{t('about.valuesSubtitle')}</p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
               {values.map((val) => {
@@ -445,8 +447,8 @@ const AboutUs = () => {
 
           {/* SECTION 4: WHAT'S SPIRULINA */}
           <div className="text-center mb-24 max-w-7xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#0f766e] mb-4">What's Spirulina ?</h2>
-            <p className="text-gray-600 mb-10 font-medium">Deep dive into the nutrient-dense algae that fuels your vitality.</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#0f766e] mb-4">{t('about.spirulinaTitle')}</h2>
+            <p className="text-gray-600 mb-10 font-medium">{t('about.spirulinaSubtitle')}</p>
             
             <div className="video-section">
               <img src="/images/Rectangle 39.png" alt="Spirulina Algae" className="video-bg" />
@@ -467,8 +469,8 @@ const AboutUs = () => {
 
           {/* SECTION 5: WHAT PEOPLE SAY */}
           <div className="text-center mb-4 max-w-7xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#0f766e] mb-4">What People Say</h2>
-            <p className="text-gray-600 mb-12 font-medium">Discover the life-changing vitality and health benefits shared by our loyal customers.</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#0f766e] mb-4">{t('about.testimonialTitle')}</h2>
+            <p className="text-gray-600 mb-12 font-medium">{t('about.testimonialSubtitle')}</p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {testimonials.map((t, idx) => (
@@ -497,7 +499,7 @@ const AboutUs = () => {
         <div className="stay-ahead-container">
           <div className="stay-ahead-overlay"></div>
           <div className="stay-ahead-content max-w-7xl mx-auto px-6 md:px-12">
-            <h2 className="stay-ahead-title">Join our Newsletter</h2>
+            <h2 className="stay-ahead-title">{t('about.joinNewsletter')}</h2>
           </div>
         </div>
 

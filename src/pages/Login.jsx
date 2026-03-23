@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const Login = () => {
+  const { t } = useTranslation();
   const [isHovered, setIsHovered] = useState(false);
   const [isBackHovered, setIsBackHovered] = useState(false); // État pour le bouton Back
 
@@ -40,7 +42,7 @@ const Login = () => {
             </div>
           </div>
           <div className={`transition-all duration-500 overflow-hidden ${isBackHovered ? 'max-w-[140px] ml-4 opacity-100' : 'max-w-0 opacity-0 ml-0'}`}>
-            <span className="font-bold whitespace-nowrap text-base font-montserrat">Back to Home</span>
+            <span className="font-bold whitespace-nowrap text-base font-montserrat">{t('login.backToHome')}</span>
           </div>
         </Link>
       </div>
@@ -53,19 +55,19 @@ const Login = () => {
 
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4 tracking-tight font-montserrat">Welcome Back !</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-4 tracking-tight font-montserrat">{t('login.title')}</h1>
           <p className="text-[#333333] text-sm font-medium leading-relaxed max-w-[500px] mx-auto opacity-90 font-montserrat">
-            Start your wellness journey with SHOT and enjoy a personalized experience made for your lifestyle.
+            {t('login.subtitle')}
           </p>
         </div>
         
         <div className="w-full space-y-5">
           {/* Email Input */}
           <div className="space-y-1.5 text-left font-montserrat">
-            <label className="text-sm font-medium text-gray-700 ml-1">Email</label>
+            <label className="text-sm font-medium text-gray-700 ml-1">{t('login.email')}</label>
             <input 
               type="email" 
-              placeholder="Enter your email..." 
+              placeholder={t('login.emailPlaceholder')} 
               className="w-full p-4 rounded-2xl border border-gray-100 bg-white/70 outline-none focus:ring-2 focus:ring-[#108a78]/20 focus:border-[#108a78] transition-all shadow-sm font-montserrat" 
             />
           </div>
@@ -73,7 +75,7 @@ const Login = () => {
           {/* Password Input + Forgot Password */}
           <div className="space-y-1.5 text-left font-montserrat">
             <div className="flex justify-between">
-               <label className="text-sm font-medium text-gray-700 ml-1 font-montserrat">Password</label>
+               <label className="text-sm font-medium text-gray-700 ml-1 font-montserrat">{t('login.password')}</label>
             </div>
             <input 
               type="password" 
@@ -85,7 +87,7 @@ const Login = () => {
                 to="/forgot-password" 
                 className="text-sm font-medium text-[#72b5a4] hover:text-[#108a78] mt-2 font-montserrat inline-block"
               >
-                Forgot Password ?
+                {t('login.forgotPassword')}
               </Link>
             </div>
           </div>
@@ -97,7 +99,7 @@ const Login = () => {
             className="w-full bg-[#238d7b] hover:bg-[#1db096] text-white font-bold py-4 rounded-2xl transition-all flex items-center justify-center gap-1 mt-4 relative group overflow-hidden font-montserrat"
           >
             <span className={`transition-all duration-300 font-montserrat ${isHovered ? '-translate-x-1' : 'translate-x-0'}`}>
-              Login
+              {t('login.loginBtn')}
             </span>
             
             <div className={`flex items-center transition-all duration-300 ${isHovered ? 'opacity-100 translate-x-0.5' : 'opacity-0 -translate-x-1'}`}>
@@ -111,7 +113,7 @@ const Login = () => {
           {/* Divider */}
           <div className="relative flex items-center py-4 font-montserrat">
             <div className="flex-grow border-t border-gray-800"></div>
-            <span className="mx-4 text-black-400 text-sm font-montserrat uppercase tracking-widest">Or</span>
+            <span className="mx-4 text-black-400 text-sm font-montserrat uppercase tracking-widest">{t('login.or')}</span>
             <div className="flex-grow border-t border-gray-800"></div>
           </div>
 
@@ -126,8 +128,8 @@ const Login = () => {
 
           {/* Footer */}
           <div className="mt-8 text-center text-sm font-medium font-montserrat">
-            <span className="text-black-500 font-montserrat">Don't have an account? </span>
-            <Link to="/register" className="text-[#108a78] font-bold hover:underline ml-1 font-montserrat">Sign Up</Link>
+            <span className="text-black-500 font-montserrat">{t('login.noAccount')} </span>
+            <Link to="/register" className="text-[#108a78] font-bold hover:underline ml-1 font-montserrat">{t('login.signUp')}</Link>
           </div>
         </div>
       </div>
