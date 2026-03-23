@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const Newsletter = () => {
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
@@ -61,7 +63,7 @@ const Newsletter = () => {
           fontSize: '36px', 
           marginBottom: '10px' 
         }}>
-          Newsletter
+          {t('newsletter_title')}
         </h3>
         
         <p style={{ 
@@ -73,10 +75,9 @@ const Newsletter = () => {
           margin: '0 auto 45px',
           lineHeight: '1.5'
         }}>
-          Get wellness insights, exclusive offers, and science-backed nutrition tips delivered to your inbox.
+          {t('news_desc')}
         </p>
 
-        {/* Formulaire avec layout flex pour séparer la barre et le bouton */}
         <form onSubmit={handleSubmit} style={{ 
           display: 'flex', 
           justifyContent: 'center', 
@@ -85,7 +86,6 @@ const Newsletter = () => {
           flexWrap: 'wrap' 
         }}>
           
-          {/* BARRE UNIQUE (Inputs seulement) */}
           <div style={{ 
             display: 'flex', 
             alignItems: 'center',
@@ -101,7 +101,7 @@ const Newsletter = () => {
             <input
               type="text"
               name="name"
-              placeholder="Name"
+              placeholder={t('news_placeholder_name')}
               value={name}
               onChange={e => setName(e.target.value)}
               style={singleInputStyle}
@@ -113,7 +113,7 @@ const Newsletter = () => {
             <input
               type="email"
               name="email"
-              placeholder="Email"
+              placeholder={t('news_placeholder_email')}
               value={email}
               onChange={e => setEmail(e.target.value)}
               style={{...singleInputStyle, flex: 1.5}}
@@ -121,7 +121,6 @@ const Newsletter = () => {
             />
           </div>
 
-          {/* BOUTON À L'EXTÉRIEUR */}
           <button 
             type="submit" 
             onMouseEnter={() => setIsHovered(true)}
@@ -143,7 +142,7 @@ const Newsletter = () => {
               boxShadow: '0 4px 15px rgba(0,0,0,0.2)'
             }}
           >
-            Subscribe
+            {t('news_btn')}
             {isHovered && (
               <svg width="20" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -154,7 +153,6 @@ const Newsletter = () => {
         </form>
       </div>
 
-      {/* MODAL DE SUCCÈS */}
       {isSubscribed && (
         <div style={{
           position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
@@ -176,8 +174,8 @@ const Newsletter = () => {
                 <polyline points="20 6 9 17 4 12"></polyline>
               </svg>
             </div>
-            <h3 style={{ fontSize: '24px', fontWeight: '700', color: '#000' }}>Thank you !</h3>
-            <p style={{ color: '#666', marginBottom: '20px' }}>Subscription confirmed.</p>
+            <h3 style={{ fontSize: '24px', fontWeight: '700', color: '#000' }}>{t('thanks')}</h3>
+            <p style={{ color: '#666', marginBottom: '20px' }}>{t('confirm_sub')}</p>
             <button
               onClick={() => setIsSubscribed(false)}
               style={{
@@ -185,7 +183,7 @@ const Newsletter = () => {
                 borderRadius: '50px', padding: '12px 40px', cursor: 'pointer', width: '100%'
               }}
             >
-              Done
+              {t('done')}
             </button>
           </div>
         </div>

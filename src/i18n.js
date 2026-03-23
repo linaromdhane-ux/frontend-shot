@@ -285,15 +285,17 @@ i18n
           "contact_sent_d": "Your request has been submitted successfully.",
 
           // --- FOOTER & NEWSLETTER ---
-          "join_news": "Join our Newsletter",
-          "news_title": "Stay ahead of the curve",
-          "news_placeholder": "Your email address",
+          "newsletter_title": "Newsletter",
+          "news_desc": "Get wellness insights, exclusive offers, and science-backed nutrition tips delivered to your inbox.",
+          "news_placeholder_name": "Name",
+          "news_placeholder_email": "Email",
           "news_btn": "Subscribe",
           "footer_rights": "All rights reserved.",
 
           // --- MODAL & MISC ---
           "thanks": "Thank you !",
           "confirm": "Please check your inbox to confirm your subscription.",
+          "confirm_sub": "Subscription confirmed.",
           "done": "Done",
           "notifications": "Notifications",
           "security_privacy": "Security & Privacy",
@@ -578,15 +580,17 @@ i18n
           "contact_sent_d": "Votre demande a été soumise avec succès.",
 
           // --- FOOTER & NEWSLETTER ---
-          "join_news": "Inscrivez-vous à notre Newsletter",
-          "news_title": "Restez informé",
-          "news_placeholder": "Votre adresse e-mail",
+          "newsletter_title": "Newsletter",
+          "news_desc": "Recevez des conseils bien-être, des offres exclusives et des astuces nutritionnelles directement dans votre boîte mail.",
+          "news_placeholder_name": "Nom",
+          "news_placeholder_email": "E-mail",
           "news_btn": "S'abonner",
           "footer_rights": "Tous droits réservés.",
 
           // --- MODAL & MISC ---
           "thanks": "Merci !",
           "confirm": "Veuillez vérifier votre boîte de réception pour confirmer votre inscription.",
+          "confirm_sub": "Inscription confirmée.",
           "done": "Terminer",
           "notifications": "Notifications",
           "security_privacy": "Sécurité et Confidentialité",
