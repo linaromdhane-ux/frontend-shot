@@ -284,13 +284,27 @@ i18n
           "contact_sent_t": "Message Sent !",
           "contact_sent_d": "Your request has been submitted successfully.",
 
-          // --- FOOTER & NEWSLETTER ---
+          // --- FOOTER ---
+          "footer_description": "Premium spirulina products for your health and wellbeing. We're committed to providing the highest quality, sustainably sourced spirulina to support your wellness journey.",
+          "footer_shop_title": "Shop",
+          "footer_support_title": "Support",
+          "footer_legal_title": "Legal",
+          "footer_faq": "FAQ",
+          "footer_shipping": "Shipping Info",
+          "footer_returns": "Returns & Exchanges",
+          "footer_size": "Size Guide",
+          "footer_privacy": "Privacy Policy",
+          "footer_terms": "Terms of Service",
+          "footer_cookies": "Cookie Policy",
+          "footer_access": "Accessibility",
+          "footer_rights": "All rights reserved.",
+
+          // --- NEWSLETTER ---
           "newsletter_title": "Newsletter",
           "news_desc": "Get wellness insights, exclusive offers, and science-backed nutrition tips delivered to your inbox.",
           "news_placeholder_name": "Name",
           "news_placeholder_email": "Email",
           "news_btn": "Subscribe",
-          "footer_rights": "All rights reserved.",
 
           // --- MODAL & MISC ---
           "thanks": "Thank you !",
@@ -424,7 +438,7 @@ i18n
           "btn_continue": "Continuer",
           "resend_timer_msg": "Renvoi du code disponible dans",
           "no_code_received": "Vous n'avez pas reçu le code ?",
-          "btn_resend": "Renvoyer le code",
+          "btn_resend": "Renvoi du code",
 
           // --- RESET PASSWORD PAGE ---
           "reset_password_title": "Réinitialiser le mot de passe",
@@ -579,13 +593,27 @@ i18n
           "contact_sent_t": "Message Envoyé !",
           "contact_sent_d": "Votre demande a été soumise avec succès.",
 
-          // --- FOOTER & NEWSLETTER ---
+          // --- FOOTER ---
+          "footer_description": "Produits de spiruline premium pour votre santé et votre bien-être. Nous nous engageons à fournir une spiruline de la plus haute qualité, issue de sources durables.",
+          "footer_shop_title": "Boutique",
+          "footer_support_title": "Support",
+          "footer_legal_title": "Légal",
+          "footer_faq": "FAQ",
+          "footer_shipping": "Infos Livraison",
+          "footer_returns": "Retours & Échanges",
+          "footer_size": "Guide des Tailles",
+          "footer_privacy": "Politique de Confidentialité",
+          "footer_terms": "Conditions d'utilisation",
+          "footer_cookies": "Politique des Cookies",
+          "footer_access": "Accessibilité",
+          "footer_rights": "Tous droits réservés.",
+
+          // --- NEWSLETTER ---
           "newsletter_title": "Newsletter",
           "news_desc": "Recevez des conseils bien-être, des offres exclusives et des astuces nutritionnelles directement dans votre boîte mail.",
           "news_placeholder_name": "Nom",
           "news_placeholder_email": "E-mail",
           "news_btn": "S'abonner",
-          "footer_rights": "Tous droits réservés.",
 
           // --- MODAL & MISC ---
           "thanks": "Merci !",
