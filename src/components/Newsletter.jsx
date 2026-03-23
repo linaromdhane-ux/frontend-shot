@@ -44,7 +44,6 @@ const Newsletter = () => {
       alignItems: 'center',
       justifyContent: 'center'
     }}>
-      {/* CSS pour bloquer le fond blanc de l'autofill tout en gardant les suggestions */}
       <style>{`
         input:-webkit-autofill,
         input:-webkit-autofill:hover, 
@@ -56,7 +55,6 @@ const Newsletter = () => {
       `}</style>
 
       <div style={{ maxWidth: '900px', width: '100%', textAlign: 'center' }}>
-        {/* Newsletter - Section Titre */}
         <h3 style={{ 
           color: colors.inputBorder, 
           fontWeight: '700', 
@@ -75,29 +73,35 @@ const Newsletter = () => {
           margin: '0 auto 45px',
           lineHeight: '1.5'
         }}>
-          Get wellness insights and exclusive offers directly in your inbox.
+          Get wellness insights, exclusive offers, and science-backed nutrition tips delivered to your inbox.
         </p>
 
-        <form onSubmit={handleSubmit} style={{ display: 'flex', justifyContent: 'center' }}>
+        {/* Formulaire avec layout flex pour séparer la barre et le bouton */}
+        <form onSubmit={handleSubmit} style={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          gap: '20px', 
+          flexWrap: 'wrap' 
+        }}>
           
-          {/* BARRE UNIQUE PRO */}
+          {/* BARRE UNIQUE (Inputs seulement) */}
           <div style={{ 
             display: 'flex', 
             alignItems: 'center',
-            width: '100%', 
-            maxWidth: '850px', 
+            flex: '1',
+            maxWidth: '650px', 
             background: colors.inputBg,
             border: `2px solid ${colors.inputBorder}`,
             borderRadius: '60px', 
             padding: '6px',
-            overflow: 'hidden',
             boxShadow: '0 10px 30px rgba(0,0,0,0.2)'
           }}>
             
             <input
               type="text"
               name="name"
-              placeholder="Your Name"
+              placeholder="Name"
               value={name}
               onChange={e => setName(e.target.value)}
               style={singleInputStyle}
@@ -109,42 +113,44 @@ const Newsletter = () => {
             <input
               type="email"
               name="email"
-              placeholder="Enter your email"
+              placeholder="Email"
               value={email}
               onChange={e => setEmail(e.target.value)}
               style={{...singleInputStyle, flex: 1.5}}
               required
             />
-
-            <button 
-              type="submit" 
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-              style={{
-                background: colors.primaryGreen,
-                color: 'white',
-                border: 'none',
-                borderRadius: '50px',
-                padding: '14px 40px',
-                fontSize: '16px',
-                fontWeight: '600',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                transition: 'all 0.3s ease',
-                whiteSpace: 'nowrap'
-              }}
-            >
-              Subscribe
-              {isHovered && (
-                <svg width="20" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              )}
-            </button>
           </div>
+
+          {/* BOUTON À L'EXTÉRIEUR */}
+          <button 
+            type="submit" 
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            style={{
+              background: colors.primaryGreen,
+              color: 'white',
+              border: 'none',
+              borderRadius: '50px',
+              padding: '16px 45px',
+              fontSize: '17px',
+              fontWeight: '600',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              transition: 'all 0.3s ease',
+              whiteSpace: 'nowrap',
+              boxShadow: '0 4px 15px rgba(0,0,0,0.2)'
+            }}
+          >
+            Subscribe
+            {isHovered && (
+              <svg width="20" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            )}
+          </button>
         </form>
       </div>
 
