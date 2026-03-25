@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { CircleUser } from 'lucide-react';
-import { useTranslation } from 'react-i18next'; // Import pour la traduction
+import { useTranslation } from 'react-i18next';
+import Button from '../components/Button'; // Importation du composant
 
 const AuthGateway = () => {
   const { t } = useTranslation();
@@ -9,7 +10,6 @@ const AuthGateway = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // On récupère la page d'origine pour y retourner après connexion
   const from = location.state?.from?.pathname || "/home";
 
   return (
@@ -30,15 +30,12 @@ const AuthGateway = () => {
           `}
         >
           <div className="relative w-8 h-6 shrink-0 flex items-center justify-center">
-            {/* Barre + Flèche */}
             <div className={`absolute flex items-center transition-all duration-500 ease-out ${isBackHovered ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
               <div className="w-[2px] h-4 bg-white rounded-full mr-[2px]"></div>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor" className="w-5 h-5">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
               </svg>
             </div>
-
-            {/* Icône Maison */}
             <div className={`absolute transition-all duration-500 ease-in ${isBackHovered ? 'opacity-0 translate-x-10' : 'opacity-100 translate-x-0'}`}>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
                 <path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" />
@@ -56,17 +53,10 @@ const AuthGateway = () => {
 
       {/* --- CARD DE SELECTION --- */}
       <div className="bg-white rounded-[40px] shadow-2xl p-12 max-w-lg w-full text-center flex flex-col items-center">
-        
-        {/* Logo Image */}
         <div className="mb-8 w-36 cursor-pointer" onClick={() => navigate('/home')}>
-          <img 
-            src="/images/logo_SHOT.png" 
-            alt="S.HOT Logo" 
-            className="w-full h-auto object-contain"
-          />
+          <img src="/images/logo_SHOT.png" alt="S.HOT Logo" className="w-full h-auto object-contain" />
         </div>
 
-        {/* Icône CircleUser */}
         <div className="mb-8 text-[#238d7b]">
           <CircleUser size={100} strokeWidth={1.2} />
         </div>
@@ -79,29 +69,33 @@ const AuthGateway = () => {
           {t('auth_gateway_subtitle', 'Create your S.HOT account in seconds to secure your order and track your vitality journey.')}
         </p>
 
-        {/* Boutons d'action */}
+        {/* Boutons d'action utilisant le composant Button */}
         <div className="flex flex-col sm:flex-row gap-4 w-full px-2">
-          <button 
+          <Button 
+            variant="primary"
+            className="flex-1"
             onClick={() => navigate('/login', { state: { from } })}
-            className="flex-1 bg-[#238d7b] text-white font-bold py-4 rounded-full hover:bg-[#1a6e60] transition-all shadow-lg shadow-[#238d7b]/20 active:scale-95"
           >
             {t('login', 'Login')}
-          </button>
-          <button 
+          </Button>
+          
+          <Button 
+            variant="outline"
+            className="flex-1"
             onClick={() => navigate('/register', { state: { from } })}
-            className="flex-1 border-2 border-[#238d7b] text-[#238d7b] font-bold py-4 rounded-full hover:bg-[#238d7b]/5 transition-all active:scale-95"
           >
             {t('signup', 'Sign Up')}
-          </button>
+          </Button>
         </div>
 
-        {/* Bouton Cancel */}
-        <button 
+        {/* Bouton Cancel utilisant la variante ghost */}
+        <Button 
+          variant="ghost"
+          className="mt-8"
           onClick={() => navigate(-1)}
-          className="mt-8 text-gray-400 font-bold hover:text-gray-700 transition-colors text-sm uppercase tracking-wider"
         >
           {t('cancel', 'Cancel')}
-        </button>
+        </Button>
       </div>
     </div>
   );

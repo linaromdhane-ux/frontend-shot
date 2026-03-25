@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import Button from '../components/Button'; // Importation du composant
 
 const Login = () => {
   const { t } = useTranslation();
@@ -46,12 +47,10 @@ const Login = () => {
       </div>
 
       <div className="w-full max-w-[500px] flex flex-col items-center">
-        {/* Logo */}
         <div className="mb-8 h-7 flex items-center justify-center">
           <img src="/images/logo_SHOT.png" alt="Logo" className="h-full w-auto object-contain" />
         </div>
 
-        {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-4 tracking-tight">{t('login_welcome')}</h1>
           <p className="text-[#333333] text-sm font-medium leading-relaxed max-w-[500px] mx-auto opacity-90">
@@ -60,41 +59,26 @@ const Login = () => {
         </div>
         
         <div className="w-full space-y-5">
-          {/* Email Input */}
           <div className="space-y-1.5 text-left">
             <label className="text-sm font-medium text-gray-700 ml-1">{t('email_label')}</label>
-            <input 
-              type="email" 
-              placeholder={t('email_placeholder')} 
-              className="w-full p-4 rounded-2xl border border-gray-100 bg-white/70 outline-none focus:ring-2 focus:ring-[#108a78]/20 focus:border-[#108a78] transition-all shadow-sm" 
-            />
+            <input type="email" placeholder={t('email_placeholder')} className="w-full p-4 rounded-2xl border border-gray-100 bg-white/70 outline-none focus:ring-2 focus:ring-[#108a78]/20 focus:border-[#108a78] transition-all shadow-sm" />
           </div>
 
-          {/* Password Input + Forgot Password */}
           <div className="space-y-1.5 text-left">
-            <div className="flex justify-between">
-               <label className="text-sm font-medium text-gray-700 ml-1">{t('password_label')}</label>
-            </div>
-            <input 
-              type="password" 
-              placeholder="*******************" 
-              className="w-full p-4 rounded-2xl border border-gray-100 bg-white/70 outline-none focus:ring-2 focus:ring-[#108a78]/20 focus:border-[#108a78] transition-all shadow-sm" 
-            />
+            <label className="text-sm font-medium text-gray-700 ml-1">{t('password_label')}</label>
+            <input type="password" placeholder="*******************" className="w-full p-4 rounded-2xl border border-gray-100 bg-white/70 outline-none focus:ring-2 focus:ring-[#108a78]/20 focus:border-[#108a78] transition-all shadow-sm" />
             <div className="text-right">
-              <Link 
-                to="/forgot-password" 
-                className="text-sm font-medium text-[#72b5a4] hover:text-[#108a78] mt-2 inline-block"
-              >
+              <Link to="/forgot-password" className="text-sm font-medium text-[#72b5a4] hover:text-[#108a78] mt-2 inline-block">
                 {t('forgot_password_link')}
               </Link>
             </div>
           </div>
 
-          {/* Login Button */}
-          <button 
+          {/* Ici on utilise ton nouveau composant Button */}
+          <Button 
+            variant="auth"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            className="w-full bg-[#238d7b] hover:bg-[#1db096] text-white font-bold py-4 rounded-2xl transition-all flex items-center justify-center gap-1 mt-4 relative group overflow-hidden"
           >
             <span className={`transition-all duration-300 ${isHovered ? '-translate-x-1' : 'translate-x-0'}`}>
               {t('btn_login')}
@@ -106,25 +90,22 @@ const Login = () => {
               </svg>
               <span className="h-5 w-[2px] bg-white rounded-full ml-0.5 inline-block"></span>
             </div>
-          </button>
+          </Button>
 
-          {/* Divider */}
           <div className="relative flex items-center py-4">
             <div className="flex-grow border-t border-gray-800"></div>
             <span className="mx-4 text-black-400 text-sm uppercase tracking-widest">{t('or_divider')}</span>
             <div className="flex-grow border-t border-gray-800"></div>
           </div>
 
-          {/* Social Icons - Google Only with Backend Link */}
           <div className="flex justify-center">
-            <a href="http://localhost:5000/api/auth/google" className="w-full">
-              <button className="w-full flex items-center justify-center p-4 border border-gray-100 rounded-2xl bg-white/80 hover:bg-white shadow-sm transition-all">
+            <a href="http://localhost:5000/api/auth/google" className="w-full text-center">
+              <Button variant="secondary" className="w-full border border-gray-100 bg-white/80 hover:bg-white flex items-center justify-center p-4">
                 <img src="https://www.svgrepo.com/show/355037/google.svg" className="w-5 h-5" alt="Google" />
-              </button>
+              </Button>
             </a>
           </div>
 
-          {/* Footer */}
           <div className="mt-8 text-center text-sm font-medium">
             <span className="text-black-500">{t('no_account')} </span>
             <Link to="/register" className="text-[#108a78] font-bold hover:underline ml-1">{t('signup_link')}</Link>
