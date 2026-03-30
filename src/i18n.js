@@ -17,9 +17,16 @@ i18n
           "signup": "Sign Up",
           "wellness": "Wellness",
 
+          // --- BANNER ---
+          "banner_1": "0% Preservatives",
+          "banner_2": "60% Natural Protein",
+          "banner_3": "24/7 Customer Support",
+          "banner_4": "100% Certified Organic",
+
           // --- HOME PAGE ---
-          "hero_badge": "Experience the Power of Spirulina",
-          "hero_title": "Spirulina Excellence For Elevated",
+          "hero_badge": "Ready to Upgrade Your Energy ?",
+          "hero_title_1": "Spirulina Excellence",
+          "hero_title_2": "For Elevated",
           "btn_shop": "Shop now",
           "btn_community": "Join our community",
           "why_title": "Why choose SHOT ?",
@@ -33,8 +40,14 @@ i18n
           "prod_title": "Our Premium Products",
           "prod_desc": "Choose your format. Experience the same uncompromising quality.",
           "btn_all": "All Products",
+          "comm_title": "S.HOT Community",
           "comm_desc": "Real energy. Real focus. Real results. From founders to fitness coaches, S.HOT powers ambitious lifestyles.",
           "comm_cta": "Join the S.HOT Community",
+          "influencer_role_1": "Pro Athlete",
+          "influencer_role_2": "Music Teacher",
+          "influencer_role_3": "Fashion Designer",
+          "influencer_role_4": "Influencer",
+          "influencer_role_5": "Padel Coach",
 
           // --- ABOUT US PAGE ---
           "about_title": "Who We Are ?",
@@ -337,9 +350,16 @@ i18n
           "signup": "S'inscrire",
           "wellness": "Bien-être",
 
+          // --- BANNER ---
+          "banner_1": "0% Conservateurs",
+          "banner_2": "60% Protéines Naturelles",
+          "banner_3": "Support Client 24h/24",
+          "banner_4": "100% Certifié Biologique",
+
           // --- HOME PAGE ---
-          "hero_badge": "Découvrez la Puissance de la Spiruline",
-          "hero_title": "L'Excellence de la Spiruline Pour Votre",
+          "hero_badge": "Prêt à Booster Votre Énergie ?",
+          "hero_title_1": "L'Excellence Spiruline",
+          "hero_title_2": "Pour Votre",
           "btn_shop": "Acheter",
           "btn_community": "Rejoindre la communauté",
           "why_title": "Pourquoi choisir SHOT ?",
@@ -353,8 +373,14 @@ i18n
           "prod_title": "Nos Produits Premium",
           "prod_desc": "Choisissez votre format. Découvrez la même qualité sans compromis.",
           "btn_all": "Tous les produits",
+          "comm_title": " S.HOT",
           "comm_desc": "Énergie réelle. Concentration réelle. Résultats réels. S.HOT booste les styles de vie ambitieux.",
           "comm_cta": "Rejoignez la Communauté S.HOT",
+          "influencer_role_1": "Athlète Pro",
+          "influencer_role_2": "Professeur de Musique",
+          "influencer_role_3": "Styliste de Mode",
+          "influencer_role_4": "Influenceuse",
+          "influencer_role_5": "Coach de Padel",
 
           // --- ABOUT US PAGE ---
           "about_title": "Qui Sommes-Nous ?",

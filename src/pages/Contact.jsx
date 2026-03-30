@@ -8,7 +8,7 @@ import { useWishlist } from '../context/WishlistContext';
 
 // Import des components
 import Navbar from '../components/Navbar';
-import MobileHeader from '../components/MobileHeader'; // Ajouté pour la cohérence mobile
+import MobileHeader from '../components/MobileHeader';
 import MobileMenu from '../components/MobileMenu';
 import WishlistSidebar from '../components/WishlistSidebar';
 import ShopSidebar from '../components/ShopSidebar';
@@ -103,12 +103,12 @@ const Contact = () => {
           padding: 60px 55px; 
         }
 
-        .title-large { font-size: 32px; font-weight: 800; color: #16a085; margin-bottom: 12px; }
+        .title-large { font-size: 32px; font-weight: 800; color: #0d4a3e; margin-bottom: 12px; }
         .text-desc { font-size: 15px; color: #6b7280; line-height: 1.6; }
         
         .contact-icon-box {
           width: 48px; height: 48px;
-          background: #16a085;
+          background: #238d7b;
           border-radius: 14px;
           display: flex; align-items: center; justify-content: center;
           color: white; margin-right: 18px;
@@ -125,14 +125,14 @@ const Contact = () => {
 
         .btn-send {
           width: 100%; padding: 20px;
-          background: #16a085; color: white;
+          background: #238d7b; color: white;
           border: none; border-radius: 50px;
           font-size: 16px; font-weight: 800; cursor: pointer;
           transition: 0.3s; margin-top: 20px;
-          box-shadow: 0 10px 20px rgba(22,160,133,0.2);
+          box-shadow: 0 10px 20px rgba(35,141,123,0.2);
         }
 
-        .btn-send:hover { transform: translateY(-3px); background: #138f76; }
+        .btn-send:hover { transform: translateY(-3px); background: #1a6e60; }
 
         @media (max-width: 900px) {
           .contact-card-main { grid-template-columns: 1fr; margin: 0 20px; }
@@ -243,7 +243,7 @@ const Contact = () => {
       </div>
 
       <div className="pt-10 pb-16 text-center">
-        <h2 className="text-5xl font-black text-[#16a085]">{t('join_news')}</h2>
+        <h2 className="text-5xl font-black text-[#0d4a3e]">{t('Rejoignez la Communauté S.HOT')}</h2>
       </div>
 
       <Newsletter />
@@ -254,14 +254,14 @@ const Contact = () => {
         <div className="fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center z-[1000] p-4">
           <div className="bg-white w-full max-w-md p-10 rounded-[40px] text-center shadow-2xl animate-in zoom-in duration-300">
             <img src="/images/logo_SHOT.png" alt="Logo" className="h-12 mx-auto mb-8" />
-            <div className="w-20 h-20 border-4 border-[#16a085] rounded-full flex items-center justify-center mx-auto mb-6 text-[#16a085]">
+            <div className="w-20 h-20 border-4 border-[#238d7b] rounded-full flex items-center justify-center mx-auto mb-6 text-[#238d7b]">
               <Check size={40} strokeWidth={3} />
             </div>
-            <h3 className="text-2xl font-extrabold text-[#2d4b44] mb-2">{t('contact_sent_t')}</h3>
+            <h3 className="text-2xl font-extrabold text-[#0d4a3e] mb-2">{t('contact_sent_t')}</h3>
             <p className="text-gray-500 text-sm mb-8">{t('contact_sent_d')}</p>
             <button 
               onClick={() => setShowSuccessModal(false)}
-              className="w-full py-4 bg-[#16a085] text-white font-bold rounded-2xl hover:bg-[#138f76] transition-colors"
+              className="w-full py-4 bg-[#238d7b] text-white font-bold rounded-2xl hover:bg-[#1a6e60] transition-colors"
             >
               {t('done')}
             </button>

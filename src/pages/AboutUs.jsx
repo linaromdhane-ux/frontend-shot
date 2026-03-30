@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Play, Leaf, Recycle, HeartHandshake } from 'lucide-react';
-import { useTranslation } from 'react-i18next'; // Ajouté
+import { useTranslation } from 'react-i18next';
 
-// Import des components - CHEMINS CORRIGÉS
 import Navbar from '../components/Navbar';
 import MobileHeader from '../components/MobileHeader';
 import MobileMenu from '../components/MobileMenu';
@@ -12,14 +11,12 @@ import ShopSidebar from '../components/ShopSidebar';
 import Newsletter from '../components/Newsletter';
 import Footer from '../components/Footer';
 import SubscribeModal from '../components/SubscribeModal';
-import JoinCommunity from '../components/JoinCommunity';
 
-// Hooks des Contexts
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 
 const AboutUs = () => {
-  const { t } = useTranslation(); // Ajouté
+  const { t } = useTranslation();
   const [activeIcon, setActiveIcon] = useState(null);
   const [activeLink, setActiveLink] = useState(null);
   const [subscribeEmail, setSubscribeEmail] = useState('');
@@ -27,7 +24,6 @@ const AboutUs = () => {
   const [activeValueCard, setActiveValueCard] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // 1. Récupération de la Wishlist via le Context global
   const { 
     wishlistItems, 
     isClearing, 
@@ -37,7 +33,6 @@ const AboutUs = () => {
     isInWishlist 
   } = useWishlist();
 
-  // 2. Récupération du Panier et des contrôles de sidebars
   const {
     cartItems,
     isWishlistOpen,
@@ -69,21 +64,21 @@ const AboutUs = () => {
   const values = [
     {
       id: 1,
-      icon: <Leaf size={32} strokeWidth={2} />,
+      icon: <Leaf size={32} strokeWidth={2} />, 
       title: t('about_val1_t'),
       text: t('about_val1_d'),
       color: "#0f766e"
     },
     {
       id: 2,
-      icon: <Recycle size={32} strokeWidth={2} />,
+      icon: <Recycle size={32} strokeWidth={2} />, 
       title: t('about_val2_t'),
       text: t('about_val2_d'),
       color: "#8b5cf6"
     },
     {
       id: 3,
-      icon: <HeartHandshake size={32} strokeWidth={2} />,
+      icon: <HeartHandshake size={32} strokeWidth={2} />, 
       title: t('about_val3_t'),
       text: t('about_val3_d'),
       color: "#f59e0b"
@@ -296,6 +291,11 @@ const AboutUs = () => {
         .play-btn { width: 80px; height: 80px; border-radius: 50%; background: #f59e0b; display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; transition: transform 0.2s; }
         .play-btn:hover { transform: scale(1.1); }
 
+        .stay-ahead-container { position: relative; padding: 50px 40px; margin-top: 0px; }
+        .stay-ahead-overlay { position: absolute; inset: 0; background: transparent; }
+        .stay-ahead-content { position: relative; z-index: 10; text-align: center; }
+        .stay-ahead-title { font-size: clamp(24px, 5vw, 48px); font-weight: 800; letter-spacing: -0.5px; line-height: 1.2; color: #0d4a3e; }
+
         @media (max-width: 1024px) {
           .hero-content { gap: 35px; width: 90%; }
           .hero-text-p { font-size: 17px; }
@@ -366,7 +366,7 @@ const AboutUs = () => {
           
           {/* SECTION 1: WHO WE ARE */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-extrabold text-[#0f766e] mb-4">{t('about_title')}</h1>
+            <h1 className="text-4xl md:text-5xl font-extrabold mb-4" style={{ color: '#0d4a3e' }}>{t('about_title')}</h1>
             <p className="text-gray-600 text-base md:text-lg max-w-2xl mx-auto font-medium">
               {t('about_subtitle')}
             </p>
@@ -390,7 +390,7 @@ const AboutUs = () => {
 
           {/* SECTION 3: OUR VALUES */}
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#0f766e] mb-4">{t('about_values_title')}</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#0d4a3e' }}>{t('about_values_title')}</h2>
             <p className="text-gray-600 mb-12 font-medium">{t('about_values_desc')}</p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
@@ -417,7 +417,7 @@ const AboutUs = () => {
 
           {/* SECTION 4: WHAT'S SPIRULINA */}
           <div className="text-center mb-24 max-w-7xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#0f766e] mb-4">{t('about_spiru_title')}</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#0d4a3e' }}>{t('about_spiru_title')}</h2>
             <p className="text-gray-600 mb-10 font-medium">{t('about_spiru_desc')}</p>
             
             <div className="video-section">
@@ -439,7 +439,7 @@ const AboutUs = () => {
 
           {/* SECTION 5: WHAT PEOPLE SAY */}
           <div className="text-center mb-4 max-w-7xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#0f766e] mb-4">{t('about_testi_title')}</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#0d4a3e' }}>{t('about_testi_title')}</h2>
             <p className="text-gray-600 mb-12 font-medium">{t('about_testi_desc')}</p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -465,8 +465,13 @@ const AboutUs = () => {
 
         </div>
 
-        {/* JOIN COMMUNITY */}
-        <JoinCommunity />
+        {/* REJOIGNEZ LA COMMUNAUTÉ S.HOT */}
+        <div className="stay-ahead-container">
+          <div className="stay-ahead-overlay"></div>
+          <div className="stay-ahead-content max-w-7xl mx-auto px-6 md:px-12">
+            <h2 className="stay-ahead-title">{t('Rejoignez la Communauté S.HOT')}</h2>
+          </div>
+        </div>
 
         {/* NEWSLETTER */}
         <Newsletter 

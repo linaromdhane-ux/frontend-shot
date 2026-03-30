@@ -16,7 +16,7 @@ import Footer from '../components/Footer';
 import { useWishlist } from '../context/WishlistContext';
 import { useCart } from '../context/CartContext';
 import { useTranslation } from 'react-i18next';
-import { allProducts } from '../data/products'; // ✅ AJOUT
+import { allProducts } from '../data/products';
 
 const Home = () => {
   const { t } = useTranslation();
@@ -47,10 +47,10 @@ const Home = () => {
   const [subscribeEmail, setSubscribeEmail] = useState('');
 
   const bannerData = [
-    { text: "0% Preservatives", color: "bg-[#f39c12]", icon: <Zap size={32} strokeWidth={3} /> },
-    { text: "60% Natural Protein", color: "bg-[#a855f7]", icon: <ShieldCheck size={32} strokeWidth={3} /> },
-    { text: "24/7 Customer Support", color: "bg-[#2980b9]", icon: <Headset size={32} strokeWidth={3} /> },
-    { text: "100% Certified Organic", color: "bg-[#16a085]", icon: <Leaf size={32} strokeWidth={3} /> }
+    { textKey: "banner_1", color: "bg-[#f39c12]", icon: <Zap size={32} strokeWidth={3} /> },
+    { textKey: "banner_2", color: "bg-[#a855f7]", icon: <ShieldCheck size={32} strokeWidth={3} /> },
+    { textKey: "banner_3", color: "bg-[#2980b9]", icon: <Headset size={32} strokeWidth={3} /> },
+    { textKey: "banner_4", color: "bg-[#16a085]", icon: <Leaf size={32} strokeWidth={3} /> }
   ];
   const [currentBanner, setCurrentBanner] = useState(0);
 
@@ -61,8 +61,6 @@ const Home = () => {
     return () => clearInterval(interval);
   }, [bannerData.length]);
 
-  // ✅ SUPPRIMÉ : const products = [...] remplacé par allProducts depuis data/products.js
-  // On affiche seulement les 3 premiers sur la home (comme avant)
   const products = allProducts.slice(0, 3);
 
   const openProductDetails = (product) => {
@@ -124,11 +122,11 @@ const Home = () => {
   ];
 
   const influencers = [
-    { name: 'Lina B',  role: 'Pro Athlete',      initials: 'LB' },
-    { name: 'Adam L',  role: 'Music Teacher',     initials: 'AL' },
-    { name: 'Emma D',  role: 'Fashion Designer',  initials: 'ED' },
-    { name: 'Sarah K', role: 'Influencer',        initials: 'SK' },
-    { name: 'Alex M',  role: 'Padel Coach',       initials: 'AM' },
+    { name: 'Lina B',  role: t('influencer_role_1'),  initials: 'LB' },
+    { name: 'Adam L',  role: t('influencer_role_2'),  initials: 'AL' },
+    { name: 'Emma D',  role: t('influencer_role_3'),  initials: 'ED' },
+    { name: 'Sarah K', role: t('influencer_role_4'),  initials: 'SK' },
+    { name: 'Alex M',  role: t('influencer_role_5'),  initials: 'AM' },
   ];
 
   return (
@@ -171,15 +169,16 @@ const Home = () => {
 
       {/* HERO */}
       <header className="relative w-full min-h-screen bg-cover bg-center" style={{ backgroundImage: "url('/images/Rectangle 39.png')" }}>
-        <div className="relative z-20 container mx-auto md:px-15 pt-48 md:pt-56 text-white">
+        <div className="relative z-20 container mx-auto md:px-15 pt-48 md:pt-56 text-white md:max-w-[55%] md:ml-[8%]">
           <div className="flex items-center gap-3 mb-6 bg-gray-950/70 w-fit px-4 py-2.5 md:py-3 rounded-full backdrop-blur-md border border-white/20">
             <div className="w-2 h-2 bg-[#238d7b] rounded-full relative flex items-center justify-center"><div className="absolute w-full h-full bg-[#238d7b] rounded-full animate-ping opacity-75"></div></div>
             <span className="text-[10px] md:text-[12px] font-bold uppercase tracking-[0.2em] opacity-90">{t('hero_badge')}</span>
           </div>
-          <h1 className="text-4xl md:text-7xl font-black leading-[1.1]">
-            {t('hero_title')} <br />
-            <span className="text-[#238d7b] font-kemangi text-6xl md:text-9xl ml-2 md:ml-4 inline-block">
-              {displayText}<span className="animate-pulse text-white/50 font-sans text-3xl md:text-5xl ml-1">|</span>
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-black leading-[1.1]">
+            {t('hero_title_1')} <br />
+            {t('hero_title_2')} <br />
+            <span className="text-[#238d7b] font-kemangi text-5xl md:text-8xl lg:text-9xl inline-block">
+              {displayText}
             </span>
           </h1>
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 md:gap-5 mt-12 md:mt-16">
@@ -211,7 +210,7 @@ const Home = () => {
         <div className="flex items-center gap-8 px-10">
           <span className="text-white transform scale-125">{bannerData[currentBanner].icon}</span>
           <span className="text-white text-3xl md:text-[32px] font-bold tracking-normal whitespace-nowrap leading-none">
-            {bannerData[currentBanner].text}
+            {t(bannerData[currentBanner].textKey)}
           </span>
         </div>
       </div>
@@ -288,7 +287,7 @@ const Home = () => {
         {/* TESTIMONIALS */}
         <div className="pb-16 px-8 md:px-12">
           <div className="max-w-7xl mx-auto">
-            <h2 className="text-[30px] md:text-[46px] gradient-title text-center mb-4 leading-tight">S.HOT</h2>
+            <h2 className="text-[30px] md:text-[46px] gradient-title text-center mb-4 leading-tight">{t('comm_title')}</h2>
             <p className="text-gray-700 text-base md:text-[16px] text-center max-w-3xl mx-auto mb-16 leading-relaxed font-medium">
               {t('comm_desc')}
             </p>
