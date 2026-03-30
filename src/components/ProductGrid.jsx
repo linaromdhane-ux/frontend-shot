@@ -5,7 +5,6 @@ const ProductGrid = ({ products, isInWishlist, toggleWishlist, openProductDetail
   const [hoveredProduct, setHoveredProduct] = useState(null);
 
   return (
-    /* md:grid-cols-3 assure qu'il n'y a que 3 colonnes, donc pas d'espace vide à droite pour tes 3 produits */
     <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-items-center">
       {products.map((product) => (
         <ProductCard 

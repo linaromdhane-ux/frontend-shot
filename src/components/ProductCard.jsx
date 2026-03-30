@@ -1,5 +1,6 @@
 import React from 'react';
 import { Heart } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const ProductCard = ({ 
   product, 
@@ -11,6 +12,8 @@ const ProductCard = ({
   onOpenDetails, 
   onAddToCart 
 }) => {
+  const { t } = useTranslation();
+
   return (
     <div 
       className="group bg-white rounded-2xl p-4 transition-all duration-300 hover:shadow-xl border border-gray-100 relative flex flex-col h-full w-full max-w-[350px]"
@@ -73,7 +76,7 @@ const ProductCard = ({
 
       {/* --- INFOS PRODUIT --- */}
       <div className="flex flex-col flex-grow space-y-2">
-        {/* TITRE : Cliquable et change de couleur au survol */}
+        {/* TITRE */}
         <h3 
           onClick={onOpenDetails}
           className="font-bold text-gray-900 text-lg cursor-pointer hover:text-[#238d7b] transition-colors"
@@ -93,11 +96,11 @@ const ProductCard = ({
             }}
             className="bg-[#f39c12] text-white px-6 py-2 rounded-full font-bold text-sm hover:bg-[#e67e22] transition-colors shadow-sm"
           >
-            Shop
+            {t('btn_shop')}
           </button>
         </div>
 
-        {/* Ratings : EXACTEMENT COMME AVANT */}
+        {/* Ratings */}
         <div className="flex text-yellow-400 text-xs mt-2">
           {Array.from({ length: 5 }).map((_, i) => (
             <span key={i} className={i < product.rating ? "opacity-100" : "opacity-30"}>⭐</span>

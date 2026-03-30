@@ -1,9 +1,11 @@
 import { X, Trash2, Plus, Minus, ShoppingBag } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useCart } from '../context/CartContext';
 
 const ShopSidebar = ({ isOpen, onClose }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { 
     cartItems, removeFromCart, updateQuantity, clearCart,
     subtotal, totalProducts, taxCost, shippingCost, finalTotal 
@@ -16,7 +18,6 @@ const ShopSidebar = ({ isOpen, onClose }) => {
     return n.toLocaleString('fr-TN', { minimumFractionDigits: 3, maximumFractionDigits: 3 }) + ' DT';
   };
 
-  // Gère tous les formats de prix : 59 | "59,000 DT" | "59.000DT"
   const parseItemPrice = (price) => {
     if (typeof price === 'number') return price;
     if (!price) return 0;
@@ -25,7 +26,7 @@ const ShopSidebar = ({ isOpen, onClose }) => {
 
   const handleOrder = () => {
     onClose();
-    navigate('/auth-gateway'); // Redirige vers la page de sélection Login/SignUp
+    navigate('/auth-gateway');
     window.scrollTo(0, 0);
   };
 
@@ -38,7 +39,7 @@ const ShopSidebar = ({ isOpen, onClose }) => {
         
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-xl font-bold text-gray-800">Shopping Cart</h2>
+          <h2 className="text-xl font-bold text-gray-800">{t('cart_title')}</h2>
           <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
             <X size={20} className="text-gray-500" />
           </button>
@@ -61,7 +62,6 @@ const ShopSidebar = ({ isOpen, onClose }) => {
                 </div>
                 
                 <div className="flex items-center justify-between mt-3">
-                  {/* Boutons de quantité carrés verts */}
                   <div className="flex items-center gap-3">
                     <button 
                       onClick={() => updateQuantity(item.id, (item.quantity || 1) - 1)}
@@ -84,36 +84,36 @@ const ShopSidebar = ({ isOpen, onClose }) => {
           )) : (
             <div className="flex flex-col items-center justify-center h-full text-center text-gray-300">
               <ShoppingBag size={60} className="mb-4 opacity-20" />
-              <p className="font-medium">Your cart is empty</p>
+              <p className="font-medium">{t('Your cart is empty')}</p>
             </div>
           )}
         </div>
 
-        {/* Summary Section (seulement si le panier n'est pas vide) */}
+        {/* Summary Section */}
         {cartItems.length > 0 && (
           <div className="mt-6 pt-6 border-t border-gray-100">
-            <h3 className="font-bold text-gray-800 mb-4 text-base">Summary</h3>
+            <h3 className="font-bold text-gray-800 mb-4 text-base">{t('Summary')}</h3>
             <div className="space-y-3 text-sm mb-6">
               <div className="flex justify-between text-gray-500 font-medium">
-                <span>Subtotal</span>
+                <span>{t('Subtotal')}</span>
                 <span className="text-gray-900 font-bold">{formatPrice(subtotal)}</span>
               </div>
               <div className="flex justify-between text-gray-500 font-medium">
-                <span>Total Products</span>
+                <span>{t('Total Products')}</span>
                 <span className="text-gray-900 font-bold">{totalProducts}</span>
               </div>
               <div className="flex justify-between text-gray-500 font-medium">
-                <span>Shipping Cost</span>
-                <span className="text-gray-900 font-bold">Free</span>
+                <span>{t('Shipping Cost')}</span>
+                <span className="text-gray-900 font-bold">{t('Free')}</span>
               </div>
               <div className="flex justify-between text-gray-500 font-medium">
-                <span>Tax Cost</span>
+                <span>{t('Tax Cost')}</span>
                 <span className="text-gray-900 font-bold">{formatPrice(taxCost)}</span>
               </div>
             </div>
 
             <div className="flex justify-between items-center mb-8 pt-4 border-t border-gray-100">
-              <span className="text-xl font-bold text-gray-800">Total</span>
+              <span className="text-xl font-bold text-gray-800">{t('Total')}</span>
               <span className="text-2xl font-bold text-[#238d7b]">{formatPrice(finalTotal)}</span>
             </div>
 
@@ -123,13 +123,13 @@ const ShopSidebar = ({ isOpen, onClose }) => {
                 onClick={clearCart}
                 className="py-3.5 px-4 border-2 border-[#238d7b] text-[#238d7b] rounded-[20px] font-bold hover:bg-[#238d7b]/5 transition-all text-sm active:scale-95"
               >
-                Clear Cart
+                {t('cart_clear')}
               </button>
               <button 
                 onClick={handleOrder}
                 className="py-3.5 px-4 bg-[#238d7b] text-white rounded-[20px] font-bold hover:bg-[#1a6e60] transition-all text-sm shadow-lg shadow-[#238d7b]/20 active:scale-95"
               >
-                Order
+                {t('Order')}
               </button>
             </div>
           </div>

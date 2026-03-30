@@ -1,4 +1,5 @@
 import { X, ShoppingCart, Heart, Trash2 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const WishlistSidebar = ({ 
   isOpen, 
@@ -9,6 +10,8 @@ const WishlistSidebar = ({
   onRemoveItem,
   onClearAll 
 }) => {
+  const { t } = useTranslation();
+
   if (!isOpen) return null;
 
   return (
@@ -18,7 +21,7 @@ const WishlistSidebar = ({
     >
       <div className="p-8 h-full flex flex-col">
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl font-bold text-[#0f1a18]">Wishlist</h2>
+          <h2 className="text-2xl font-bold text-[#0f1a18]">{t('wishlist_title')}</h2>
           <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
             <X size={24} className="text-gray-500" />
           </button>
@@ -54,7 +57,7 @@ const WishlistSidebar = ({
               </div>
             </div>
           )) : (
-            <p className="text-center text-gray-400 mt-10">Your wishlist is empty.</p>
+            <p className="text-center text-gray-400 mt-10">{t('wishlist_empty')}</p>
           )}
         </div>
         <button 
@@ -62,7 +65,7 @@ const WishlistSidebar = ({
           disabled={wishlistItems.length === 0}
           className={`w-full py-3.5 rounded-full font-bold mt-6 flex items-center justify-center gap-3 transition-all active:scale-95 border-2 ${wishlistItems.length === 0 ? 'bg-gray-50 text-gray-300 border-gray-200 cursor-not-allowed' : 'bg-white text-[#333] border-[#238d7b] hover:bg-gray-50'}`}
         >
-          Clear Wishlist {isClearing && <Trash2 size={20} className="text-[#238d7b] animate-bounce" />}
+          {t('wishlist_clear')} {isClearing && <Trash2 size={20} className="text-[#238d7b] animate-bounce" />}
         </button>
       </div>
     </div>

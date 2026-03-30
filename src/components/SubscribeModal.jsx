@@ -1,7 +1,9 @@
+import { useTranslation } from 'react-i18next';
 import { useCart } from '../context/CartContext';
 
 const SubscribeModal = () => {
   const { showSubscribeModal, closeSubscribeModal } = useCart();
+  const { t } = useTranslation();
 
   if (!showSubscribeModal) return null;
 
@@ -20,15 +22,15 @@ const SubscribeModal = () => {
             <polyline points="20 6 9 17 4 12"/>
           </svg>
         </div>
-        <h3 style={{ fontWeight: 800, fontSize: 22, color: '#111827', marginBottom: 12 }}>Thank you !</h3>
-        <p style={{ color: '#6b7280', fontSize: 15, lineHeight: 1.6, marginBottom: 36 }}>Please check your inbox to confirm your subscription.</p>
+        <h3 style={{ fontWeight: 800, fontSize: 22, color: '#111827', marginBottom: 12 }}>{t('thanks')}</h3>
+        <p style={{ color: '#6b7280', fontSize: 15, lineHeight: 1.6, marginBottom: 36 }}>{t('confirm')}</p>
         <button 
           onClick={closeSubscribeModal} 
           style={{ width: '100%', padding: '16px', borderRadius: 50, background: '#238d7b', color: 'white', fontWeight: 700, fontSize: 16, border: 'none', cursor: 'pointer', transition: 'background .2s ease' }}
           onMouseEnter={e => e.currentTarget.style.background = '#1a6e60'}
           onMouseLeave={e => e.currentTarget.style.background = '#238d7b'}
         >
-          Done
+          {t('done')}
         </button>
       </div>
     </div>

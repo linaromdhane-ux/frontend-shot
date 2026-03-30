@@ -12,6 +12,7 @@ import ShopSidebar from '../components/ShopSidebar';
 import Newsletter from '../components/Newsletter';
 import Footer from '../components/Footer';
 import SubscribeModal from '../components/SubscribeModal';
+import JoinCommunity from '../components/JoinCommunity';
 
 // Hooks des Contexts
 import { useCart } from '../context/CartContext';
@@ -111,21 +112,207 @@ const AboutUs = () => {
   ];
 
   return (
-    <div className="relative min-h-screen w-full font-['Montserrat'] overflow-x-hidden">
-      {/* BACKGROUND IMAGE SIGN UP POUR TOUTE LA PAGE */}
-      <div 
-        className="fixed inset-0 z-0"
-        style={{
-          backgroundImage: "url('/images/Sign Up.png')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          backgroundAttachment: 'fixed'
-        }}
-      />
-      
-      {/* OVERLAY LÉGER */}
-      <div className="fixed inset-0 z-0 bg-white/40" />
+    <div className="relative min-h-screen w-full font-['Montserrat'] signup-bg overflow-x-hidden">
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+        * { font-family:'Montserrat',sans-serif; }
+
+        .signup-bg {
+          background-image: url('/images/Sign Up.png');
+          background-size: cover;
+          background-position: center;
+          background-attachment: fixed;
+        }
+
+        .nav-fixed-video { background-color:rgba(45,75,68,.85); height:75px; backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,.1); }
+        .nav-link-item { color:white; opacity:.8; font-weight:600; font-size:15px; transition:all .3s ease; cursor:pointer; }
+        .nav-link-item:hover { opacity:1; text-shadow:0 0 8px rgba(255,255,255,.5); }
+        .icon-box-vid { width:44px; height:44px; display:flex; align-items:center; justify-content:center; border-radius:14px; transition:all .2s ease; color:white; cursor:pointer; position:relative; }
+        .icon-box-vid:hover,.icon-box-active { background-color:white !important; color:#238d7b !important; transform:translateY(-2px); }
+        .btn-signup-vid { background-color:white; color:#238d7b; font-weight:700; font-size:14px; height:42px; padding:0 25px; border-radius:50px; border:2px solid white; transition:all .3s ease; cursor:pointer; }
+        .btn-signup-vid:hover { background-color:#238d7b; color:white !important; }
+
+        .mobile-header { display: none; }
+        @media (max-width: 1023px) {
+          .mobile-header { display: flex; align-items: center; justify-content: space-between; background-color: rgba(45,75,68,.85); height: 70px; backdrop-filter: blur(12px); padding: 0 20px; border-bottom: 1px solid rgba(255,255,255,.1); }
+          .desktop-nav { display: none !important; }
+        }
+
+        .mobile-menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); z-index: 250; opacity: 0; transition: opacity 0.3s ease; pointer-events: none; }
+        .mobile-menu-overlay.open { opacity: 1; pointer-events: auto; }
+        .mobile-menu { position: fixed; top: 0; right: 0; width: 280px; height: 100vh; background: linear-gradient(135deg, #238d7b 0%, #1a6e60 100%); z-index: 300; padding: 30px 20px; transform: translateX(100%); transition: transform 0.3s ease; display: flex; flex-direction: column; box-shadow: -5px 0 25px rgba(0,0,0,0.3); }
+        .mobile-menu.open { transform: translateX(0); }
+        .mobile-menu-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.2); }
+        .mobile-menu-close { width: 36px; height: 36px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; }
+        .mobile-menu-close:hover { background: white; transform: rotate(90deg); }
+        .mobile-menu-close:hover svg { color: #238d7b; }
+        .mobile-menu-links { display: flex; flex-direction: column; gap: 5px; flex: 1; }
+        .mobile-menu-link { color: white; font-size: 17px; font-weight: 600; padding: 14px 18px; border-radius: 12px; background: rgba(255,255,255,0.1); transition: all 0.3s ease; text-decoration: none; display: block; }
+        .mobile-menu-link:hover { background: white; color: #238d7b; transform: translateX(5px); }
+        .mobile-menu-footer { margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); }
+        .mobile-signup-btn { width: 100%; background: white; color: #238d7b; padding: 14px; border-radius: 12px; font-weight: 700; font-size: 16px; border: none; cursor: pointer; transition: all 0.3s ease; text-decoration: none; display: block; text-align: center; }
+        .mobile-signup-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+
+        .hero-card-container {
+          width: 100%;
+          max-width: 1440px;
+          height: 340px;
+          background-image: url('/images/p6.png');
+          background-size: cover;
+          background-position: center;
+          position: relative;
+          margin: 40px auto;
+          border-radius: 35px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          overflow: hidden;
+          box-shadow: 0 20px 50px rgba(15, 118, 110, 0.15);
+        }
+        
+        .hero-overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(90deg, rgba(15, 118, 110, 0.35) 0%, rgba(15, 118, 110, 0.28) 100%);
+        }
+
+        .hero-content {
+          position: relative;
+          z-index: 10;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 92%;
+          height: 100%;
+          gap: 50px;
+        }
+
+        .hero-logo-wrapper {
+          flex: 0 0 auto;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-left: -5mm;
+        }
+        
+        .hero-logo-img {
+          height: 60px;
+          width: auto;
+          display: block;
+          filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
+        }
+
+        .hero-divider {
+          width: 2px;
+          height: 130px;
+          background: linear-gradient(to bottom, 
+            rgba(255, 255, 255, 0.2) 0%,
+            rgba(255, 255, 255, 0.9) 50%,
+            rgba(255, 255, 255, 0.2) 100%
+          );
+          border-radius: 2px;
+        }
+
+        .hero-text-wrapper {
+          flex: 1;
+          max-width: 620px;
+        }
+
+        .hero-text-p {
+          color: white;
+          font-size: 19px;
+          line-height: 1.65;
+          font-weight: 500;
+          letter-spacing: 0.3px;
+          text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+          text-align: left;
+        }
+
+        .value-card {
+          background: white;
+          border-radius: 24px;
+          padding: 40px 20px;
+          text-align: center;
+          border: 1px solid #e5e7eb;
+          transition: all 0.3s ease;
+          cursor: pointer;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+        .value-card:hover, .value-card.active {
+          transform: translateY(-10px);
+          box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+          border-color: transparent;
+        }
+        .value-icon-box {
+          width: 70px;
+          height: 70px;
+          border-radius: 16px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 20px;
+          color: white;
+          transition: all 0.3s ease;
+        }
+        
+        .testimonial-card {
+          background-color: #0f766e;
+          color: white;
+          border-radius: 24px;
+          padding: 35px;
+          text-align: left;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+        }
+        .testimonial-header {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+          margin-bottom: 20px;
+        }
+        .testimonial-avatar {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          background-color: rgba(255,255,255,0.2);
+          display:flex; align-items:center; justify-content:center;
+          font-weight:700;
+        }
+        
+        .video-section {
+          position: relative;
+          height: 400px;
+          border-radius: 30px;
+          overflow: hidden;
+          margin-top: 40px;
+        }
+        .video-bg { width: 100%; height: 100%; object-fit: cover; }
+        .play-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; }
+        .play-btn { width: 80px; height: 80px; border-radius: 50%; background: #f59e0b; display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; transition: transform 0.2s; }
+        .play-btn:hover { transform: scale(1.1); }
+
+        @media (max-width: 1024px) {
+          .hero-content { gap: 35px; width: 90%; }
+          .hero-text-p { font-size: 17px; }
+          .hero-logo-img { height: 52px; }
+          .hero-divider { height: 110px; }
+        }
+
+        @media (max-width: 768px) {
+          .hero-card-container { height: auto; padding: 50px 0; }
+          .hero-content { flex-direction: column; text-align: center; gap: 25px; }
+          .hero-divider { width: 70px; height: 2px; } 
+          .hero-logo-wrapper { margin-left: 0; }
+          .hero-logo-img { height: 48px; }
+          .hero-text-wrapper { text-align: center; }
+          .hero-text-p { font-size: 16px; text-align: center; }
+        }
+      `}</style>
 
       {/* Sidebars Globales */}
       <WishlistSidebar 
@@ -146,204 +333,6 @@ const AboutUs = () => {
 
       {/* CONTENU */}
       <div className="relative z-10">
-        <style>{`
-          @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
-          * { font-family:'Montserrat',sans-serif; }
-
-          .nav-fixed-video { background-color:rgba(45,75,68,.85); height:75px; backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,.1); }
-          .nav-link-item { color:white; opacity:.8; font-weight:600; font-size:15px; transition:all .3s ease; cursor:pointer; }
-          .nav-link-item:hover { opacity:1; text-shadow:0 0 8px rgba(255,255,255,.5); }
-          .icon-box-vid { width:44px; height:44px; display:flex; align-items:center; justify-content:center; border-radius:14px; transition:all .2s ease; color:white; cursor:pointer; position:relative; }
-          .icon-box-vid:hover,.icon-box-active { background-color:white !important; color:#238d7b !important; transform:translateY(-2px); }
-          .btn-signup-vid { background-color:white; color:#238d7b; font-weight:700; font-size:14px; height:42px; padding:0 25px; border-radius:50px; border:2px solid white; transition:all .3s ease; cursor:pointer; }
-          .btn-signup-vid:hover { background-color:#238d7b; color:white !important; }
-
-          .mobile-header { display: none; }
-          @media (max-width: 1023px) {
-            .mobile-header { display: flex; align-items: center; justify-content: space-between; background-color: rgba(45,75,68,.85); height: 70px; backdrop-filter: blur(12px); padding: 0 20px; border-bottom: 1px solid rgba(255,255,255,.1); }
-            .desktop-nav { display: none !important; }
-          }
-
-          .mobile-menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); z-index: 250; opacity: 0; transition: opacity 0.3s ease; pointer-events: none; }
-          .mobile-menu-overlay.open { opacity: 1; pointer-events: auto; }
-          .mobile-menu { position: fixed; top: 0; right: 0; width: 280px; height: 100vh; background: linear-gradient(135deg, #238d7b 0%, #1a6e60 100%); z-index: 300; padding: 30px 20px; transform: translateX(100%); transition: transform 0.3s ease; display: flex; flex-direction: column; box-shadow: -5px 0 25px rgba(0,0,0,0.3); }
-          .mobile-menu.open { transform: translateX(0); }
-          .mobile-menu-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.2); }
-          .mobile-menu-close { width: 36px; height: 36px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; }
-          .mobile-menu-close:hover { background: white; transform: rotate(90deg); }
-          .mobile-menu-close:hover svg { color: #238d7b; }
-          .mobile-menu-links { display: flex; flex-direction: column; gap: 5px; flex: 1; }
-          .mobile-menu-link { color: white; font-size: 17px; font-weight: 600; padding: 14px 18px; border-radius: 12px; background: rgba(255,255,255,0.1); transition: all 0.3s ease; text-decoration: none; display: block; }
-          .mobile-menu-link:hover { background: white; color: #238d7b; transform: translateX(5px); }
-          .mobile-menu-footer { margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); }
-          .mobile-signup-btn { width: 100%; background: white; color: #238d7b; padding: 14px; border-radius: 12px; font-weight: 700; font-size: 16px; border: none; cursor: pointer; transition: all 0.3s ease; text-decoration: none; display: block; text-align: center; }
-          .mobile-signup-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-
-          .hero-card-container {
-            width: 100%;
-            max-width: 1440px;
-            height: 340px;
-            background-image: url('/images/p6.png');
-            background-size: cover;
-            background-position: center;
-            position: relative;
-            margin: 40px auto;
-            border-radius: 35px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            box-shadow: 0 20px 50px rgba(15, 118, 110, 0.15);
-          }
-          
-          .hero-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, rgba(15, 118, 110, 0.35) 0%, rgba(15, 118, 110, 0.28) 100%);
-          }
-
-          .hero-content {
-            position: relative;
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 92%;
-            height: 100%;
-            gap: 50px;
-          }
-
-          .hero-logo-wrapper {
-            flex: 0 0 auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-left: -5mm;
-          }
-          
-          .hero-logo-img {
-            height: 60px;
-            width: auto;
-            display: block;
-            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
-          }
-
-          .hero-divider {
-            width: 2px;
-            height: 130px;
-            background: linear-gradient(to bottom, 
-              rgba(255, 255, 255, 0.2) 0%,
-              rgba(255, 255, 255, 0.9) 50%,
-              rgba(255, 255, 255, 0.2) 100%
-            );
-            border-radius: 2px;
-          }
-
-          .hero-text-wrapper {
-            flex: 1;
-            max-width: 620px;
-          }
-
-          .hero-text-p {
-            color: white;
-            font-size: 19px;
-            line-height: 1.65;
-            font-weight: 500;
-            letter-spacing: 0.3px;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-            text-align: left;
-          }
-
-          .value-card {
-            background: white;
-            border-radius: 24px;
-            padding: 40px 20px;
-            text-align: center;
-            border: 1px solid #e5e7eb;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-          }
-          .value-card:hover, .value-card.active {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            border-color: transparent;
-          }
-          .value-icon-box {
-            width: 70px;
-            height: 70px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            color: white;
-            transition: all 0.3s ease;
-          }
-          
-          .testimonial-card {
-            background-color: #0f766e;
-            color: white;
-            border-radius: 24px;
-            padding: 35px;
-            text-align: left;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-          }
-          .testimonial-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-          }
-          .testimonial-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: rgba(255,255,255,0.2);
-            display:flex; align-items:center; justify-content:center;
-            font-weight:700;
-          }
-          
-          .video-section {
-            position: relative;
-            height: 400px;
-            border-radius: 30px;
-            overflow: hidden;
-            margin-top: 40px;
-          }
-          .video-bg { width: 100%; height: 100%; object-fit: cover; }
-          .play-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; }
-          .play-btn { width: 80px; height: 80px; border-radius: 50%; background: #f59e0b; display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; transition: transform 0.2s; }
-          .play-btn:hover { transform: scale(1.1); }
-
-          .stay-ahead-container { position: relative; padding: 50px 40px; margin-top: 0px; }
-          .stay-ahead-overlay { position: absolute; inset: 0; background: transparent; }
-          .stay-ahead-content { position: relative; z-index: 10; text-align: center; }
-          .stay-ahead-title { font-size: clamp(24px, 5vw, 48px); font-weight: 800; letter-spacing: -0.5px; line-height: 1.2; color: #0d4a3e; }
-
-          @media (max-width: 1024px) {
-            .hero-content { gap: 35px; width: 90%; }
-            .hero-text-p { font-size: 17px; }
-            .hero-logo-img { height: 52px; }
-            .hero-divider { height: 110px; }
-          }
-
-          @media (max-width: 768px) {
-            .hero-card-container { height: auto; padding: 50px 0; }
-            .hero-content { flex-direction: column; text-align: center; gap: 25px; }
-            .hero-divider { width: 70px; height: 2px; } 
-            .hero-logo-wrapper { margin-left: 0; }
-            .hero-logo-img { height: 48px; }
-            .hero-text-wrapper { text-align: center; }
-            .hero-text-p { font-size: 16px; text-align: center; }
-          }
-        `}</style>
 
         {/* MOBILE HEADER */}
         <MobileHeader 
@@ -476,13 +465,8 @@ const AboutUs = () => {
 
         </div>
 
-        {/* JOIN OUR NEWSLETTER */}
-        <div className="stay-ahead-container">
-          <div className="stay-ahead-overlay"></div>
-          <div className="stay-ahead-content max-w-7xl mx-auto px-6 md:px-12">
-            <h2 className="stay-ahead-title">{t('join_news')}</h2>
-          </div>
-        </div>
+        {/* JOIN COMMUNITY */}
+        <JoinCommunity />
 
         {/* NEWSLETTER */}
         <Newsletter 

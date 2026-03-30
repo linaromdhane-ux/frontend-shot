@@ -122,6 +122,8 @@ i18n
           "no_account": "Don't have an account?",
           "signup_link": "Sign Up",
           "already_have_account": "Already have an account? ",
+          "register_title": "Create Account",
+          "register_subtitle": "Join SHOT today and start your personalized wellness journey.",
 
           // --- VERIFY OTP PAGE ---
           "verify_email_title": "Verify Your Email",
@@ -313,7 +315,16 @@ i18n
           "done": "Done",
           "notifications": "Notifications",
           "security_privacy": "Security & Privacy",
-          "help_support": "Help & Support"
+          "help_support": "Help & Support",
+
+          // --- WISHLIST ---
+          "wishlist_title": "Wishlist",
+          "wishlist_empty": "Your wishlist is empty.",
+          "wishlist_clear": "Clear Wishlist",
+
+          // --- CART ---
+          "cart_title": "Shopping Cart",
+          "cart_clear": "Clear Cart"
         }
       },
       fr: {
@@ -431,6 +442,8 @@ i18n
           "no_account": "Vous n'avez pas de compte ?",
           "signup_link": "S'inscrire",
           "already_have_account": "Vous avez déjà un compte ? ",
+          "register_title": "Créer un compte",
+          "register_subtitle": "Rejoignez SHOT aujourd'hui et commencez votre parcours bien-être personnalisé.",
 
           // --- VERIFY OTP PAGE ---
           "verify_email_title": "Vérifiez votre e-mail",
@@ -622,7 +635,16 @@ i18n
           "done": "Terminer",
           "notifications": "Notifications",
           "security_privacy": "Sécurité et Confidentialité",
-          "help_support": "Aide et Support"
+          "help_support": "Aide et Support",
+
+          // --- WISHLIST ---
+          "wishlist_title": "Liste de souhaits",
+          "wishlist_empty": "Votre liste de souhaits est vide.",
+          "wishlist_clear": "Vider la liste",
+
+          // --- CART ---
+          "cart_title": "Panier",
+          "cart_clear": "Vider le panier"
         }
       }
     },
