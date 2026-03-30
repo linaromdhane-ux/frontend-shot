@@ -15,16 +15,14 @@ import Newsletter from '../components/Newsletter';
 import Footer from '../components/Footer';
 import { useWishlist } from '../context/WishlistContext';
 import { useCart } from '../context/CartContext';
-import { useTranslation } from 'react-i18next'; // Ajout de l'import
+import { useTranslation } from 'react-i18next';
+import { allProducts } from '../data/products'; // ✅ AJOUT
 
 const Home = () => {
-  const { t } = useTranslation(); // Initialisation de la traduction
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
-  // ── Wishlist from context (shared across all pages) ──────────────────────
   const { wishlistItems, isClearing, toggleWishlist, removeItem, clearAll, isInWishlist } = useWishlist();
-
-  // ── Cart from context (shared across all pages) ───────────────────────────
   const {
     cartItems,
     isWishlistOpen,
@@ -35,7 +33,7 @@ const Home = () => {
     closeSidebars,
   } = useCart();
 
-  const words = [t('wellness')]; // Utilisation de la traduction ici
+  const words = [t('wellness')];
   const [index, setIndex] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
@@ -63,41 +61,9 @@ const Home = () => {
     return () => clearInterval(interval);
   }, [bannerData.length]);
 
-  const products = [
-    {
-      id: 101,
-      name: 'Spirulina Powder',
-      description: 'Premium organic spirulina Powder 100g',
-      price: '59,000 DT',
-      badge: 'Best Seller',
-      badgeColor: '#2563eb',
-      stock: 'In Stock (50 available)',
-      rating: 4,
-      img: '/images/p1.png',
-    },
-    {
-      id: 102,
-      name: 'Spirulina Diamonds',
-      description: 'Premium organic spirulina in easy-to-take tablets. 100g (+200)',
-      price: '59,000 DT',
-      badge: 'Best Seller',
-      badgeColor: '#2563eb',
-      stock: 'In Stock (20 available)',
-      rating: 4,
-      img: '/images/p2.png',
-    },
-    {
-      id: 103,
-      name: 'Baby S.HOTs',
-      description: 'Premium organic spirulina in easy baby Shots format.',
-      price: '59,000 DT',
-      badge: 'New',
-      badgeColor: '#22c55e',
-      stock: 'In Stock (25 available)',
-      rating: 4,
-      img: '/images/p3.jpg',
-    },
-  ];
+  // ✅ SUPPRIMÉ : const products = [...] remplacé par allProducts depuis data/products.js
+  // On affiche seulement les 3 premiers sur la home (comme avant)
+  const products = allProducts.slice(0, 3);
 
   const openProductDetails = (product) => {
     navigate(`/product/${product.id}`);
@@ -211,7 +177,7 @@ const Home = () => {
             <span className="text-[10px] md:text-[12px] font-bold uppercase tracking-[0.2em] opacity-90">{t('hero_badge')}</span>
           </div>
           <h1 className="text-4xl md:text-7xl font-black leading-[1.1]">
-            {t('hero_title')} <br /> 
+            {t('hero_title')} <br />
             <span className="text-[#238d7b] font-kemangi text-6xl md:text-9xl ml-2 md:ml-4 inline-block">
               {displayText}<span className="animate-pulse text-white/50 font-sans text-3xl md:text-5xl ml-1">|</span>
             </span>
@@ -306,10 +272,10 @@ const Home = () => {
           </div>
         </div>
 
-        {/* --- APPEL DU COMPOSANT PRODUCT GRID (CENTRE) --- */}
+        {/* PRODUCT GRID */}
         <div className="pb-28 px-6 md:px-12 flex justify-center">
           <div className="max-w-7xl w-full flex justify-center">
-            <ProductGrid 
+            <ProductGrid
               products={products}
               isInWishlist={isInWishlist}
               toggleWishlist={toggleWishlist}

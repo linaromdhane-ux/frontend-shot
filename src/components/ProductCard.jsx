@@ -22,13 +22,14 @@ const ProductCard = ({
     >
       {/* --- SECTION IMAGE --- */}
       <div className="relative aspect-square mb-4 overflow-hidden rounded-xl bg-gray-50 cursor-pointer">
-        {/* Badge */}
-        {product.badge && (
+
+        {/* Badge ✅ */}
+        {product.badgeKey && (
           <span 
             className="absolute top-3 left-3 z-10 px-3 py-1 rounded-full text-[10px] font-bold text-white uppercase tracking-wider"
             style={{ backgroundColor: product.badgeColor }}
           >
-            {product.badge}
+            {t(product.badgeKey)}
           </span>
         )}
 
@@ -46,7 +47,7 @@ const ProductCard = ({
         {/* L'IMAGE */}
         <img 
           src={product.img} 
-          alt={product.name}
+          alt={t(product.nameKey)}
           onClick={onOpenDetails}
           className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
         />
@@ -76,15 +77,19 @@ const ProductCard = ({
 
       {/* --- INFOS PRODUIT --- */}
       <div className="flex flex-col flex-grow space-y-2">
-        {/* TITRE */}
+
+        {/* TITRE ✅ */}
         <h3 
           onClick={onOpenDetails}
           className="font-bold text-gray-900 text-lg cursor-pointer hover:text-[#238d7b] transition-colors"
         >
-          {product.name}
+          {t(product.nameKey)}
         </h3>
         
-        <p className="text-sm text-gray-500 line-clamp-2 h-10">{product.description}</p>
+        {/* DESCRIPTION ✅ */}
+        <p className="text-sm text-gray-500 line-clamp-2 h-10">
+          {t(product.descriptionKey)}
+        </p>
         
         <div className="pt-2 flex items-center justify-between mt-auto">
           <span className="text-[#238d7b] font-black text-xl">{product.price}</span>

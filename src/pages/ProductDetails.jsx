@@ -11,18 +11,18 @@ import ShopSidebar     from '../components/ShopSidebar';
 import Footer          from '../components/Footer';
 import Newsletter      from '../components/Newsletter';
 import Modal           from '../components/Modal';
+import ProductGrid     from '../components/ProductGrid'; // ✅ AJOUT
 import { useWishlist } from '../context/WishlistContext';
 import { useCart }     from '../context/CartContext';
+import { allProducts } from '../data/products';          // ✅ AJOUT
 
 const ProductDetails = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
   const { t } = useTranslation();
 
-  // Wishlist via context global
   const { wishlistItems, isClearing, toggleWishlist, removeItem, clearAll, isInWishlist } = useWishlist();
 
-  // Cart et sidebars via context global
   const {
     cartItems,
     isWishlistOpen,
@@ -44,123 +44,7 @@ const ProductDetails = () => {
   const [showSubscribeModal, setShowSubscribeModal] = useState(false);
   const [reviewForm, setReviewForm] = useState({ name: '', email: '', review: '', rating: 0 });
 
-  const allProducts = [
-    {
-      id: 101,
-      name: t('p101_name'),
-      description: t('p101_desc'),
-      fullDescription: t('p101_full'),
-      price: '59,000 DT',
-      priceNum: 59000,
-      badge: t('p101_badge'),
-      badgeColor: '#2563eb',
-      stock: t('p101_stock'),
-      rating: 4.7,
-      reviews: 2,
-      img: '/images/p1.png',
-      images: ['/images/p1.png', '/images/p1.png', '/images/p1.png', '/images/p1.png'],
-      category: 'Powder',
-      features: [t('p101_f1'), t('p101_f2'), t('p101_f3'), t('p101_f4'), t('p101_f5')],
-      nutritionalInfo: [
-        { label: t('p101_n1_label'), value: t('p101_n1_value') },
-        { label: t('p101_n2_label'), value: t('p101_n2_value') },
-        { label: t('p101_n3_label'), value: t('p101_n3_value') },
-        { label: t('p101_n4_label'), value: t('p101_n4_value') },
-        { label: t('p101_n5_label'), value: t('p101_n5_value') },
-      ],
-      customerReviews: [
-        { name: t('p101_r1_name'), date: '2024-06-06', rating: 5, comment: t('p101_r1_comment') },
-        { name: t('p101_r2_name'), date: '2024-06-06', rating: 5, comment: t('p101_r2_comment') },
-        { name: t('p101_r3_name'), date: '2024-06-06', rating: 5, comment: t('p101_r3_comment') },
-      ],
-      overallRating: 4.7,
-      totalReviews: 45,
-    },
-    {
-      id: 102,
-      name: t('p102_name'),
-      description: t('p102_desc'),
-      fullDescription: t('p102_full'),
-      price: '59,000 DT',
-      priceNum: 59000,
-      badge: t('p102_badge'),
-      badgeColor: '#2563eb',
-      stock: t('p102_stock'),
-      rating: 4.8,
-      reviews: 2,
-      img: '/images/p2.png',
-      images: ['/images/p2.png', '/images/p2.png', '/images/p2.png', '/images/p2.png'],
-      category: 'Diamonds',
-      features: [t('p102_f1'), t('p102_f2'), t('p102_f3'), t('p102_f4')],
-      nutritionalInfo: [
-        { label: t('p102_n1_label'), value: t('p102_n1_value') },
-        { label: t('p102_n2_label'), value: t('p102_n2_value') },
-      ],
-      customerReviews: [
-        { name: t('p102_r1_name'), date: '2024-06-06', rating: 5, comment: t('p102_r1_comment') },
-        { name: t('p102_r2_name'), date: '2024-06-06', rating: 5, comment: t('p102_r2_comment') },
-        { name: t('p102_r3_name'), date: '2024-06-06', rating: 5, comment: t('p102_r3_comment') },
-      ],
-      overallRating: 4.7,
-      totalReviews: 45,
-    },
-    {
-      id: 103,
-      name: t('p103_name'),
-      description: t('p103_desc'),
-      fullDescription: t('p103_full'),
-      price: '59,000 DT',
-      priceNum: 59000,
-      badge: t('p103_badge'),
-      badgeColor: '#22c55e',
-      stock: t('p103_stock'),
-      rating: 4.8,
-      reviews: 2,
-      img: '/images/p3.jpg',
-      images: ['/images/p3.jpg', '/images/p3.jpg', '/images/p3.jpg', '/images/p3.jpg'],
-      category: 'Shots',
-      features: [t('p103_f1'), t('p103_f2'), t('p103_f3'), t('p103_f4'), t('p103_f5')],
-      nutritionalInfo: [
-        { label: t('p103_n1_label'), value: t('p103_n1_value') },
-        { label: t('p103_n2_label'), value: t('p103_n2_value') },
-      ],
-      customerReviews: [
-        { name: t('p103_r1_name'), date: '2024-06-06', rating: 5, comment: t('p103_r1_comment') },
-        { name: t('p103_r2_name'), date: '2024-06-06', rating: 5, comment: t('p103_r2_comment') },
-        { name: t('p103_r3_name'), date: '2024-06-06', rating: 5, comment: t('p103_r3_comment') },
-      ],
-      overallRating: 4.7,
-      totalReviews: 45,
-    },
-    {
-      id: 104,
-      name: t('p104_name'),
-      description: t('p104_desc'),
-      fullDescription: t('p104_full'),
-      price: '69,000 DT',
-      priceNum: 69000,
-      badge: t('p104_badge'),
-      badgeColor: '#f59e0b',
-      stock: t('p104_stock'),
-      rating: 4.8,
-      reviews: 2,
-      img: '/images/p4.png',
-      images: ['/images/p4.png', '/images/p4.png', '/images/p4.png', '/images/p4.png'],
-      category: 'Tablets',
-      features: [t('p104_f1'), t('p104_f2'), t('p104_f3'), t('p104_f4'), t('p104_f5')],
-      nutritionalInfo: [
-        { label: t('p104_n1_label'), value: t('p104_n1_value') },
-        { label: t('p104_n2_label'), value: t('p104_n2_value') },
-      ],
-      customerReviews: [
-        { name: t('p104_r1_name'), date: '2024-06-06', rating: 5, comment: t('p104_r1_comment') },
-        { name: t('p104_r2_name'), date: '2024-06-06', rating: 5, comment: t('p104_r2_comment') },
-        { name: t('p104_r3_name'), date: '2024-06-06', rating: 5, comment: t('p104_r3_comment') },
-      ],
-      overallRating: 4.7,
-      totalReviews: 45,
-    },
-  ];
+  // ✅ SUPPRIMÉ : const allProducts = [...] — importé depuis data/products.js
 
   const product = allProducts.find(p => p.id === parseInt(productId));
   const recommendedProducts = allProducts.filter(p => p.id !== parseInt(productId)).slice(0, 3);
@@ -208,13 +92,6 @@ const ProductDetails = () => {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
         * { font-family:'Montserrat',sans-serif; }
-        .nav-fixed-video { background-color:rgba(45,75,68,.85); height:75px; backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,.1); }
-        .nav-link-item { color:white; opacity:.8; font-weight:600; font-size:14px; transition:all .3s ease; cursor:pointer; }
-        .nav-link-item:hover { opacity:1; text-shadow:0 0 8px rgba(255,255,255,.5); }
-        .icon-box-vid { width:40px; height:40px; display:flex; align-items:center; justify-content:center; border-radius:12px; transition:all .2s ease; color:white; cursor:pointer; position:relative; }
-        .icon-box-vid:hover,.icon-box-active { background-color:white !important; color:#238d7b !important; transform:translateY(-2px); }
-        .btn-signup-vid { background-color:white; color:#238d7b; font-weight:700; font-size:13px; height:38px; padding:0 20px; border-radius:50px; border:2px solid white; transition:all .3s ease; cursor:pointer; }
-        .btn-signup-vid:hover { background-color:#238d7b; color:white !important; }
         .product-hero { max-width:1200px; margin:0 auto; padding:30px 35px 35px; display:grid; grid-template-columns: 1.15fr 1fr; gap:35px; align-items:center; }
         .product-images { display:flex; gap:14px; }
         .thumbnails { display:flex; flex-direction:column; gap:11px; }
@@ -278,44 +155,10 @@ const ProductDetails = () => {
         .recommended-section { max-width:1200px; margin:35px auto; padding:32px; }
         .recommended-title { font-size:30px; font-weight:800; color:#238d7b; text-align:center; margin-bottom:10px; letter-spacing:-0.3px; }
         .recommended-subtitle { text-align:center; color:#404040; margin-bottom:32px; font-size:13px; font-weight:500; }
-        .recommended-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:24px; }
-        .recommended-card { background:rgba(255,255,255,0.87); border:none; border-radius:18px; overflow:hidden; cursor:pointer; transition:all .3s ease; position:relative; box-shadow:0 7px 22px rgba(0,0,0,0.13); }
-        .recommended-card:hover { transform:translateY(-7px); box-shadow:0 12px 32px rgba(0,0,0,0.16); }
-        .recommended-card-img { width:100%; height:330px; background:white; overflow:hidden; display:flex; align-items:center; justify-content:center; position:relative; }
-        .recommended-card-img img { width:100%; height:100%; object-fit:contain; padding:20px; }
-        .recommended-card-body { padding:18px; }
-        .recommended-card-badge { display:inline-block; background:#2563eb; color:white; padding:5px 13px; border-radius:50px; font-size:11px; font-weight:700; margin-bottom:10px; }
-        .recommended-card-name { font-weight:700; font-size:15px; color:#1a1a1a; margin-bottom:7px; }
-        .recommended-card-desc { font-size:12px; color:#555; font-weight:500; margin-bottom:8px; margin-top:-4px; }
-        .recommended-card-rating { display:flex; gap:3px; margin-bottom:6px; }
-        .recommended-card-stock { font-size:11px; color:#404040; margin-bottom:7px; font-weight:500; }
-        .recommended-card-price { font-weight:800; font-size:18px; color:#238d7b; margin-bottom:12px; }
-        .recommended-card-btn { background:#f39c12; color:white; padding:9px 18px; border:none; border-radius:50px; font-weight:700; font-size:12px; cursor:pointer; transition:all .3s ease; }
-        .recommended-card-btn:hover { background:#d68910; transform:translateY(-1px); }
-        .recommended-card-heart { position:absolute; top:12px; right:12px; width:40px; height:40px; border-radius:50%; background:white; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 3px 10px rgba(0,0,0,0.14); transition:all .3s ease; }
-        .recommended-card-heart:hover { transform:scale(1.1); }
         .stay-ahead-container { background-image: url('/images/Sign Up.png'); background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed; position: relative; padding: 40px 40px; margin-top: 40px; }
         .stay-ahead-overlay { position: absolute; inset: 0; background: transparent; }
         .stay-ahead-content { position: relative; z-index: 10; text-align: center; }
         .stay-ahead-title { font-size: clamp(24px, 5vw, 48px); font-weight: 800; letter-spacing: -0.5px; line-height: 1.2; color: #0d4a3e; }
-        .footer-container { background: radial-gradient(circle at top right, #1f7a6a 0%, #0d4a3e 100%); color: white; padding: 65px 0 35px; }
-        .footer-top { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 35px; max-width: 1200px; margin: 0 auto; padding: 0 35px; margin-bottom: 45px; }
-        .footer-col h3 { font-size: 15px; font-weight: 700; color: white; margin-bottom: 18px; }
-        .footer-col ul { list-style: none; padding: 0; margin: 0; }
-        .footer-col ul li { margin-bottom: 9px; }
-        .footer-col ul li a { color: rgba(255,255,255,0.72); text-decoration: none; font-size: 13px; transition: color .3s ease; cursor:pointer; font-weight:500; }
-        .footer-col ul li a:hover { color: white; }
-        .footer-logo { margin-bottom: 20px; }
-        .footer-logo img { height: 45px; width: auto; }
-        .footer-description { font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.6; margin-bottom: 24px; }
-        .footer-contact { display: flex; align-items: center; gap: 12px; font-size: 13px; color: rgba(255,255,255,0.75); margin-bottom: 12px; }
-        .footer-contact svg { width: 18px; height: 18px; flex-shrink: 0; }
-        .footer-divider { border-top: 1px solid rgba(255,255,255,0.1); max-width: 1200px; margin: 0 auto; padding: 0 35px; margin-bottom: 30px; }
-        .footer-bottom { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 35px; flex-wrap: wrap; gap: 20px; }
-        .footer-copyright { color: rgba(255,255,255,0.60); font-size: 13px; }
-        .footer-socials { display: flex; gap: 25px; }
-        .footer-socials a { color: rgba(255,255,255,0.80); cursor: pointer; transition: color .3s ease; }
-        .footer-socials a:hover { color: white; }
         .review-modal { position:fixed; inset:0; background:rgba(0,0,0,0.5); display:flex; align-items:center; justify-content:center; z-index:500; }
         .review-modal-content { background:white; border-radius:20px; padding:35px; max-width:420px; width:100%; position:relative; box-shadow:0 22px 65px rgba(0,0,0,0.32); }
         .review-modal-header { text-align:center; margin-bottom:28px; }
@@ -335,10 +178,9 @@ const ProductDetails = () => {
         .close-modal-btn { position:absolute; top:20px; right:20px; background:none; border:none; color:#999; cursor:pointer; font-size:24px; transition:color .2s ease; }
         .close-modal-btn:hover { color:#1a1a1a; }
         @keyframes popIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        @media (max-width: 768px) { 
+        @media (max-width: 768px) {
           .product-hero { grid-template-columns: 1fr; gap: 22px; padding: 18px 18px; align-items: start; }
           .main-image { height: 320px; }
-          .recommended-grid { grid-template-columns: 1fr; }
           .customer-reviews { grid-template-columns: 1fr; }
           .tabs-section { padding: 24px; }
           .recommended-section { padding: 24px; }
@@ -347,7 +189,6 @@ const ProductDetails = () => {
       `}</style>
 
       <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
-
       <WishlistSidebar isOpen={isWishlistOpen} onClose={handleCloseSidebars} wishlistItems={wishlistItems} isClearing={isClearing} onAddToShop={addToShop} onRemoveItem={removeItem} onClearAll={clearAll} />
       <ShopSidebar isOpen={isShopOpen} onClose={handleCloseSidebars} cartItems={cartItems} />
 
@@ -355,14 +196,7 @@ const ProductDetails = () => {
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[150] transition-opacity" onClick={handleCloseSidebars} />
       )}
 
-      <MobileHeader
-        activeIcon={activeIcon}
-        setActiveIcon={setActiveIcon}
-        cartItemsCount={cartItems.length}
-        onHeartClick={openWishlist}
-        onCartClick={openShop}
-        onMenuClick={() => setIsMobileMenuOpen(true)}
-      />
+      <MobileHeader activeIcon={activeIcon} setActiveIcon={setActiveIcon} cartItemsCount={cartItems.length} onHeartClick={openWishlist} onCartClick={openShop} onMenuClick={() => setIsMobileMenuOpen(true)} />
       <Navbar activeIcon={activeIcon} setActiveIcon={setActiveIcon} activeLink={activeLink} setActiveLink={setActiveLink} cartItemsCount={cartItems.length} onHeartClick={openWishlist} onCartClick={openShop} />
 
       <div className="pt-24 pb-16">
@@ -427,30 +261,28 @@ const ProductDetails = () => {
         </div>
       </div>
 
+      {/* ✅ PRODUITS RECOMMANDÉS — remplace le HTML manuel par ProductGrid */}
       {recommendedProducts.length > 0 && (
         <div className="px-4 md:px-12">
           <div className="recommended-section">
             <h2 className="recommended-title">{t('reco_title')}</h2>
             <p className="recommended-subtitle">{t('reco_subtitle')}</p>
-            <div className="recommended-grid">
-              {recommendedProducts.map((prod) => (
-                <div key={prod.id} className="recommended-card" onClick={() => { setQuantity(1); setActiveTab('description'); navigate(`/product/${prod.id}`); window.scrollTo(0, 0); }}>
-                  <button className="recommended-card-heart" onClick={(e) => { e.stopPropagation(); toggleWishlist(prod); }}>
-                    <Heart size={18} fill={isInWishlist(prod.id) ? 'currentColor' : 'none'} color={isInWishlist(prod.id) ? '#ef4444' : '#238d7b'} />
-                  </button>
-                  <div className="recommended-card-img"><img src={prod.img} alt={prod.name} /></div>
-                  <div className="recommended-card-body">
-                    <span className="recommended-card-badge">{prod.badge}</span>
-                    <h3 className="recommended-card-name">{prod.name}</h3>
-                    <p className="recommended-card-desc">{prod.description}</p>
-                    <div className="recommended-card-rating">{renderStars(prod.rating)}</div>
-                    <p className="recommended-card-stock">{prod.stock}</p>
-                    <p className="recommended-card-price">{prod.price}</p>
-                    <button className="recommended-card-btn">{t('btn_shop')}</button>
-                  </div>
-                </div>
-              ))}
-            </div>
+
+            <ProductGrid
+              products={recommendedProducts}
+              isInWishlist={isInWishlist}
+              toggleWishlist={toggleWishlist}
+              openProductDetails={(prod) => {
+                setQuantity(1);
+                setActiveTab('description');
+                navigate(`/product/${prod.id}`);
+                window.scrollTo(0, 0);
+              }}
+              addToShop={(prod) => {
+                addToCart(prod);
+                openShop();
+              }}
+            />
           </div>
         </div>
       )}
