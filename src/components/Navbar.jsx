@@ -1,7 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react'; // Ajout de hooks
-import { Link } from 'react-router-dom';
-import { Heart, ShoppingCart, User, Moon, Globe } from 'lucide-react';
-import { useTheme } from '../context/ThemeContext';
+import React, { useState, useRef, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Heart, ShoppingCart, User, Globe } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 const Navbar = ({ 
@@ -13,8 +12,8 @@ const Navbar = ({
   onHeartClick,
   onCartClick 
 }) => {
-  const { darkMode, toggleDarkMode } = useTheme();
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
   
   // État pour afficher/cacher le menu des langues
   const [showLangMenu, setShowLangMenu] = useState(false);
@@ -34,14 +33,18 @@ const Navbar = ({
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
     setShowLangMenu(false);
+    // Ne pas changer activeIcon ici, garder l'icône globe active
+  };
+
+  const handleUserClick = () => {
+    navigate('/auth-gateway');
   };
 
   const icons = [
-    { id: 'moon', icon: Moon, action: toggleDarkMode },
-    { id: 'globe', icon: Globe, action: () => setShowLangMenu(!showLangMenu) }, // Ouvre le menu
+    { id: 'globe', icon: Globe, action: () => setShowLangMenu(!showLangMenu) },
     { id: 'heart', icon: Heart, action: onHeartClick },
     { id: 'cart', icon: ShoppingCart, action: onCartClick },
-    { id: 'user', icon: User }
+    { id: 'user', icon: User, action: handleUserClick }
   ];
   
   const navLinks = [
@@ -76,28 +79,36 @@ const Navbar = ({
               <div 
                 key={item.id} 
                 onClick={() => { 
-                  setActiveIcon && setActiveIcon(item.id); 
+                  if (item.id !== 'globe') {
+                    setActiveIcon && setActiveIcon(item.id);
+                  }
                   if(item.action) item.action(); 
                 }} 
-                className={`icon-box-vid relative ${ (item.id === 'moon' && darkMode) || activeIcon === item.id ? 'icon-box-active' : 'opacity-80'}`}
+                className={`icon-box-vid relative ${activeIcon === item.id ? 'icon-box-active' : 'opacity-80'}`}
               >
                 <item.icon size={18} strokeWidth={2.5} />
 
-                {/* --- MENU DÉROULANT DES LANGUES (Capture 2) --- */}
+                {/* --- MENU DÉROULANT DES LANGUES --- */}
                 {item.id === 'globe' && showLangMenu && (
                   <div 
                     ref={langMenuRef}
                     className="absolute top-12 left-1/2 -translate-x-1/2 bg-white rounded-2xl shadow-2xl p-2 w-40 z-[110] animate-in fade-in zoom-in duration-200"
                   >
                     <button 
-                      onClick={() => changeLanguage('en')}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        changeLanguage('en');
+                      }}
                       className="flex items-center gap-3 w-full px-3 py-2 hover:bg-gray-100 rounded-xl transition-colors text-gray-800 font-medium text-sm"
                     >
                       <img src="https://flagcdn.com/w40/gb.png" alt="EN" className="w-5 h-5 rounded-full object-cover" />
                       English
                     </button>
                     <button 
-                      onClick={() => changeLanguage('fr')}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        changeLanguage('fr');
+                      }}
                       className="flex items-center gap-3 w-full px-3 py-2 hover:bg-gray-100 rounded-xl transition-colors text-gray-800 font-medium text-sm"
                     >
                       <img src="https://flagcdn.com/w40/fr.png" alt="FR" className="w-5 h-5 rounded-full object-cover" />

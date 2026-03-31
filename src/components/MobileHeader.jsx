@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Heart, ShoppingCart, User, Moon, Globe, Menu } from 'lucide-react';
+import { Heart, ShoppingCart, User, Globe, Menu } from 'lucide-react';
 
 const MobileHeader = ({ 
   activeIcon, 
@@ -10,7 +10,6 @@ const MobileHeader = ({
   onMenuClick 
 }) => {
   const icons = [
-    { id: 'moon', icon: Moon },
     { id: 'globe', icon: Globe },
     { id: 'heart', icon: Heart, action: onHeartClick },
     { id: 'cart', icon: ShoppingCart, action: onCartClick },

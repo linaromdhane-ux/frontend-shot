@@ -11,10 +11,10 @@ import ShopSidebar     from '../components/ShopSidebar';
 import Footer          from '../components/Footer';
 import Newsletter      from '../components/Newsletter';
 import Modal           from '../components/Modal';
-import ProductGrid     from '../components/ProductGrid'; // ✅ AJOUT
+import ProductGrid     from '../components/ProductGrid';
 import { useWishlist } from '../context/WishlistContext';
 import { useCart }     from '../context/CartContext';
-import { allProducts } from '../data/products';          // ✅ AJOUT
+import { allProducts } from '../data/products';
 
 const ProductDetails = () => {
   const { productId } = useParams();
@@ -43,8 +43,6 @@ const ProductDetails = () => {
   const [showReviewModal, setShowReviewModal] = useState(false);
   const [showSubscribeModal, setShowSubscribeModal] = useState(false);
   const [reviewForm, setReviewForm] = useState({ name: '', email: '', review: '', rating: 0 });
-
-  // ✅ SUPPRIMÉ : const allProducts = [...] — importé depuis data/products.js
 
   const product = allProducts.find(p => p.id === parseInt(productId));
   const recommendedProducts = allProducts.filter(p => p.id !== parseInt(productId)).slice(0, 3);
@@ -147,7 +145,7 @@ const ProductDetails = () => {
         .review-card { background:#238d7b; color:white; border-radius:14px; padding:18px; box-shadow:0 5px 14px rgba(35,141,123,0.22); transition:all .3s ease; }
         .review-card:hover { transform:translateY(-2px); }
         .review-header { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
-        .review-avatar { width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,0.27); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:14px; }
+        .review-avatar { width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,0.27); display:flex; align-items:center; justify-center; font-weight:700; font-size:14px; }
         .review-name { font-weight:700; font-size:13px; }
         .review-date { font-size:11px; opacity:0.85; }
         .review-stars { display:flex; gap:2px; margin-bottom:10px; }
@@ -165,7 +163,7 @@ const ProductDetails = () => {
         .review-modal-icon { width:60px; height:60px; border-radius:50%; background:#238d7b; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; box-shadow:0 4px 12px rgba(35,141,123,0.28); }
         .review-modal-title { font-size:22px; font-weight:700; color:#1a1a1a; margin-bottom:8px; }
         .review-modal-subtitle { font-size:13px; color:#404040; font-weight:500; }
-        .review-stars-input { display:flex; gap:8px; justify-content:center; margin-bottom:24px; }
+        .review-stars-input { display:flex; gap:8px; justify-center:center; margin-bottom:24px; }
         .star-btn { background:none; border:none; cursor:pointer; transition:transform .2s ease; }
         .star-btn:hover { transform:scale(1.12); }
         .form-group { margin-bottom:16px; }
@@ -261,7 +259,7 @@ const ProductDetails = () => {
         </div>
       </div>
 
-      {/* ✅ PRODUITS RECOMMANDÉS — remplace le HTML manuel par ProductGrid */}
+      {/* ✅ PRODUITS RECOMMANDÉS */}
       {recommendedProducts.length > 0 && (
         <div className="px-4 md:px-12">
           <div className="recommended-section">
@@ -287,7 +285,7 @@ const ProductDetails = () => {
         </div>
       )}
 
-      <div className="stay-ahead-container"><div className="stay-ahead-overlay"></div><div className="stay-ahead-content max-w-7xl mx-auto px-6 md:px-12"><h2 className="stay-ahead-title">{t('Rejoignez la Communauté S.HOT')}</h2></div></div>
+      <div className="stay-ahead-container"><div className="stay-ahead-overlay"></div><div className="stay-ahead-content max-w-7xl mx-auto px-6 md:px-12"><h2 className="stay-ahead-title">{t('comm_cta')}</h2></div></div>
       <Newsletter onSubscribe={() => setShowSubscribeModal(true)} />
       <Footer />
       <Modal isOpen={showSubscribeModal} onClose={() => setShowSubscribeModal(false)} />

@@ -243,7 +243,7 @@ const Contact = () => {
       </div>
 
       <div className="pt-10 pb-16 text-center">
-        <h2 className="text-5xl font-black text-[#0d4a3e]">{t('Rejoignez la Communauté S.HOT')}</h2>
+        <h2 className="text-5xl font-black text-[#0d4a3e]">{t('comm_cta')}</h2>
       </div>
 
       <Newsletter />

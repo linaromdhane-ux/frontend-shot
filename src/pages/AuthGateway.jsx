@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { CircleUser } from 'lucide-react';
+import { Users } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import Button from '../components/Button'; // Importation du composant
+import Button from '../components/Button';
 
 const AuthGateway = () => {
   const { t } = useTranslation();
@@ -14,7 +14,7 @@ const AuthGateway = () => {
 
   return (
     <div 
-      className="min-h-screen w-full flex items-center justify-center p-6 font-montserrat bg-cover bg-center bg-no-repeat relative"
+      className="min-h-screen w-full flex items-center justify-center p-6 font-montserrat bg-cover bg-center bg-no-repeat bg-fixed relative"
       style={{ backgroundImage: "url('/images/Sign Up.png')" }}
     >
       {/* --- Bouton Back to Home --- */}
@@ -45,38 +45,60 @@ const AuthGateway = () => {
           </div>
           <div className={`transition-all duration-500 overflow-hidden ${isBackHovered ? 'max-w-[140px] ml-4 opacity-100' : 'max-w-0 opacity-0 ml-0'}`}>
             <span className="font-bold whitespace-nowrap text-base font-montserrat">
-              {t('back_home', 'Back to Home')}
+              {t('back_home')}
             </span>
           </div>
         </Link>
       </div>
 
       {/* --- CARD DE SELECTION --- */}
-      <div className="bg-white rounded-[40px] shadow-2xl p-12 max-w-lg w-full text-center flex flex-col items-center">
-        <div className="mb-8 w-36 cursor-pointer" onClick={() => navigate('/home')}>
-          <img src="/images/logo_SHOT.png" alt="S.HOT Logo" className="w-full h-auto object-contain" />
+      <div className="bg-white rounded-[40px] shadow-2xl py-12 px-10 max-w-md w-full text-center flex flex-col items-center">
+        
+        {/* Logo SHOT - Ne change pas */}
+        <div className="mb-8 cursor-pointer" onClick={() => navigate('/home')}>
+          <img src="/images/logo_SHOT.png" alt="S.HOT Logo" className="h-10 w-auto object-contain mx-auto" />
         </div>
 
+        {/* Icône Users BEAUCOUP PLUS GRANDE */}
         <div className="mb-8 text-[#238d7b]">
-          <CircleUser size={100} strokeWidth={1.2} />
+          <svg width="180" height="140" viewBox="0 0 180 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+            {/* Personne gauche */}
+            <circle cx="38" cy="38" r="18" stroke="currentColor" strokeWidth="3.5" fill="none"/>
+            <path d="M16 100 C16 78, 23 64, 38 64 C53 64, 60 78, 60 100" stroke="currentColor" strokeWidth="3.5" fill="none" strokeLinecap="round"/>
+            
+            {/* Personne centre */}
+            <circle cx="90" cy="30" r="22" stroke="currentColor" strokeWidth="3.5" fill="none"/>
+            <path d="M62 105 C62 78, 72 58, 90 58 C108 58, 118 78, 118 105" stroke="currentColor" strokeWidth="3.5" fill="none" strokeLinecap="round"/>
+            
+            {/* Personne droite */}
+            <circle cx="142" cy="38" r="18" stroke="currentColor" strokeWidth="3.5" fill="none"/>
+            <path d="M120 100 C120 78, 127 64, 142 64 C157 64, 164 78, 164 100" stroke="currentColor" strokeWidth="3.5" fill="none" strokeLinecap="round"/>
+            
+            {/* Cercle plus (beaucoup plus grand) */}
+            <circle cx="138" cy="95" r="25" fill="currentColor"/>
+            <line x1="138" y1="82" x2="138" y2="108" stroke="white" strokeWidth="4.5" strokeLinecap="round"/>
+            <line x1="125" y1="95" x2="151" y2="95" stroke="white" strokeWidth="4.5" strokeLinecap="round"/>
+          </svg>
         </div>
 
-        <h2 className="text-xl font-bold text-gray-900 mb-4 px-4 leading-tight">
-          {t('auth_gateway_title', 'One step closer to your glow !')}
+        {/* Titre */}
+        <h2 className="text-[22px] font-extrabold text-gray-900 mb-3 px-2 leading-snug">
+          {t('auth_gateway_community_title')}
         </h2>
         
-        <p className="text-gray-500 text-sm mb-10 leading-relaxed px-6 font-medium">
-          {t('auth_gateway_subtitle', 'Create your S.HOT account in seconds to secure your order and track your vitality journey.')}
+        {/* Sous-titre */}
+        <p className="text-gray-600 text-[15px] mb-8 leading-relaxed px-4 font-medium">
+          {t('auth_gateway_community_subtitle')}
         </p>
 
-        {/* Boutons d'action utilisant le composant Button */}
-        <div className="flex flex-col sm:flex-row gap-4 w-full px-2">
+        {/* Boutons d'action */}
+        <div className="flex flex-row gap-4 w-full px-2 mb-6">
           <Button 
             variant="primary"
             className="flex-1"
             onClick={() => navigate('/login', { state: { from } })}
           >
-            {t('login', 'Login')}
+            {t('login')}
           </Button>
           
           <Button 
@@ -84,18 +106,17 @@ const AuthGateway = () => {
             className="flex-1"
             onClick={() => navigate('/register', { state: { from } })}
           >
-            {t('signup', 'Sign Up')}
+            {t('signup')}
           </Button>
         </div>
 
-        {/* Bouton Cancel utilisant la variante ghost */}
-        <Button 
-          variant="ghost"
-          className="mt-8"
+        {/* Bouton Cancel */}
+        <button 
           onClick={() => navigate(-1)}
+          className="text-gray-500 font-semibold text-[15px] hover:text-gray-700 transition-colors"
         >
-          {t('cancel', 'Cancel')}
-        </Button>
+          {t('cancel')}
+        </button>
       </div>
     </div>
   );

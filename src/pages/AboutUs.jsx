@@ -469,7 +469,7 @@ const AboutUs = () => {
         <div className="stay-ahead-container">
           <div className="stay-ahead-overlay"></div>
           <div className="stay-ahead-content max-w-7xl mx-auto px-6 md:px-12">
-            <h2 className="stay-ahead-title">{t('Rejoignez la Communauté S.HOT')}</h2>
+            <h2 className="stay-ahead-title">{t('comm_cta')}</h2>
           </div>
         </div>
 

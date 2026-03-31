@@ -4,7 +4,7 @@ import { Search } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 import { useTranslation } from 'react-i18next';
-import { allProducts } from '../data/products'; // ✅ AJOUT
+import { allProducts } from '../data/products';
 
 // Components
 import Navbar from '../components/Navbar';
@@ -49,8 +49,6 @@ const ProductsPage = () => {
   const [priceRange, setPriceRange] = useState([1, 150]);
   const [selectedRatings, setSelectedRatings] = useState([]);
   const [sortBy, setSortBy] = useState('');
-
-  // ✅ SUPPRIMÉ : const allProducts = [...] — importé depuis data/products.js
 
   // Filter
   const filteredProducts = allProducts.filter(product => {
@@ -157,7 +155,7 @@ const ProductsPage = () => {
                 {['Powder', 'Tablets', 'Diamonds', 'Shots'].map(cat => (
                   <label key={cat} className="flex items-center gap-3 mb-3 cursor-pointer">
                     <input type="checkbox" checked={selectedCategories.includes(cat)} onChange={() => toggleCategory(cat)} className="w-5 h-5 accent-[#238d7b]" />
-                    <span className="font-medium text-gray-700">{cat}</span>
+                    <span className="font-medium text-gray-700">{t(`category_${cat.toLowerCase()}`)}</span>
                   </label>
                 ))}
               </div>
@@ -184,10 +182,15 @@ const ProductsPage = () => {
               </div>
               <div>
                 <h3 className="text-base font-bold text-[#238d7b] mb-4">{t('filter_sort')}</h3>
-                {['Name', 'Price', 'Rating', 'Newest'].map(option => (
-                  <label key={option} className="flex items-center gap-3 mb-3 cursor-pointer">
-                    <input type="radio" name="sort" value={option.toLowerCase()} checked={sortBy === option.toLowerCase()} onChange={(e) => setSortBy(e.target.value)} className="w-5 h-5 accent-[#238d7b]" />
-                    <span className="font-medium text-gray-700">{option}</span>
+                {[
+                  { key: 'name', label: t('sort_name') },
+                  { key: 'price', label: t('sort_price') },
+                  { key: 'rating', label: t('sort_rating') },
+                  { key: 'newest', label: t('sort_newest') }
+                ].map(option => (
+                  <label key={option.key} className="flex items-center gap-3 mb-3 cursor-pointer">
+                    <input type="radio" name="sort" value={option.key} checked={sortBy === option.key} onChange={(e) => setSortBy(e.target.value)} className="w-5 h-5 accent-[#238d7b]" />
+                    <span className="font-medium text-gray-700">{option.label}</span>
                   </label>
                 ))}
               </div>
@@ -219,7 +222,7 @@ const ProductsPage = () => {
       <div className="stay-ahead-container">
         <div className="stay-ahead-overlay"></div>
         <div className="stay-ahead-content max-w-7xl mx-auto px-6 md:px-12">
-          <h2 className="stay-ahead-title">{t('Rejoignez la Communauté S.HOT')}</h2>
+          <h2 className="stay-ahead-title">{t('comm_cta')}</h2>
         </div>
       </div>
 

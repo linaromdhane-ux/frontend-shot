@@ -62,7 +62,7 @@ const inp =
 
 /* ═══════════════════════════════════════════════════════════════════════════
    CHECKOUT PAGE
-══════════════════════════════════════════════════════════════════════════ */
+���═════════════════════════════════════════════════════════════════════════ */
 const Checkout = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -114,7 +114,7 @@ const Checkout = () => {
     <div
       className="relative min-h-screen w-full font-['Montserrat'] overflow-x-hidden"
       style={{
-        backgroundImage: "url('/images/signup.png')",
+        backgroundImage: "url('/images/Sign Up.png')",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed',
